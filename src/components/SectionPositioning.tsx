@@ -2,23 +2,25 @@
 
 import { motion } from 'framer-motion';
 import { home } from '@/data/content';
-import { Check } from 'lucide-react';
 
 export function SectionPositioning() {
   return (
-    <section className="bg-mediterranean text-white py-10 lg:py-12">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+    <section className="bg-paper border-b border-night/10">
+      <div className="max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8 py-9 lg:py-12">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.65 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8 lg:gap-0"
         >
           {home.positioning.map((item, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <Check className="w-5 h-5 mt-0.5 flex-shrink-0 text-logo-yellow" aria-hidden="true" />
-              <p className="text-sm lg:text-base font-medium leading-snug">{item}</p>
+            <div key={item} className={`relative lg:px-7 first:lg:pl-0 ${i > 0 ? 'lg:border-l lg:border-night/10' : ''}`}>
+              <div className="flex items-baseline gap-3 mb-2">
+                <span className="font-heading italic text-xl text-mediterranean">0{i + 1}</span>
+                <span className="text-[10px] uppercase tracking-[0.22em] text-night/35">Prosperya</span>
+              </div>
+              <p className="max-w-xs text-sm lg:text-[15px] font-medium leading-relaxed text-night/78">{item}</p>
             </div>
           ))}
         </motion.div>
