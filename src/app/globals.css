@@ -2,26 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
 
 :root {
   --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'DM Sans', 'Manrope', system-ui, sans-serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    background: #090d0e;
   }
 
   body {
-    @apply bg-warm-ivory text-anthracite antialiased;
+    @apply bg-paper text-anthracite antialiased;
     font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(201, 185, 145, 0.45);
+    color: #090d0e;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     @apply text-night font-medium tracking-tight;
+  }
+
+  a, button {
+    -webkit-tap-highlight-color: transparent;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -36,8 +47,29 @@
   }
 }
 
+@layer components {
+  .prosperya-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .eyebrow {
+    @apply text-[11px] sm:text-xs uppercase font-semibold tracking-[0.24em];
+  }
+
+  .editorial-rule {
+    @apply h-px bg-night/15;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .mask-fade-right {
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
   }
 }
