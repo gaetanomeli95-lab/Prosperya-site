@@ -5,31 +5,34 @@ import { FadeIn } from './MotionWrapper';
 
 export function SectionMethod() {
   return (
-    <section className="py-20 lg:py-28 bg-warm-ivory">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <FadeIn>
-          <div className="max-w-2xl mb-14">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading text-night leading-tight mb-5">
-              Metodo Prosperya
-            </h2>
-            <p className="text-lg text-anthracite/90 leading-relaxed">
-              Non consegniamo solo documenti. Affianchiamo l’azienda nell’esecuzione, misurando ogni passaggio.
-            </p>
-          </div>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {methodSteps.map((step, i) => (
-            <FadeIn key={step.title} delay={i * 0.1}>
-              <div className="relative p-6 lg:p-8 bg-white border border-stone-warm rounded-sm h-full">
-                <span className="absolute -top-3 left-6 inline-flex items-center justify-center w-8 h-8 rounded-full bg-night text-white text-sm font-semibold">
-                  {i + 1}
-                </span>
-                <h3 className="text-lg lg:text-xl font-heading text-night mb-3 mt-2">{step.title}</h3>
-                <p className="text-sm text-anthracite/80 leading-relaxed">{step.description}</p>
-              </div>
+    <section className="bg-paper py-24 lg:py-36">
+      <div className="max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <FadeIn>
+              <span className="eyebrow text-night/42">Metodo Prosperya</span>
+              <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-heading leading-[0.98] text-night">
+                Dalla diagnosi all’esecuzione.
+              </h2>
+              <p className="mt-6 max-w-sm text-base leading-relaxed text-anthracite/68">
+                Non consegniamo solo documenti. Affianchiamo l’azienda nell’esecuzione, misurando ogni passaggio.
+              </p>
             </FadeIn>
-          ))}
+          </div>
+
+          <div className="lg:col-span-8">
+            <div className="border-t border-night/14">
+              {methodSteps.map((step, i) => (
+                <FadeIn key={step.title} delay={i * 0.07}>
+                  <div className="grid sm:grid-cols-[72px_220px_1fr] gap-4 sm:gap-8 py-7 lg:py-9 border-b border-night/12 items-start group">
+                    <span className="font-heading italic text-2xl text-mediterranean/75">0{i + 1}</span>
+                    <h3 className="text-xl lg:text-2xl font-heading text-night group-hover:text-mediterranean transition-colors">{step.title}</h3>
+                    <p className="text-sm lg:text-[15px] leading-relaxed text-anthracite/65">{step.description}</p>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
