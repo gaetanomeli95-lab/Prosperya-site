@@ -6,6 +6,12 @@ export interface Service {
   full: string[];
 }
 
+export interface CatalogService {
+  title: string;
+  href: string;
+  area: string;
+}
+
 export const services: Service[] = [
   {
     slug: 'governance-e-controllo',
@@ -139,22 +145,24 @@ export const services: Service[] = [
   },
 ];
 
-export const homeServices = [
-  'START UP',
-  'MARKET ENTRY',
-  'INVEST IN ITALY',
-  'RINEGOZIAZIONE BANCARIA',
-  'GROWTH FACTORS',
-  'CONTROLLO DI GESTIONE',
-  'FINANZA AGEVOLATA',
-  'FORMAZIONE E EXECUTIVE MENTORING',
-  'CONTRIBUTI A FONDO PERDUTO',
-  'MARCHI E BREVETTI',
-  'RICERCA E SVILUPPO',
-  'RETE D’IMPRESA',
-  'GESTIONI IMMOBILIARI',
-  'CREAZIONE NEWCO',
+export const serviceCatalog: CatalogService[] = [
+  { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese' },
+  { title: 'Market Entry', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
+  { title: 'Invest in Italy', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
+  { title: 'Rinegoziazione bancaria', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
+  { title: 'Growth Factors', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
+  { title: 'Controllo di gestione', href: '/servizi/governance-e-controllo/', area: 'Governance e controllo' },
+  { title: 'Finanza agevolata', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata' },
+  { title: 'Formazione e Executive Mentoring', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
+  { title: 'Contributi a fondo perduto', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata' },
+  { title: 'Marchi e brevetti', href: '/contatti/', area: 'Tutela e sviluppo' },
+  { title: 'Ricerca e sviluppo', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata' },
+  { title: 'Rete d’impresa', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
+  { title: 'Gestioni immobiliari', href: '/contatti/', area: 'Soluzioni su misura' },
+  { title: 'Creazione NewCo', href: '/servizi/creazione-newco/', area: 'Nuove imprese' },
 ];
+
+export const homeServices = serviceCatalog.map((service) => service.title.toUpperCase());
 
 export const operations = [
   'NewCo (start-up)',
