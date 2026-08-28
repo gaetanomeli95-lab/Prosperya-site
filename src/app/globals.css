@@ -151,6 +151,23 @@
       linear-gradient(90deg, rgba(9,13,14,.018) 1px, transparent 1px);
     background-size: 48px 48px;
   }
+
+  .prosperya-orbit {
+    transform-origin: 50% 50%;
+    animation: prosperya-orbit 58s linear infinite;
+    will-change: transform;
+  }
+
+  @media (max-width: 767px) {
+    .prosperya-orbit {
+      animation-duration: 82s;
+    }
+  }
+}
+
+@keyframes prosperya-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @layer utilities {
