@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
 import { FadeIn } from '@/components/MotionWrapper';
-import { Link as LinkIcon, CreditCard } from 'lucide-react';
-import LinkNext from 'next/link';
+import { ArrowLeft, ArrowUpRight, CreditCard } from 'lucide-react';
+import Link from 'next/link';
 
 interface Props {
   params: { slug: string };
@@ -27,54 +27,91 @@ export default function ServiceDetail({ params }: Props) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) notFound();
 
+  const index = services.findIndex((s) => s.slug === service.slug);
   const isStartup = service.slug === 'startup';
   const startupPaymentUrl = process.env.NEXT_PUBLIC_STARTUP_PAYMENT_URL;
   const ctaHref = isStartup && startupPaymentUrl ? startupPaymentUrl : '/contatti/';
   const ctaLabel = isStartup ? 'Richiedi una consulenza per la tua Start Up' : 'Richiedi un confronto';
 
   return (
-    <div className="pt-24 lg:pt-32 pb-20 lg:pb-28 bg-warm-ivory">
-      <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex flex-wrap items-center gap-2 text-sm text-anthracite/70">
-            <li><LinkNext href="/" className="hover:text-mediterranean">Home</LinkNext></li>
-            <li aria-hidden="true">/</li>
-            <li><LinkNext href="/servizi/" className="hover:text-mediterranean">Servizi</LinkNext></li>
-            <li aria-hidden="true">/</li>
-            <li className="text-night font-medium" aria-current="page">{service.title}</li>
-          </ol>
-        </nav>
+    <div className="premium-page">
+      <div className="absolute inset-x-0 top-0 h-[34rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_66%,transparent_100%)]" />
+      <div className="absolute left-[-9rem] top-40 h-[26rem] w-[26rem] rounded-full bg-mediterranean/12 blur-3xl" />
 
-        <FadeIn>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading text-night mb-6">{service.title}</h1>
-          <p className="text-lg lg:text-xl text-anthracite leading-relaxed mb-12">{service.promise}</p>
-        </FadeIn>
+      <div className="premium-container">
+        <Link href="/servizi/" className="mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[.18em] !text-white/46 transition-colors hover:!text-white">
+          <ArrowLeft className="h-4 w-4" /> Tutti i servizi
+        </Link>
 
-        <FadeIn delay={0.1}>
-          <h2 className="text-xl font-heading text-night mb-4">Ambito di intervento</h2>
-          <ul className="space-y-3 mb-12">
-            {service.full.map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-base text-anthracite/90 py-2 border-b border-stone-warm">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-mediterranean flex-shrink-0" />
-                <span className={item === 'Growth Factors' ? 'font-bold text-night' : ''}>{item}</span>
-              </li>
-            ))}
-          </ul>
+        <section className="premium-panel-dark relative overflow-hidden p-6 sm:p-9 lg:p-12 xl:p-14">
+          <div className="absolute inset-0 prosperya-grid opacity-30" />
+          <div className="absolute right-[-10rem] top-[-10rem] h-[30rem] w-[30rem] rounded-full border border-white/5" />
 
-          <LinkNext
-            href={ctaHref}
-            className="inline-flex items-center justify-center rounded-sm bg-mediterranean px-6 py-3.5 text-base font-medium text-white hover:bg-mediterranean-light transition-colors"
-          >
-            {isStartup ? <CreditCard className="w-4 h-4 mr-2" aria-hidden="true" /> : <LinkIcon className="w-4 h-4 mr-2" aria-hidden="true" />}
-            {ctaLabel}
-          </LinkNext>
+          <div className="relative grid gap-10 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <FadeIn>
+                <div className="flex items-center gap-4">
+                  <span className="font-heading italic text-2xl text-sand">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="h-px w-10 bg-white/14" />
+                  <span className="eyebrow !text-white/36">Advisory service</span>
+                </div>
+                <h1 className="mt-7 max-w-5xl text-[clamp(3.2rem,7vw,7.4rem)] font-heading leading-[.88] tracking-[-.045em] !text-white">
+                  {service.title}
+                </h1>
+              </FadeIn>
+            </div>
+            <div className="lg:col-span-4">
+              <FadeIn delay={0.1}>
+                <p className="max-w-lg text-sm leading-[1.8] !text-white/60 sm:text-base">{service.promise}</p>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
 
-          {isStartup && !startupPaymentUrl && (
-            <p className="mt-4 text-sm text-anthracite/60">
-              Il pagamento online sarà attivato sul pulsante non appena verrà configurato il link di pagamento della consulenza.
-            </p>
-          )}
-        </FadeIn>
+        <section className="mt-5 grid gap-4 lg:grid-cols-[1.25fr_.75fr]">
+          <div className="premium-hero p-6 sm:p-8 lg:p-10 xl:p-12">
+            <FadeIn>
+              <p className="eyebrow text-night/36">Ambito di intervento</p>
+              <div className="mt-8 divide-y divide-night/10 border-y border-night/10">
+                {service.full.map((item, i) => (
+                  <div key={item} className="group grid grid-cols-[42px_1fr] gap-4 py-5 sm:grid-cols-[54px_1fr] sm:py-6">
+                    <span className="font-heading italic text-xl text-mediterranean/80">{String(i + 1).padStart(2, '0')}</span>
+                    <p className={`text-base leading-relaxed sm:text-lg ${item === 'Growth Factors' ? 'font-semibold text-night' : 'text-anthracite/80'}`}>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+
+          <aside className="space-y-4">
+            <div className="premium-panel-dark p-6 sm:p-8 lg:p-9">
+              <p className="eyebrow !text-sand/72">Approccio</p>
+              <h2 className="mt-5 text-3xl font-heading leading-[1] !text-white sm:text-4xl">Dalla decisione all’esecuzione.</h2>
+              <p className="mt-6 text-sm leading-[1.8] !text-white/55">L’intervento viene dimensionato sul contesto reale, sulle priorità e sul livello di complessità dell’impresa.</p>
+
+              <Link href={ctaHref} className="premium-button-light group mt-8 w-full justify-between">
+                <span className="flex items-center gap-2">{isStartup && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+
+              {isStartup && !startupPaymentUrl && (
+                <p className="mt-4 text-[11px] leading-relaxed !text-white/30">Il pagamento online sarà attivato qui non appena verrà configurato il link di pagamento della consulenza.</p>
+              )}
+            </div>
+
+            <div className="premium-card p-6 sm:p-8">
+              <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/35">Prosperya standard</p>
+              <div className="mt-6 grid gap-4">
+                {['Analisi prima della proposta', 'Referente e regia coordinata', 'Obiettivi e avanzamento misurabili'].map((item, i) => (
+                  <div key={item} className="flex items-start gap-3 border-t border-night/10 pt-4">
+                    <span className="font-heading italic text-lg text-mediterranean">0{i + 1}</span>
+                    <p className="text-sm leading-relaxed text-night/65">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+        </section>
       </div>
     </div>
   );
