@@ -119,6 +119,38 @@
   .premium-button-light {
     @apply inline-flex min-h-12 items-center justify-center gap-2 bg-white px-5 py-3.5 text-sm font-semibold text-night transition-colors hover:bg-sand;
   }
+
+  .dark-surface {
+    color: rgba(255,255,255,.78);
+  }
+
+  .dark-surface h1,
+  .dark-surface h2,
+  .dark-surface h3,
+  .dark-surface h4,
+  .dark-surface h5,
+  .dark-surface h6,
+  .premium-panel-dark h1,
+  .premium-panel-dark h2,
+  .premium-panel-dark h3,
+  .premium-panel-dark h4,
+  .premium-panel-dark h5,
+  .premium-panel-dark h6 {
+    color: #fff;
+  }
+
+  .brand-halo {
+    background:
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,.10) 0%, rgba(255,255,255,.035) 34%, rgba(9,13,14,0) 68%),
+      radial-gradient(circle at 62% 28%, rgba(49,95,103,.28), rgba(9,13,14,0) 38%);
+  }
+
+  .paper-noise {
+    background-image:
+      linear-gradient(rgba(9,13,14,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(9,13,14,.018) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
 }
 
 @layer utilities {
