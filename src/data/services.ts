@@ -15,12 +15,13 @@ export const services: Service[] = [
     bullets: [
       'Governance amministrativa e finanziaria',
       'Tesoreria e cash flow',
-      'Pianificazione degli investimenti',
+      'Controllo di gestione',
     ],
     full: [
       'Governance amministrativa',
       'Governance finanziaria',
       'Tesoreria e cash flow',
+      'Controllo di gestione',
       'Pianificazione degli investimenti',
       'Governance commerciale',
       'Ottimizzazione delle reti di vendita',
@@ -28,26 +29,26 @@ export const services: Service[] = [
   },
   {
     slug: 'strategia-e-crescita',
-    title: 'Strategia e crescita',
+    title: 'Sviluppo e risorse',
     promise:
-      'Diamo forma a percorsi di sviluppo concreti, partendo dalla struttura organizzativa e dal posizionamento.',
+      'Affianchiamo l’impresa nello sviluppo organizzativo, nelle risorse e nei percorsi di crescita strutturata.',
     bullets: [
-      'Sviluppo organizzativo e posizionamento',
-      'Pianificazione strategica e digitalizzazione',
+      'Growth Factors',
       'Formazione e executive mentoring',
+      'Bandi e contributi (Europei, Nazionali, Regionali e Camerali)',
     ],
     full: [
+      'Growth Factors',
       'Sviluppo organizzativo',
-      'Posizionamento',
       'Pianificazione strategica',
       'Digitalizzazione',
-      'Formazione',
-      'Executive mentoring',
+      'Formazione e executive mentoring',
+      'Bandi e contributi (Europei, Nazionali, Regionali e Camerali)',
     ],
   },
   {
     slug: 'startup',
-    title: 'Startup e nuove imprese',
+    title: 'Start Up',
     promise:
       'Affianchiamo neo-imprenditori dalla costituzione alla crescita scalabile del progetto.',
     bullets: [
@@ -64,18 +65,35 @@ export const services: Service[] = [
     ],
   },
   {
+    slug: 'creazione-newco',
+    title: 'Creazione NewCo',
+    promise:
+      'Affianchiamo la creazione di nuove società dalla definizione dell’assetto fino alla costituzione operativa.',
+    bullets: [
+      'Definizione dell’assetto societario',
+      'Statuto e atto costitutivo',
+      'Adempimenti di avvio',
+    ],
+    full: [
+      'Creazione NewCo',
+      'Definizione dell’assetto societario',
+      'Statuto e atto costitutivo',
+      'Organizzazione della struttura iniziale',
+      'Adempimenti di avvio',
+    ],
+  },
+  {
     slug: 'internazionalizzazione',
     title: 'Internazionalizzazione',
     promise:
       'Apriamo canali operativi tra Italia, Europa e area magrebina, per investitori e aziende in movimento.',
     bullets: [
-      'Ingresso nei mercati esteri',
-      'Invest in Italy e supporto agli investitori stranieri',
+      'Market Entry',
+      'Invest in Italy',
       'Europa e area magrebina',
     ],
     full: [
-      'Ingresso nei mercati esteri',
-      'Market entry',
+      'Market Entry',
       'Supporto operativo internazionale',
       'Invest in Italy',
       'Assistenza agli investitori stranieri',
@@ -84,21 +102,21 @@ export const services: Service[] = [
   },
   {
     slug: 'crisi-e-risanamento',
-    title: 'Crisi e risanamento',
+    title: 'Ristrutturazione debiti',
     promise:
-      'Gestiamo tensioni finanziarie e situazioni complesse con un piano di continuità e rilancio.',
+      'Ci occupiamo attivamente della gestione di complessi piani di rateizzazione e transazioni fiscali, giudiziari ed extragiudiziari.',
     bullets: [
-      'Crisis management e piani di rilancio',
+      'Rinegoziazione bancaria',
       'Continuità aziendale',
-      'Rinegoziazione bancaria e ottimizzazione crediti',
+      'Piani di rilancio',
     ],
     full: [
-      'Crisis management',
-      'Piani di rilancio',
-      'Continuità aziendale',
-      'Rateizzazioni e transazioni fiscali',
+      'Ristrutturazione debiti',
+      'Piani di rateizzazione e transazioni fiscali',
+      'Interventi giudiziari ed extragiudiziari',
       'Rinegoziazione bancaria',
-      'Ottimizzazione delle linee di credito',
+      'Continuità aziendale',
+      'Piani di rilancio',
     ],
   },
   {
@@ -107,32 +125,45 @@ export const services: Service[] = [
     promise:
       'Seguiamo le opportunità di finanziamento pubblico dalla ricerca alla rendicontazione.',
     bullets: [
-      'Bandi regionali, nazionali ed europei',
-      'Progettazione e rendicontazione',
+      'Contributi a fondo perduto',
       'Ricerca e sviluppo',
+      'Bandi e progettazione',
     ],
     full: [
-      'Bandi regionali',
-      'Bandi nazionali ed europei',
+      'Contributi a fondo perduto',
+      'Ricerca e sviluppo',
       'Monitoraggio delle opportunità',
       'Progettazione',
       'Rendicontazione',
-      'Ricerca e sviluppo',
     ],
   },
 ];
 
+export const homeServices = [
+  'START UP',
+  'MARKET ENTRY',
+  'INVEST IN ITALY',
+  'RINEGOZIAZIONE BANCARIA',
+  'GROWTH FACTORS',
+  'CONTROLLO DI GESTIONE',
+  'FINANZA AGEVOLATA',
+  'FORMAZIONE E EXECUTIVE MENTORING',
+  'CONTRIBUTI A FONDO PERDUTO',
+  'MARCHI E BREVETTI',
+  'RICERCA E SVILUPPO',
+  'RETE D’IMPRESA',
+  'GESTIONI IMMOBILIARI',
+  'CREAZIONE NEWCO',
+];
+
 export const operations = [
+  'NewCo (start-up)',
   'Affitto di ramo d’azienda',
-  'Associazione in partecipazione',
+  'Spin-off',
   'Joint venture',
+  'Capitale e agreement',
   'Patti parasociali',
   'Statuti e atti costitutivi',
-  'NDA e patti di non concorrenza',
-  'Marchi e brevetti',
-  'Contratti di vendita e per il web',
-  'Cessione del credito',
-  'Gestione di immobili e locazioni',
 ];
 
 export const methodSteps = [
