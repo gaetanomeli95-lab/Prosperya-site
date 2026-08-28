@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
 import { FadeIn } from '@/components/MotionWrapper';
-import { Link } from 'lucide-react';
+import { Link as LinkIcon, CreditCard } from 'lucide-react';
 import LinkNext from 'next/link';
 
 interface Props {
@@ -27,11 +27,16 @@ export default function ServiceDetail({ params }: Props) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) notFound();
 
+  const isStartup = service.slug === 'startup';
+  const startupPaymentUrl = process.env.NEXT_PUBLIC_STARTUP_PAYMENT_URL;
+  const ctaHref = isStartup && startupPaymentUrl ? startupPaymentUrl : '/contatti/';
+  const ctaLabel = isStartup ? 'Richiedi una consulenza per la tua Start Up' : 'Richiedi un confronto';
+
   return (
     <div className="pt-24 lg:pt-32 pb-20 lg:pb-28 bg-warm-ivory">
       <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-2 text-sm text-anthracite/70">
+          <ol className="flex flex-wrap items-center gap-2 text-sm text-anthracite/70">
             <li><LinkNext href="/" className="hover:text-mediterranean">Home</LinkNext></li>
             <li aria-hidden="true">/</li>
             <li><LinkNext href="/servizi/" className="hover:text-mediterranean">Servizi</LinkNext></li>
@@ -51,18 +56,24 @@ export default function ServiceDetail({ params }: Props) {
             {service.full.map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-base text-anthracite/90 py-2 border-b border-stone-warm">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-mediterranean flex-shrink-0" />
-                {item}
+                <span className={item === 'Growth Factors' ? 'font-bold text-night' : ''}>{item}</span>
               </li>
             ))}
           </ul>
 
           <LinkNext
-            href="/contatti/"
+            href={ctaHref}
             className="inline-flex items-center justify-center rounded-sm bg-mediterranean px-6 py-3.5 text-base font-medium text-white hover:bg-mediterranean-light transition-colors"
           >
-            <Link className="w-4 h-4 mr-2" aria-hidden="true" />
-            Richiedi un confronto
+            {isStartup ? <CreditCard className="w-4 h-4 mr-2" aria-hidden="true" /> : <LinkIcon className="w-4 h-4 mr-2" aria-hidden="true" />}
+            {ctaLabel}
           </LinkNext>
+
+          {isStartup && !startupPaymentUrl && (
+            <p className="mt-4 text-sm text-anthracite/60">
+              Il pagamento online sarà attivato sul pulsante non appena verrà configurato il link di pagamento della consulenza.
+            </p>
+          )}
         </FadeIn>
       </div>
     </div>
