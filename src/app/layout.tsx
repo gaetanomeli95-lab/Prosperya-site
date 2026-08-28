@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { site, company } from '@/data/company';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { BrandIntro } from '@/components/BrandIntro';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import './globals.css';
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="it">
       <body className="min-h-screen flex flex-col">
         <OrganizationJsonLd />
+        <BrandIntro />
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
