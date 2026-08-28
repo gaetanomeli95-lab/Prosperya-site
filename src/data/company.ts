@@ -6,7 +6,7 @@ export const company = {
   regione: 'Sicilia',
   pivaCf: '07415020820',
   emailDirezione: 'direzione@prosperya.it',
-  emailPrivacy: 'privacy@prosperya.it',
+  emailPrivacy: 'info.prosperya@gmail.com',
   telefono: '+39 352 023 5382',
   areaOperativa: 'Capo Zafferano, Altavilla Milicia, a meno di 20 km da Palermo',
   sito: 'https://prosperya.it',
