@@ -1,14 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { company } from '@/data/company';
+import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 const areas = [
   'Governance e controllo',
-  'Strategia e crescita',
-  'Startup e nuove imprese',
+  'Sviluppo e risorse',
+  'Start Up',
+  'Creazione NewCo',
   'Internazionalizzazione',
-  'Crisi e risanamento',
+  'Ristrutturazione debiti',
   'Finanza agevolata',
   'Altro',
 ];
@@ -55,7 +56,7 @@ export function ContactForm() {
         setStatus('error');
         setErrorMsg(data.message || 'Si è verificato un errore. Riprova più tardi.');
       }
-    } catch (err) {
+    } catch {
       setStatus('error');
       setErrorMsg('Si è verificato un errore tecnico. Riprova più tardi.');
     }
@@ -63,136 +64,62 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-night mb-2">
-            Nome e cognome <span className="text-logo-magenta">*</span>
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            value={form.name}
-            onChange={handleChange}
-            className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-          />
+          <label htmlFor="name" className="premium-label">Nome e cognome *</label>
+          <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} className="premium-input" placeholder="Nome e cognome" />
         </div>
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-night mb-2">
-            Azienda
-          </label>
-          <input
-            id="company"
-            name="company"
-            type="text"
-            value={form.company}
-            onChange={handleChange}
-            className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-          />
+          <label htmlFor="company" className="premium-label">Azienda</label>
+          <input id="company" name="company" type="text" value={form.company} onChange={handleChange} className="premium-input" placeholder="Ragione sociale" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-night mb-2">
-            Email <span className="text-logo-magenta">*</span>
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            value={form.email}
-            onChange={handleChange}
-            className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-          />
+          <label htmlFor="email" className="premium-label">Email *</label>
+          <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} className="premium-input" placeholder="nome@azienda.it" />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-night mb-2">
-            Telefono
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={form.phone}
-            onChange={handleChange}
-            className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-          />
+          <label htmlFor="phone" className="premium-label">Telefono</label>
+          <input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange} className="premium-input" placeholder="+39 ..." />
         </div>
       </div>
 
       <div>
-        <label htmlFor="area" className="block text-sm font-medium text-night mb-2">
-          Area di interesse
-        </label>
-        <select
-          id="area"
-          name="area"
-          value={form.area}
-          onChange={handleChange}
-          className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-        >
+        <label htmlFor="area" className="premium-label">Area di interesse</label>
+        <select id="area" name="area" value={form.area} onChange={handleChange} className="premium-input appearance-none">
           <option value="">Seleziona un’area</option>
-          {areas.map((a) => (
-            <option key={a} value={a}>{a}</option>
-          ))}
+          {areas.map((a) => <option key={a} value={a}>{a}</option>)}
         </select>
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-night mb-2">
-          Messaggio <span className="text-logo-magenta">*</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          required
-          value={form.message}
-          onChange={handleChange}
-          className="w-full rounded-sm border border-stone-warm bg-white px-4 py-3 text-sm text-anthracite focus:border-mediterranean focus:outline-none focus:ring-1 focus:ring-mediterranean"
-        />
+        <label htmlFor="message" className="premium-label">Contesto e obiettivo *</label>
+        <textarea id="message" name="message" rows={6} required value={form.message} onChange={handleChange} className="premium-input resize-y" placeholder="Descrivi brevemente la situazione, l’obiettivo e le eventuali urgenze." />
       </div>
 
-      <div className="flex items-start gap-3">
-        <input
-          id="privacy"
-          name="privacy"
-          type="checkbox"
-          required
-          checked={form.privacy}
-          onChange={handleChange}
-          className="mt-1 w-4 h-4 rounded border-stone-warm text-mediterranean focus:ring-mediterranean"
-        />
-        <label htmlFor="privacy" className="text-sm text-anthracite/90">
-          Ho letto e accetto la{' '}
-          <a href="/privacy-policy/" className="text-mediterranean hover:underline">
-            Privacy Policy
-          </a>{' '}
-          *.
+      <div className="flex items-start gap-3 border-t border-night/10 pt-5">
+        <input id="privacy" name="privacy" type="checkbox" required checked={form.privacy} onChange={handleChange} className="mt-0.5 h-4 w-4 border-night/20 text-mediterranean focus:ring-mediterranean" />
+        <label htmlFor="privacy" className="text-xs leading-relaxed text-anthracite/65">
+          Ho letto e accetto la <a href="/privacy-policy/" className="font-semibold text-mediterranean hover:underline">Privacy Policy</a> *.
         </label>
       </div>
 
       {status === 'success' && (
-        <div className="rounded-sm bg-logo-green/10 text-logo-green px-4 py-3 text-sm" role="status" aria-live="polite">
-          Messaggio inviato con successo. Ti ricontatteremo al più presto.
+        <div className="flex items-start gap-3 border border-logo-green/20 bg-logo-green/5 px-4 py-4 text-sm text-night" role="status" aria-live="polite">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-logo-green" />
+          <span>Richiesta inviata con successo. Ti ricontatteremo al più presto.</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="rounded-sm bg-logo-magenta/10 text-logo-magenta px-4 py-3 text-sm" role="alert" aria-live="assertive">
-          {errorMsg}
-        </div>
+        <div className="border border-logo-magenta/20 bg-logo-magenta/5 px-4 py-4 text-sm text-logo-magenta" role="alert" aria-live="assertive">{errorMsg}</div>
       )}
 
-      <button
-        type="submit"
-        disabled={status === 'sending'}
-        className="inline-flex items-center justify-center rounded-sm bg-mediterranean px-8 py-3.5 text-base font-medium text-white hover:bg-mediterranean-light transition-colors disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-logo-yellow focus:ring-offset-2 focus:ring-offset-warm-ivory"
-      >
+      <button type="submit" disabled={status === 'sending'} className="premium-button-dark group w-full justify-between sm:w-auto sm:min-w-[220px] disabled:opacity-60">
         {status === 'sending' ? 'Invio in corso...' : 'Invia richiesta'}
+        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </button>
     </form>
   );
