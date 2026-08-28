@@ -1,80 +1,84 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { mainNav, legalNav } from '@/data/navigation';
+import { ArrowUpRight } from 'lucide-react';
+import { legalNav } from '@/data/navigation';
 import { company } from '@/data/company';
+
+const areas = [
+  ['Start Up', '/servizi/startup/'],
+  ['Sviluppo e risorse', '/servizi/strategia-e-crescita/'],
+  ['Internazionalizzazione', '/servizi/internazionalizzazione/'],
+  ['Ristrutturazione debiti', '/servizi/crisi-e-risanamento/'],
+  ['Finanza agevolata', '/servizi/finanza-agevolata/'],
+  ['Creazione NewCo', '/servizi/creazione-newco/'],
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-night text-white/80">
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-14 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-5">
-              <Image
-                src="/brand/prosperya-logo.png"
-                alt="Prosperya"
-                width={40}
-                height={40}
-                className="h-10 w-10 object-contain"
-              />
-              <span className="text-white text-lg font-heading font-semibold">PROSPERYA</span>
-            </Link>
-            <p className="text-sm text-white/70 leading-relaxed max-w-xs">
-              Consulenza imprenditoriale e gestionale tra Sicilia, Italia, Europa e area mediterranea.
-            </p>
-          </div>
+    <footer className="relative overflow-hidden bg-[#080C0D] text-white">
+      <div className="absolute inset-0 prosperya-grid opacity-20" />
+      <div className="absolute right-[-9rem] top-[-8rem] h-[30rem] w-[30rem] rounded-full bg-mediterranean/10 blur-3xl" />
 
-          <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">Navigazione</h3>
-            <ul className="space-y-2.5">
-              {mainNav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm hover:text-white transition-colors">{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <div className="relative mx-auto max-w-[1480px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="border-b border-white/10 pb-12 lg:pb-14">
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+            <div>
+              <Link href="/" className="inline-flex items-center gap-3">
+                <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full bg-white ring-1 ring-white/15"><Image src="/brand/prosperya-logo.png" alt="Prosperya" width={48} height={48} className="h-full w-full object-contain scale-[1.08]" /></span>
+                <span><span className="block text-sm font-semibold tracking-[.2em] !text-white">PROSPERYA</span><span className="mt-1.5 block text-[9px] uppercase tracking-[.2em] !text-white/34">Advisory · Governance · Growth</span></span>
+              </Link>
 
-          <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">Aree di intervento</h3>
-            <ul className="space-y-2.5">
-              <li><Link href="/servizi/governance-e-controllo/" className="text-sm hover:text-white transition-colors">Governance e controllo</Link></li>
-              <li><Link href="/servizi/strategia-e-crescita/" className="text-sm hover:text-white transition-colors">Strategia e crescita</Link></li>
-              <li><Link href="/servizi/startup/" className="text-sm hover:text-white transition-colors">Startup</Link></li>
-              <li><Link href="/servizi/internazionalizzazione/" className="text-sm hover:text-white transition-colors">Internazionalizzazione</Link></li>
-              <li><Link href="/servizi/crisi-e-risanamento/" className="text-sm hover:text-white transition-colors">Crisi e risanamento</Link></li>
-              <li><Link href="/servizi/finanza-agevolata/" className="text-sm hover:text-white transition-colors">Finanza agevolata</Link></li>
-            </ul>
-          </div>
+              <h2 className="mt-8 max-w-4xl text-4xl font-heading leading-[.96] !text-white sm:text-5xl lg:text-6xl">Decisioni complesse. <span className="italic !text-white/48">Una regia più chiara.</span></h2>
+            </div>
 
-          <div>
-            <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-4">Contatti</h3>
-            <address className="not-italic space-y-2.5 text-sm text-white/70">
-              <p>{company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}</p>
-              <p>
-                <a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{company.telefono}</a>
-              </p>
-              <p>
-                <a href={`mailto:${company.emailDirezione}`} className="hover:text-white transition-colors">{company.emailDirezione}</a>
-              </p>
-              <p className="pt-2">P.IVA / C.F. {company.pivaCf}</p>
-            </address>
+            <div className="lg:justify-self-end lg:min-w-[360px]">
+              <Link href="/contatti/" className="premium-button-light group w-full justify-between">
+                Richiedi una consulenza
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/50">
-            © {year} {company.ragioneSociale}. Tutti i diritti riservati.
-          </p>
-          <div className="flex gap-6">
-            {legalNav.map((item) => (
-              <Link key={item.href} href={item.href} className="text-xs text-white/60 hover:text-white transition-colors">
-                {item.label}
-              </Link>
-            ))}
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:py-14">
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-white/30">Profilo</p>
+            <p className="mt-5 max-w-xs text-sm leading-[1.8] !text-white/50">Consulenza imprenditoriale e gestionale tra Sicilia, Italia, Europa e area mediterranea.</p>
           </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-white/30">Aree</p>
+            <ul className="mt-5 space-y-3">
+              {areas.map(([label, href]) => <li key={label}><Link href={href} className="text-sm !text-white/58 transition-colors hover:!text-white">{label}</Link></li>)}
+            </ul>
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-white/30">Contatti</p>
+            <address className="mt-5 not-italic text-sm leading-[1.8] !text-white/52">
+              {company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}
+              <div className="mt-4"><a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="transition-colors hover:!text-white">{company.telefono}</a></div>
+              <div><a href={`mailto:${company.emailDirezione}`} className="transition-colors hover:!text-white">{company.emailDirezione}</a></div>
+            </address>
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-white/30">Dati societari</p>
+            <div className="mt-5 text-sm leading-[1.8] !text-white/52">
+              <p>{company.ragioneSociale}</p>
+              <p>P.IVA / C.F. {company.pivaCf}</p>
+              <div className="mt-4 space-y-2">
+                {legalNav.map((item) => <Link key={item.href} href={item.href} className="block transition-colors hover:!text-white">{item.label}</Link>)}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-[10px] uppercase tracking-[.15em] !text-white/28 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} {company.ragioneSociale}. Tutti i diritti riservati.</p>
+          <p>Sicilia · Europa · Mediterraneo</p>
         </div>
       </div>
     </footer>
