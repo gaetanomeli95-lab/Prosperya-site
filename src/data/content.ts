@@ -16,7 +16,7 @@ export const home = {
   ],
   intro: {
     title: 'Guardare oltre l’ordinario',
-    text: 'Prosperya affianca l’impresa oltre la gestione quotidiana, trasformando complessità, opportunità e cambiamento in scelte strutturate. L’obiettivo non è offrire consulenza astratta, ma costruire percorsi concreti, controllabili e coerenti con il futuro dell’azienda.',
+    text: 'Prosperya affianca l’impresa oltre la gestione quotidiana, aiutandola a operare nella complessità e a trasformare opportunità e cambiamento in scelte strutturate. L’obiettivo non è offrire consulenza astratta, ma costruire percorsi concreti, controllabili e coerenti con il futuro dell’azienda.',
   },
   international: {
     title: 'Una visione locale. Un raggio d’azione internazionale.',
