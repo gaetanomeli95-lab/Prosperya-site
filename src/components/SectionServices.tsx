@@ -6,8 +6,12 @@ import { FadeIn } from './MotionWrapper';
 
 export function SectionServices() {
   return (
-    <section id="servizi" className="bg-[#ECE8DF] py-24 lg:py-36">
-      <div className="max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
+    <section id="servizi" className="relative overflow-hidden bg-[#DCD6CB] py-24 lg:py-36">
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#EEE9DF] to-transparent" />
+      <div className="absolute left-[8%] top-36 h-64 w-64 rounded-full bg-white/35 blur-3xl" />
+      <div className="absolute right-[-6rem] bottom-12 h-80 w-80 rounded-full bg-mediterranean/8 blur-3xl" />
+
+      <div className="relative max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-end mb-16 lg:mb-20">
           <div className="lg:col-span-3">
             <FadeIn>
@@ -33,7 +37,7 @@ export function SectionServices() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-7 lg:gap-x-10 gap-y-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
           {services.map((service, i) => (
             <ServiceCard key={service.slug} service={service} index={i} />
           ))}
