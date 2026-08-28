@@ -4,16 +4,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const dots = [
-  { color: '#F6C515', x: 0, y: -112, fromX: -150, fromY: -210, delay: 0.05 },
-  { color: '#55B57A', x: 76, y: -94, fromX: 165, fromY: -185, delay: 0.10 },
-  { color: '#2C83C7', x: 118, y: -30, fromX: 245, fromY: -65, delay: 0.15 },
-  { color: '#D42375', x: 102, y: 50, fromX: 220, fromY: 125, delay: 0.20 },
-  { color: '#FF7A1A', x: 52, y: 108, fromX: 120, fromY: 230, delay: 0.25 },
-  { color: '#F6C515', x: -28, y: 120, fromX: -55, fromY: 250, delay: 0.30 },
-  { color: '#55B57A', x: -96, y: 90, fromX: -210, fromY: 200, delay: 0.35 },
-  { color: '#2C83C7', x: -124, y: 20, fromX: -250, fromY: 40, delay: 0.40 },
-  { color: '#D42375', x: -105, y: -54, fromX: -235, fromY: -115, delay: 0.45 },
-  { color: '#FF7A1A', x: -62, y: -100, fromX: -115, fromY: -225, delay: 0.50 },
+  { color: '#F6C515', x: 0, y: -112, delay: 0.04 },
+  { color: '#55B57A', x: 76, y: -94, delay: 0.09 },
+  { color: '#2C83C7', x: 118, y: -30, delay: 0.14 },
+  { color: '#D42375', x: 102, y: 50, delay: 0.19 },
+  { color: '#FF7A1A', x: 52, y: 108, delay: 0.24 },
+  { color: '#F6C515', x: -28, y: 120, delay: 0.29 },
+  { color: '#55B57A', x: -96, y: 90, delay: 0.34 },
+  { color: '#2C83C7', x: -124, y: 20, delay: 0.39 },
+  { color: '#D42375', x: -105, y: -54, delay: 0.44 },
+  { color: '#FF7A1A', x: -62, y: -100, delay: 0.49 },
 ];
 
 export function BrandIntro() {
@@ -21,14 +21,14 @@ export function BrandIntro() {
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const seen = window.sessionStorage.getItem('prosperya-intro-seen');
+    const seen = window.sessionStorage.getItem('prosperya-intro-v2-seen');
 
     if (reduceMotion || seen) return;
 
     setVisible(true);
-    window.sessionStorage.setItem('prosperya-intro-seen', '1');
+    window.sessionStorage.setItem('prosperya-intro-v2-seen', '1');
 
-    const timer = window.setTimeout(() => setVisible(false), 2600);
+    const timer = window.setTimeout(() => setVisible(false), 3150);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -36,92 +36,120 @@ export function BrandIntro() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          key="prosperya-brand-intro"
+          key="prosperya-brand-intro-v2"
           className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#080C0D]"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.035, filter: 'blur(8px)' }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 1.025, filter: 'blur(8px)' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           aria-hidden="true"
         >
           <motion.div
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7 }}
             style={{
               background:
-                'radial-gradient(circle at 50% 47%, rgba(49,95,103,.20), transparent 28%), radial-gradient(circle at 50% 50%, rgba(255,255,255,.035), transparent 48%)',
+                'radial-gradient(circle at 50% 49%, rgba(49,95,103,.24), transparent 27%), radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 50%)',
             }}
           />
 
           <motion.div
             className="absolute h-[430px] w-[430px] rounded-full border border-white/10 sm:h-[520px] sm:w-[520px]"
-            initial={{ opacity: 0, scale: 0.72, rotate: -18 }}
-            animate={{ opacity: [0, 0.65, 0.2], scale: [0.72, 1, 1.08], rotate: [-18, 0, 12] }}
-            transition={{ duration: 2.15, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, scale: 0.76, rotate: -16 }}
+            animate={{ opacity: [0, 0.5, 0.16], scale: [0.76, 1, 1.06], rotate: [-16, 0, 8] }}
+            transition={{ duration: 2.35, ease: [0.22, 1, 0.36, 1] }}
           />
 
           <motion.div
-            className="relative h-[340px] w-[340px] sm:h-[390px] sm:w-[390px]"
-            initial={{ scale: 0.92 }}
-            animate={{ scale: [0.92, 1, 1] }}
-            transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-[350px] w-[350px] sm:h-[410px] sm:w-[410px]"
+            initial={{ scale: 0.9 }}
+            animate={{ scale: [0.9, 1.015, 1] }}
+            transition={{ duration: 1.65, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              className="absolute left-1/2 top-1/2 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 sm:h-[285px] sm:w-[285px]"
-              initial={{ rotate: -34 }}
+              className="absolute inset-0"
+              initial={{ rotate: -32 }}
               animate={{ rotate: 0 }}
-              transition={{ duration: 1.35, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.45, ease: [0.16, 1, 0.3, 1] }}
             >
               {dots.map((dot, i) => (
                 <motion.span
                   key={`${dot.color}-${i}`}
-                  className="absolute left-1/2 top-1/2 h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 rounded-full sm:h-[84px] sm:w-[84px]"
-                  style={{
-                    backgroundColor: dot.color,
-                    mixBlendMode: 'screen',
-                    boxShadow: `0 0 34px ${dot.color}22`,
-                  }}
-                  initial={{ x: dot.fromX, y: dot.fromY, opacity: 0, scale: 0.35 }}
+                  className="absolute left-1/2 top-1/2 h-0 w-0"
+                  initial={{ x: 0, y: 0, opacity: 0 }}
                   animate={{
-                    x: [dot.fromX, dot.x * 1.15, dot.x],
-                    y: [dot.fromY, dot.y * 1.15, dot.y],
-                    opacity: [0, 0.9, 0.78],
-                    scale: [0.35, 1.08, 1],
+                    x: [0, dot.x * 1.1, dot.x],
+                    y: [0, dot.y * 1.1, dot.y],
+                    opacity: [0, 1, 1],
                   }}
                   transition={{
-                    duration: 1.05,
+                    duration: 0.9,
                     delay: dot.delay,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                />
+                >
+                  <motion.span
+                    className="absolute left-0 top-0 block h-[74px] w-[74px] -translate-x-1/2 -translate-y-1/2 rounded-full sm:h-[84px] sm:w-[84px]"
+                    style={{
+                      backgroundColor: dot.color,
+                      mixBlendMode: 'screen',
+                      boxShadow: `0 0 30px ${dot.color}25`,
+                    }}
+                    initial={{ scale: 0.18 }}
+                    animate={{ scale: [0.18, 1.08, 1] }}
+                    transition={{
+                      duration: 0.9,
+                      delay: dot.delay,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  />
+                </motion.span>
               ))}
             </motion.div>
 
             <motion.div
               className="absolute inset-0 grid place-items-center"
-              initial={{ opacity: 0, scale: 0.94, letterSpacing: '0.34em' }}
-              animate={{ opacity: 1, scale: 1, letterSpacing: '0.17em' }}
-              transition={{ duration: 0.65, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.55, delay: 1.48, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="pl-[0.17em] text-[22px] font-semibold tracking-[0.17em] text-white sm:text-[27px]">
+              <motion.span
+                className="pl-[0.17em] text-[22px] font-semibold text-white sm:text-[27px]"
+                initial={{ letterSpacing: '0.32em', opacity: 0 }}
+                animate={{ letterSpacing: '0.17em', opacity: 1 }}
+                transition={{ duration: 0.65, delay: 1.48, ease: [0.22, 1, 0.36, 1] }}
+              >
                 PROSPERYA
-              </span>
+              </motion.span>
             </motion.div>
+
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              initial={{ boxShadow: '0 0 0 0 rgba(255,255,255,0)' }}
+              animate={{
+                boxShadow: [
+                  '0 0 0 0 rgba(255,255,255,0)',
+                  '0 0 90px 10px rgba(118,160,165,.10)',
+                  '0 0 0 0 rgba(255,255,255,0)',
+                ],
+              }}
+              transition={{ duration: 0.85, delay: 1.85 }}
+            />
           </motion.div>
 
           <motion.div
             className="absolute bottom-[12vh] left-1/2 h-px w-28 -translate-x-1/2 bg-white/10"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 1.25 }}
+            initial={{ scaleX: 0, opacity: 0 }}
+            animate={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 1.85 }}
           />
 
           <motion.p
             className="absolute bottom-[8vh] text-[9px] uppercase tracking-[0.34em] text-white/36"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.45 }}
+            transition={{ duration: 0.5, delay: 2.02 }}
           >
             Advisory · Governance · Growth
           </motion.p>
