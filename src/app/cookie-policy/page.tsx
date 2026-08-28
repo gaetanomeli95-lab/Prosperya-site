@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { company } from '@/data/company';
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
@@ -31,6 +32,14 @@ export default function CookiePolicy() {
             <h2 className="text-xl font-heading text-night mb-3">Gestione dei cookie</h2>
             <p>
               Attraverso le impostazioni del browser l’utente può decidere di bloccare, eliminare o consentire i cookie. Si segnala che la disabilitazione dei cookie tecnici potrebbe compromettere la fruizione del sito.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-heading text-night mb-3">Contatti</h2>
+            <p>
+              Per informazioni relative alla presente Cookie Policy è possibile scrivere a{' '}
+              <a href={`mailto:${company.emailPrivacy}`} className="text-mediterranean hover:underline">{company.emailPrivacy}</a>.
             </p>
           </section>
 
