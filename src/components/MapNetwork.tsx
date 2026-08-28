@@ -16,9 +16,9 @@ const nodes = [
 
 export function MapNetwork() {
   return (
-    <div className="relative w-full aspect-[4/3] max-w-3xl mx-auto" aria-label="Mappa delle aree operative">
+    <div className="relative mx-auto aspect-[1/1] w-full max-w-3xl sm:aspect-[4/3]" aria-label="Mappa delle aree operative">
       <svg
-        className="absolute inset-0 w-full h-full text-white/10"
+        className="absolute inset-0 h-full w-full text-white/10"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid meet"
         fill="none"
@@ -42,15 +42,15 @@ export function MapNetwork() {
           className="absolute -translate-x-1/2 -translate-y-1/2"
           style={{ left: `${node.x}%`, top: `${node.y}%` }}
         >
-          <span className={`inline-block w-3 h-3 rounded-full ${node.color} shadow-sm`} />
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-white/80 whitespace-nowrap">
+          <span className={`inline-block h-2.5 w-2.5 rounded-full shadow-sm sm:h-3 sm:w-3 ${node.color}`} />
+          <span className="absolute left-3 top-1/2 hidden -translate-y-1/2 whitespace-nowrap text-[10px] !text-white/80 sm:left-4 sm:block sm:text-xs">
             {node.label}
           </span>
         </motion.div>
       ))}
 
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="pointer-events-none absolute inset-0 h-full w-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
@@ -79,6 +79,14 @@ export function MapNetwork() {
           />
         ))}
       </svg>
+
+      <div className="absolute inset-x-0 bottom-0 grid grid-cols-3 gap-2 sm:hidden">
+        {['Sicilia', 'Italia', 'Tunisia'].map((label) => (
+          <div key={label} className="border border-white/10 bg-night/70 px-2 py-2 text-center text-[9px] uppercase tracking-[0.12em] !text-white/65 backdrop-blur-sm">
+            {label}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
