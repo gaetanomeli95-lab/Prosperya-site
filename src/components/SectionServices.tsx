@@ -1,6 +1,6 @@
 'use client';
 
-import { services } from '@/data/services';
+import { services, homeServices } from '@/data/services';
 import { ServiceCard } from './ServiceCard';
 import { FadeIn } from './MotionWrapper';
 
@@ -12,12 +12,12 @@ export function SectionServices() {
       <div className="absolute right-[-6rem] bottom-12 h-80 w-80 rounded-full bg-mediterranean/8 blur-3xl" />
 
       <div className="relative max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-end mb-16 lg:mb-20">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-end mb-12 lg:mb-16">
           <div className="lg:col-span-3">
             <FadeIn>
               <div className="flex items-center gap-3">
                 <span className="w-8 h-px bg-mediterranean" />
-                <span className="eyebrow text-night/42">Aree di intervento</span>
+                <span className="eyebrow text-night/42">I nostri servizi</span>
               </div>
             </FadeIn>
           </div>
@@ -31,11 +31,22 @@ export function SectionServices() {
           <div className="lg:col-span-3">
             <FadeIn delay={0.12}>
               <p className="text-sm lg:text-[15px] leading-relaxed text-anthracite/68">
-                Sei aree che si integrano tra loro per affrontare crescita, controllo, cambiamento e sviluppo internazionale.
+                Un sistema integrato di servizi per affrontare sviluppo, controllo, finanza, internazionalizzazione e nuove iniziative imprenditoriali.
               </p>
             </FadeIn>
           </div>
         </div>
+
+        <FadeIn delay={0.08}>
+          <div className="mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3">
+            {homeServices.map((item, i) => (
+              <div key={item} className={`min-h-[82px] border px-4 py-4 flex items-center gap-3 ${i % 5 === 0 ? 'bg-night border-night' : 'bg-paper/80 border-night/10'}`}>
+                <span className={`font-heading italic text-lg ${i % 5 === 0 ? 'text-sand' : 'text-mediterranean'}`}>{String(i + 1).padStart(2, '0')}</span>
+                <span className={`text-xs sm:text-[13px] font-semibold tracking-[0.05em] leading-snug ${i % 5 === 0 ? '!text-white/90' : 'text-night/78'}`}>{item}</span>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
           {services.map((service, i) => (
