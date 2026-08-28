@@ -21,12 +21,12 @@ export function BrandIntro() {
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const seen = window.sessionStorage.getItem('prosperya-intro-v3-seen');
+    const seen = window.sessionStorage.getItem('prosperya-intro-v4-seen');
 
     if (reduceMotion || seen) return;
 
     setVisible(true);
-    window.sessionStorage.setItem('prosperya-intro-v3-seen', '1');
+    window.sessionStorage.setItem('prosperya-intro-v4-seen', '1');
 
     const timer = window.setTimeout(() => setVisible(false), 3700);
     return () => window.clearTimeout(timer);
@@ -36,8 +36,8 @@ export function BrandIntro() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          key="prosperya-intro-v3"
-          className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#080C0D]"
+          key="prosperya-intro-v4"
+          className="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-[#080C0D] px-4"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -55,13 +55,14 @@ export function BrandIntro() {
           />
 
           <motion.div
-            className="relative aspect-square w-[min(78vw,520px)]"
+            className="relative aspect-square shrink-0"
+            style={{ width: 'min(78vw, 66svh, 520px)' }}
             initial={{ scale: 0.9 }}
             animate={{ scale: [0.9, 1, 1, 1.035] }}
             transition={{ duration: 3.25, times: [0, 0.42, 0.82, 1], ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.svg
-              className="pointer-events-none absolute left-1/2 top-1/2 h-[132%] w-[132%] -translate-x-1/2 -translate-y-1/2"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[128%] w-[128%] -translate-x-1/2 -translate-y-1/2 sm:h-[132%] sm:w-[132%]"
               viewBox="0 0 100 100"
               fill="none"
             >
@@ -121,9 +122,9 @@ export function BrandIntro() {
               transition={{ duration: 0.5, delay: 1.55 }}
             >
               <motion.span
-                className="font-body font-semibold text-white"
-                style={{ fontSize: 'clamp(19px, 3.2vw, 34px)' }}
-                initial={{ opacity: 0, scale: 0.92, letterSpacing: '0.34em', y: 8 }}
+                className="font-body font-semibold !text-white"
+                style={{ fontSize: 'clamp(15px, 3.2vw, 34px)' }}
+                initial={{ opacity: 0, scale: 0.92, letterSpacing: '0.30em', y: 8 }}
                 animate={{ opacity: 1, scale: 1, letterSpacing: '0.14em', y: 0 }}
                 transition={{ duration: 0.7, delay: 1.55, ease: [0.22, 1, 0.36, 1] }}
               >
@@ -147,13 +148,14 @@ export function BrandIntro() {
           </motion.div>
 
           <motion.div
-            className="absolute bottom-[9vh] left-1/2 flex -translate-x-1/2 flex-col items-center gap-4"
+            className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 sm:gap-4"
+            style={{ bottom: 'max(20px, 6svh)' }}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 2.15 }}
           >
-            <div className="h-px w-20 bg-white/15" />
-            <p className="whitespace-nowrap text-[9px] uppercase tracking-[0.32em] text-white/38">
+            <div className="h-px w-16 bg-white/15 sm:w-20" />
+            <p className="whitespace-nowrap text-[8px] uppercase tracking-[0.22em] !text-white/38 sm:text-[9px] sm:tracking-[0.32em]">
               Advisory · Governance · Growth
             </p>
           </motion.div>
