@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
 import { home } from '@/data/content';
+import { InteractiveBrandMark } from './InteractiveBrandMark';
 
 export function Hero() {
   return (
@@ -18,13 +19,14 @@ export function Hero() {
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,13,14,.99)_0%,rgba(9,13,14,.95)_38%,rgba(9,13,14,.66)_64%,rgba(9,13,14,.28)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,13,14,.20)_0%,rgba(9,13,14,.04)_48%,rgba(9,13,14,.88)_100%)]" />
-        <div className="absolute inset-0 prosperya-grid opacity-40" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,13,14,.99)_0%,rgba(9,13,14,.95)_36%,rgba(9,13,14,.70)_62%,rgba(9,13,14,.30)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,13,14,.22)_0%,rgba(9,13,14,.06)_48%,rgba(9,13,14,.88)_100%)]" />
+        <div className="absolute inset-0 prosperya-grid opacity-35" />
+        <div className="absolute right-[8%] top-[20%] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(49,95,103,.18),transparent_68%)] blur-3xl lg:block" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1480px] flex-col justify-end px-5 pb-8 pt-28 sm:px-6 sm:pb-10 sm:pt-32 lg:justify-center lg:px-8 lg:pb-16 lg:pt-32">
-        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-8">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-6 xl:gap-10">
           <div className="lg:col-span-7 xl:col-span-6">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
@@ -68,40 +70,15 @@ export function Hero() {
           </div>
 
           <motion.aside
-            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, y: 22 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.25 }}
-            className="lg:col-span-5 xl:col-span-4 xl:col-start-9"
+            transition={{ duration: 1, delay: 0.22 }}
+            className="relative lg:col-span-5 xl:col-span-5 xl:col-start-8"
           >
-            <div className="relative mx-auto w-full max-w-[430px] overflow-hidden border border-white/20 bg-[#EEE8DD]/95 p-5 shadow-[0_28px_90px_rgba(0,0,0,.34)] sm:p-7 lg:ml-auto">
-              <div className="absolute inset-0 paper-noise opacity-60" />
-              <div className="relative">
-                <div className="mb-5 flex items-center justify-between border-b border-night/10 pb-4">
-                  <span className="text-[9px] font-semibold uppercase tracking-[.22em] text-night/45">Prosperya identity</span>
-                  <span className="font-heading italic text-sm text-mediterranean">Est. Sicilia</span>
-                </div>
-
-                <div className="brand-halo relative flex min-h-[245px] items-center justify-center sm:min-h-[285px] lg:min-h-[310px]">
-                  <div className="absolute inset-7 rounded-full border border-night/10" />
-                  <div className="absolute inset-14 rounded-full border border-night/5" />
-                  <Image
-                    src="/brand/prosperya-logo.png"
-                    alt="Logo Prosperya"
-                    width={360}
-                    height={360}
-                    className="relative z-10 h-auto w-[78%] max-w-[310px] object-contain drop-shadow-[0_18px_35px_rgba(9,13,14,.14)]"
-                    priority
-                  />
-                </div>
-
-                <div className="mt-5 grid grid-cols-[1fr_auto] items-end gap-6 border-t border-night/10 pt-4">
-                  <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Business advisory</p>
-                    <p className="mt-2 max-w-[17rem] text-xs leading-[1.6] text-night/60">Governance, crescita, finanza e operazioni complesse sotto un’unica regia.</p>
-                  </div>
-                  <span className="text-[10px] font-semibold tracking-[.16em] text-night/35">PROSPERYA</span>
-                </div>
-              </div>
+            <div className="relative mx-auto w-full max-w-[520px] lg:ml-auto">
+              <div className="absolute inset-[8%] rounded-full border border-white/10" />
+              <div className="absolute inset-[18%] rounded-full border border-white/5" />
+              <InteractiveBrandMark />
             </div>
           </motion.aside>
         </div>
