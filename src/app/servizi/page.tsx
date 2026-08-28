@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { services } from '@/data/services';
+import { serviceCatalog } from '@/data/services';
 import { FadeIn } from '@/components/MotionWrapper';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Servizi',
-  description: 'Le aree di intervento di Prosperya: governance e controllo, sviluppo e risorse, Start Up, creazione NewCo, internazionalizzazione, ristrutturazione debiti e finanza agevolata.',
+  description: 'I quattordici servizi di Prosperya: Start Up, Market Entry, Invest in Italy, rinegoziazione bancaria, Growth Factors, controllo di gestione, finanza agevolata e altri servizi specialistici.',
   alternates: { canonical: '/servizi/' },
 };
 
@@ -15,35 +15,34 @@ export default function Servizi() {
     <div className="pt-24 lg:pt-32 pb-20 lg:pb-28 bg-warm-ivory">
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         <FadeIn>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading text-night mb-6">Servizi</h1>
+          <span className="eyebrow text-night/42">Prosperya advisory</span>
+          <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-heading text-night mb-6">I nostri servizi</h1>
           <p className="text-lg lg:text-xl text-anthracite leading-relaxed max-w-3xl mb-14">
-            Sette ambiti di consulenza per affiancare l’impresa nelle scelte strategiche, operative, finanziarie e di sviluppo.
+            Quattordici servizi specifici per affiancare imprese, imprenditori e investitori nelle scelte strategiche, finanziarie, operative e di sviluppo.
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, i) => (
-            <FadeIn key={service.slug} delay={i * 0.06}>
-              <div className="group p-6 lg:p-8 bg-white border border-stone-warm rounded-sm h-full flex flex-col">
-                <h2 className="text-2xl font-heading text-night mb-3">{service.title}</h2>
-                <p className="text-base text-anthracite/90 leading-relaxed mb-5 flex-grow">{service.promise}</p>
-                <ul className="mb-6 space-y-2">
-                  {service.bullets.map((b, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-anthracite/80">
-                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-logo-magenta flex-shrink-0" />
-                      <span className={b === 'Growth Factors' ? 'font-bold text-night' : ''}>{b}</span>
-                    </li>
-                  ))}
-                </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
+          {serviceCatalog.map((service, i) => {
+            const featured = i % 5 === 0;
+            return (
+              <FadeIn key={service.title} delay={i * 0.025}>
                 <Link
-                  href={`/servizi/${service.slug}/`}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-mediterranean group-hover:text-mediterranean-light transition-colors"
+                  href={service.href}
+                  className={`group min-h-[190px] border p-5 lg:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-soft ${featured ? 'bg-night border-night' : 'bg-white border-stone-warm hover:border-night/20'}`}
                 >
-                  Approfondisci <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  <div className="flex items-start justify-between gap-4">
+                    <span className={`font-heading italic text-2xl ${featured ? 'text-sand' : 'text-mediterranean'}`}>{String(i + 1).padStart(2, '0')}</span>
+                    <ArrowUpRight className={`h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${featured ? 'text-white/60' : 'text-night/35'}`} />
+                  </div>
+                  <div>
+                    <p className={`mb-2 text-[10px] uppercase tracking-[0.16em] ${featured ? '!text-white/35' : 'text-night/35'}`}>{service.area}</p>
+                    <h2 className={`text-xl lg:text-2xl font-heading leading-tight ${featured ? '!text-white' : 'text-night'}`}>{service.title}</h2>
+                  </div>
                 </Link>
-              </div>
-            </FadeIn>
-          ))}
+              </FadeIn>
+            );
+          })}
         </div>
       </div>
     </div>
