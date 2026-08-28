@@ -35,6 +35,23 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  @media (max-width: 767px) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .blur-3xl {
+      filter: none !important;
+    }
+
+    .backdrop-blur-sm,
+    .backdrop-blur-md,
+    .backdrop-blur-xl {
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
