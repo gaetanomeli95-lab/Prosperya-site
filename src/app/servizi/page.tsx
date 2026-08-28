@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Servizi',
-  description: 'Le aree di intervento di Prosperya: governance e controllo, strategia e crescita, startup, internazionalizzazione, crisi e risanamento, finanza agevolata.',
+  description: 'Le aree di intervento di Prosperya: governance e controllo, sviluppo e risorse, Start Up, creazione NewCo, internazionalizzazione, ristrutturazione debiti e finanza agevolata.',
   alternates: { canonical: '/servizi/' },
 };
 
@@ -17,13 +17,13 @@ export default function Servizi() {
         <FadeIn>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading text-night mb-6">Servizi</h1>
           <p className="text-lg lg:text-xl text-anthracite leading-relaxed max-w-3xl mb-14">
-            Sei ambiti di consulenza per affiancare l’impresa nelle scelte strategiche, operative e di sviluppo internazionale.
+            Sette ambiti di consulenza per affiancare l’impresa nelle scelte strategiche, operative, finanziarie e di sviluppo.
           </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, i) => (
-            <FadeIn key={service.slug} delay={i * 0.08}>
+            <FadeIn key={service.slug} delay={i * 0.06}>
               <div className="group p-6 lg:p-8 bg-white border border-stone-warm rounded-sm h-full flex flex-col">
                 <h2 className="text-2xl font-heading text-night mb-3">{service.title}</h2>
                 <p className="text-base text-anthracite/90 leading-relaxed mb-5 flex-grow">{service.promise}</p>
@@ -31,7 +31,7 @@ export default function Servizi() {
                   {service.bullets.map((b, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm text-anthracite/80">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-logo-magenta flex-shrink-0" />
-                      <span>{b}</span>
+                      <span className={b === 'Growth Factors' ? 'font-bold text-night' : ''}>{b}</span>
                     </li>
                   ))}
                 </ul>
