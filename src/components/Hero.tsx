@@ -49,6 +49,15 @@ export function Hero() {
             </motion.h1>
 
             <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 18 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.18 }}
+              className="mx-auto mt-7 w-full max-w-[360px] sm:max-w-[410px] lg:hidden"
+            >
+              <InteractiveBrandMark />
+            </motion.div>
+
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.22 }}
@@ -73,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.9, y: 22 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.22 }}
-            className="relative lg:col-span-5 xl:col-span-5 xl:col-start-8"
+            className="relative hidden lg:col-span-5 lg:block xl:col-span-5 xl:col-start-8"
           >
             <div className="relative mx-auto w-full max-w-[520px] lg:ml-auto">
               <div className="absolute inset-[8%] rounded-full border border-white/10" />
