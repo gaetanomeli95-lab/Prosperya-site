@@ -17,15 +17,13 @@ export function Header() {
   const [consultationOpen, setConsultationOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 32);
+    const onScroll = () => setScrolled(window.scrollY > 36);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -46,32 +44,27 @@ export function Header() {
     return () => media.removeEventListener('change', closeOnDesktop);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    return pathname.startsWith(href.replace(/\/$/, ''));
-  };
+  const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href.replace(/\/$/, ''));
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-50 transition-[padding] duration-500 ${scrolled ? 'py-2' : 'py-3 sm:py-4 lg:py-5'}`}>
-        <div className="mx-auto max-w-[1480px] px-3 sm:px-6 lg:px-8">
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'py-2' : 'py-3 sm:py-4 lg:py-5'}`}>
+        <div className={`mx-auto transition-all duration-500 ${scrolled ? 'max-w-[1440px] px-3 sm:px-6 lg:px-8' : 'max-w-[1500px] px-3 sm:px-6 lg:px-8'}`}>
           <div
-            className={`relative flex items-center justify-between overflow-hidden border transition-all duration-500 ${
+            className={`relative flex items-center justify-between transition-all duration-500 ${
               scrolled
-                ? 'h-[60px] border-white/10 bg-[#080C0D]/92 px-3 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-xl sm:px-4 xl:h-[64px] xl:px-5'
-                : 'h-[64px] border-white/10 bg-[#080C0D]/68 px-3 shadow-[0_12px_45px_rgba(0,0,0,.14)] backdrop-blur-md sm:px-4 xl:h-[70px] xl:px-5'
+                ? 'h-[58px] border border-white/10 bg-[#080C0D]/94 px-3 shadow-[0_16px_52px_rgba(0,0,0,.25)] backdrop-blur-xl sm:px-4 xl:h-[62px] xl:px-5'
+                : 'h-[64px] border-y border-white/10 bg-[#080C0D]/38 px-3 backdrop-blur-sm sm:px-4 xl:h-[68px] xl:px-2'
             }`}
           >
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-            <div className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-sand/0 via-sand/30 to-sand/0 opacity-70" />
+            <div className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent transition-opacity duration-500 ${scrolled ? 'opacity-100' : 'opacity-55'}`} />
+            <div className={`pointer-events-none absolute bottom-0 left-1/2 h-px -translate-x-1/2 bg-gradient-to-r from-transparent via-sand/45 to-transparent transition-all duration-700 ${scrolled ? 'w-[72%]' : 'w-[42%]'}`} />
 
-            <Link href="/" className="group relative z-10 flex min-w-0 items-center gap-3" aria-label={company.ragioneSociale}>
+            <Link href="/" className="group relative z-10 flex min-w-0 items-center gap-3 xl:pr-6" aria-label={company.ragioneSociale}>
               <MiniBrandMark />
               <span className="min-w-0 border-l border-white/10 pl-3">
-                <span className="block truncate text-[13px] font-semibold leading-none tracking-[0.2em] !text-white sm:text-sm">PROSPERYA</span>
-                <span className="mt-1.5 hidden text-[8px] font-medium uppercase tracking-[0.22em] !text-white/45 sm:block 2xl:text-[9px]">
-                  Advisory · Governance · Growth
-                </span>
+                <span className="block truncate text-[13px] font-semibold leading-none tracking-[0.21em] !text-white sm:text-sm">PROSPERYA</span>
+                <span className="mt-1.5 hidden text-[8px] font-medium uppercase tracking-[0.23em] !text-white/42 sm:block 2xl:text-[9px]">Advisory · Governance · Growth</span>
               </span>
             </Link>
 
@@ -87,28 +80,28 @@ export function Header() {
                       key={item.href}
                       type="button"
                       onClick={() => setConsultationOpen(true)}
-                      className="group mx-4 inline-flex h-10 items-center gap-3 border border-sand/45 bg-sand/[0.06] px-4 text-[11px] font-semibold uppercase tracking-[0.12em] !text-white transition-all duration-300 hover:border-sand hover:bg-sand hover:!text-night 2xl:mx-5 2xl:px-5"
+                      className="group relative mx-4 inline-flex h-10 items-center gap-3 overflow-hidden border border-sand/35 px-4 text-[10px] font-semibold uppercase tracking-[0.15em] !text-white transition-all duration-300 hover:border-sand/80 2xl:mx-5 2xl:px-5 2xl:text-[11px]"
                     >
-                      {item.label}
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      <span className="absolute inset-0 origin-left scale-x-0 bg-sand transition-transform duration-300 group-hover:scale-x-100" />
+                      <span className="relative transition-colors group-hover:!text-night">{item.label}</span>
+                      <ArrowUpRight className="relative h-3.5 w-3.5 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-night" />
                     </button>
                   );
                 }
 
                 return (
-                  <div key={item.href} className={`relative flex h-full items-center ${legal && index === 4 ? 'ml-1 border-l border-white/10 pl-3 2xl:pl-4' : ''}`}>
+                  <div key={item.href} className={`relative flex h-full items-center ${legal && index === 4 ? 'ml-1 border-l border-white/10 pl-2 2xl:pl-3' : ''}`}>
                     <Link
                       href={item.href}
-                      className={`group relative flex h-full items-center px-2.5 text-[11px] font-medium uppercase tracking-[0.12em] transition-colors 2xl:px-3 2xl:text-xs ${
+                      aria-current={active ? 'page' : undefined}
+                      className={`group relative flex h-full items-center px-2.5 text-[10px] font-medium uppercase tracking-[0.145em] transition-colors 2xl:px-3 2xl:text-[11px] ${
                         legal
-                          ? active ? '!text-white' : '!text-white/45 hover:!text-white/75'
-                          : active ? '!text-white' : '!text-white/68 hover:!text-white'
+                          ? active ? '!text-white/80' : '!text-white/38 hover:!text-white/70'
+                          : active ? '!text-white' : '!text-white/64 hover:!text-white'
                       }`}
                     >
                       <span>{item.label}</span>
-                      {!legal && (
-                        <span className={`absolute bottom-[14px] left-2.5 h-px bg-sand transition-all duration-300 2xl:left-3 ${active ? 'w-[calc(100%-1.25rem)] 2xl:w-[calc(100%-1.5rem)]' : 'w-0 group-hover:w-[calc(100%-1.25rem)] 2xl:group-hover:w-[calc(100%-1.5rem)]'}`} />
-                      )}
+                      {!legal && <span className={`absolute bottom-[12px] left-2.5 h-px bg-sand transition-all duration-300 2xl:left-3 ${active ? 'w-[calc(100%-1.25rem)] 2xl:w-[calc(100%-1.5rem)]' : 'w-0 group-hover:w-[calc(100%-1.25rem)] 2xl:group-hover:w-[calc(100%-1.5rem)]'}`} />}
                     </Link>
                   </div>
                 );
@@ -117,7 +110,7 @@ export function Header() {
 
             <button
               onClick={() => setOpen((value) => !value)}
-              className="relative z-10 grid h-10 w-10 shrink-0 place-items-center border border-white/15 bg-white/[0.04] !text-white transition-colors hover:bg-white hover:!text-night xl:hidden"
+              className="relative z-10 grid h-10 w-10 shrink-0 place-items-center border border-white/15 bg-white/[0.035] !text-white transition-all hover:border-white/30 hover:bg-white hover:!text-night xl:hidden"
               aria-expanded={open}
               aria-label={open ? 'Chiudi menu' : 'Apri menu'}
             >
@@ -129,22 +122,16 @@ export function Header() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 bg-[#080C0D] xl:hidden"
-          >
-            <div className="absolute inset-0 prosperya-grid opacity-30" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="fixed inset-0 z-40 bg-[#080C0D] xl:hidden">
+            <div className="absolute inset-0 prosperya-grid opacity-25" />
             <div className="absolute right-[-8rem] top-10 h-[25rem] w-[25rem] rounded-full bg-mediterranean/10 blur-3xl" />
             <div className="absolute bottom-[-10rem] left-[-8rem] h-[28rem] w-[28rem] rounded-full bg-sand/[0.05] blur-3xl" />
 
             <div className="relative mx-auto flex min-h-[100svh] max-w-[1480px] flex-col px-5 pb-7 pt-24 sm:px-8 sm:pt-28">
               <div className="flex-1 overflow-y-auto overscroll-contain">
-                <div className="mb-7 flex items-center justify-between border-b border-white/10 pb-5">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.24em] !text-white/40">Navigation / Prosperya</p>
-                  <span className="font-heading italic text-sm text-sand/80">Palermo · Sicilia</span>
+                <div className="mb-6 flex items-center justify-between border-b border-white/10 pb-5">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.24em] !text-white/38">Navigation / Prosperya</p>
+                  <span className="font-heading italic text-sm text-sand/75">Palermo · Sicilia</span>
                 </div>
 
                 <nav aria-label="Menu mobile">
@@ -157,42 +144,32 @@ export function Header() {
                       return (
                         <motion.button
                           key={item.href}
-                          initial={{ opacity: 0, y: 12 }}
+                          initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.05 + index * 0.035 }}
+                          transition={{ delay: 0.04 + index * 0.03 }}
                           type="button"
-                          onClick={() => {
-                            setOpen(false);
-                            setConsultationOpen(true);
-                          }}
-                          className="group my-5 flex w-full items-center justify-between border border-sand/30 bg-sand/[0.08] px-4 py-5 text-left sm:px-5"
+                          onClick={() => { setOpen(false); setConsultationOpen(true); }}
+                          className="group my-4 flex w-full items-center justify-between border border-sand/30 bg-sand/[0.07] px-4 py-4 text-left sm:px-5 sm:py-5"
                         >
                           <span>
-                            <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/75">04 · Private advisory</span>
-                            <span className="mt-2 block text-2xl font-heading !text-white sm:text-3xl">{item.label}</span>
+                            <span className="block text-[8px] font-semibold uppercase tracking-[.22em] !text-sand/70">04 · Private advisory</span>
+                            <span className="mt-2 block text-[1.7rem] font-heading leading-none !text-white sm:text-3xl">{item.label}</span>
                           </span>
-                          <span className="grid h-10 w-10 place-items-center bg-sand !text-night">
-                            <ArrowUpRight className="h-4 w-4" />
-                          </span>
+                          <span className="grid h-10 w-10 place-items-center bg-sand !text-night"><ArrowUpRight className="h-4 w-4" /></span>
                         </motion.button>
                       );
                     }
 
                     return (
-                      <motion.div
-                        key={item.href}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.05 + index * 0.035 }}
-                      >
+                      <motion.div key={item.href} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 + index * 0.03 }}>
                         <Link
                           href={item.href}
                           onClick={() => setOpen(false)}
-                          className={`group grid grid-cols-[38px_1fr_auto] items-center gap-2 border-b py-4 transition-colors sm:grid-cols-[46px_1fr_auto] sm:py-5 ${legal ? 'border-white/[0.06]' : 'border-white/10'} ${active ? 'bg-white/[0.025]' : ''}`}
+                          className={`group grid grid-cols-[34px_1fr_auto] items-center gap-2 border-b py-3.5 transition-colors sm:grid-cols-[46px_1fr_auto] sm:py-5 ${legal ? 'border-white/[0.06]' : 'border-white/10'} ${active ? 'bg-white/[0.025]' : ''}`}
                         >
-                          <span className={`font-heading italic ${legal ? 'text-sm text-white/25' : 'text-lg text-sand/65'}`}>0{index + 1}</span>
-                          <span className={`${legal ? 'text-sm font-medium !text-white/55 sm:text-base' : 'text-[clamp(1.45rem,6vw,2.45rem)] font-heading leading-none !text-white'}`}>{item.label}</span>
-                          <ArrowRight className={`transition-transform duration-300 group-hover:translate-x-1 ${legal ? 'h-3.5 w-3.5 text-white/25' : 'h-4 w-4 text-white/45'}`} />
+                          <span className={`font-heading italic ${legal ? 'text-xs text-white/22' : 'text-base text-sand/60 sm:text-lg'}`}>0{index + 1}</span>
+                          <span className={`${legal ? 'text-xs font-medium !text-white/50 sm:text-base' : 'text-[clamp(1.28rem,5.6vw,2.35rem)] font-heading leading-none !text-white'}`}>{item.label}</span>
+                          <ArrowRight className={`transition-transform duration-300 group-hover:translate-x-1 ${legal ? 'h-3.5 w-3.5 text-white/20' : 'h-4 w-4 text-white/40'}`} />
                         </Link>
                       </motion.div>
                     );
@@ -200,12 +177,12 @@ export function Header() {
                 </nav>
               </div>
 
-              <div className="mt-6 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-2 sm:items-end">
+              <div className="mt-5 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-2 sm:items-end">
                 <div>
-                  <p className="text-[9px] font-semibold uppercase tracking-[.2em] !text-white/30">Direzione</p>
-                  <a href={`mailto:${company.emailDirezione}`} className="mt-2 block text-sm !text-white/70 hover:!text-white">{company.emailDirezione}</a>
+                  <p className="text-[8px] font-semibold uppercase tracking-[.2em] !text-white/28">Direzione</p>
+                  <a href={`mailto:${company.emailDirezione}`} className="mt-2 block text-sm !text-white/68 hover:!text-white">{company.emailDirezione}</a>
                 </div>
-                <p className="text-[9px] uppercase tracking-[.18em] !text-white/28 sm:text-right">Advisory · Governance · Growth</p>
+                <p className="text-[8px] uppercase tracking-[.18em] !text-white/25 sm:text-right">Advisory · Governance · Growth</p>
               </div>
             </div>
           </motion.div>
