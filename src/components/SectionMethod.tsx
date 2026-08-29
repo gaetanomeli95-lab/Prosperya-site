@@ -5,38 +5,45 @@ import { FadeIn } from './MotionWrapper';
 
 export function SectionMethod() {
   return (
-    <section className="relative overflow-hidden bg-[#0B1011] py-24 lg:py-36 text-white">
-      <div className="absolute left-[-8rem] top-20 h-80 w-80 rounded-full bg-mediterranean/10 blur-3xl" />
-      <div className="absolute right-[-6rem] bottom-0 h-72 w-72 rounded-full bg-sand/8 blur-3xl" />
-      <div className="relative max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+    <section className="relative overflow-hidden bg-[#0A0F10] py-24 text-white lg:py-36">
+      <div className="absolute inset-0 prosperya-grid opacity-20" />
+      <div className="absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-mediterranean/10 blur-3xl" />
+      <div className="absolute right-[-9rem] bottom-[-6rem] h-[30rem] w-[30rem] rounded-full bg-sand/[0.06] blur-3xl" />
+
+      <div className="section-frame relative">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <FadeIn>
-              <span className="eyebrow !text-white/38">Metodo Prosperya</span>
-              <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-heading leading-[0.98] !text-white">
+              <span className="section-kicker-dark">Metodo Prosperya</span>
+              <h2 className="mt-7 max-w-xl text-[clamp(3rem,5.4vw,6rem)] font-heading leading-[0.92] tracking-[-.04em] !text-white">
                 Dalla diagnosi all’esecuzione.
               </h2>
-              <p className="mt-6 max-w-sm text-base leading-relaxed !text-white/58">
+              <p className="mt-7 max-w-sm text-base leading-[1.8] !text-white/60">
                 Non consegniamo solo documenti. Affianchiamo l’azienda nell’esecuzione, misurando ogni passaggio.
               </p>
             </FadeIn>
           </div>
 
-          <div className="lg:col-span-8 grid sm:grid-cols-2 gap-4 lg:gap-5">
-            {methodSteps.map((step, i) => (
-              <FadeIn key={step.title} delay={i * 0.07}>
-                <article className="group relative min-h-[240px] border border-white/10 bg-white/[0.035] p-6 lg:p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
-                  <div className="flex items-center justify-between">
-                    <span className="font-heading italic text-3xl text-sand">0{i + 1}</span>
-                    <span className="h-2 w-2 rounded-full bg-white/20 group-hover:bg-sand transition-colors" />
-                  </div>
-                  <div className="mt-16">
-                    <h3 className="text-xl lg:text-2xl font-heading !text-white">{step.title}</h3>
-                    <p className="mt-4 text-sm lg:text-[15px] leading-relaxed !text-white/55">{step.description}</p>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
+          <div className="lg:col-span-8 lg:pt-4">
+            <div className="relative">
+              <div className="absolute bottom-0 left-[18px] top-0 w-px bg-white/10 sm:left-[22px] lg:left-[28px]" />
+              {methodSteps.map((step, i) => (
+                <FadeIn key={step.title} delay={i * 0.06}>
+                  <article className="group relative grid grid-cols-[38px_1fr] gap-5 border-b border-white/10 py-7 first:pt-0 sm:grid-cols-[46px_1fr] lg:grid-cols-[58px_1fr_auto] lg:items-center lg:gap-7 lg:py-9">
+                    <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-[#0A0F10] text-[11px] font-semibold text-sand transition-all duration-500 group-hover:border-sand group-hover:bg-sand group-hover:text-night sm:h-11 sm:w-11 lg:h-14 lg:w-14 lg:text-sm">
+                      0{i + 1}
+                    </div>
+
+                    <div>
+                      <h3 className="text-2xl font-heading leading-none !text-white sm:text-3xl lg:text-4xl">{step.title}</h3>
+                      <p className="mt-4 max-w-2xl text-sm leading-[1.8] !text-white/55 lg:text-[15px]">{step.description}</p>
+                    </div>
+
+                    <span className="hidden text-[9px] font-semibold uppercase tracking-[.18em] !text-white/25 transition-colors group-hover:!text-sand lg:block">Execution layer</span>
+                  </article>
+                </FadeIn>
+              ))}
+            </div>
           </div>
         </div>
       </div>
