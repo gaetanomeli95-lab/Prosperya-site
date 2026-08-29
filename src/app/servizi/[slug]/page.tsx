@@ -44,20 +44,19 @@ export default function ServiceDetail({ params }: Props) {
         </Link>
 
         <section className="premium-panel-dark dark-surface relative overflow-hidden p-6 sm:p-9 lg:p-12 xl:p-14">
-          <div className="absolute inset-0 prosperya-grid opacity-30" />
+          <div className="absolute inset-0 prosperya-grid opacity-20" />
+          <div className="absolute inset-x-0 top-0 h-px hairline-light" />
           <div className="absolute right-[-10rem] top-[-10rem] h-[30rem] w-[30rem] rounded-full border border-white/10" />
 
           <div className="relative grid gap-12 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <FadeIn>
                 <div className="flex items-center gap-4">
-                  <span className="font-heading italic text-2xl text-sand">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="editorial-index text-2xl text-sand">{String(index + 1).padStart(2, '0')}</span>
                   <span className="h-px w-10 bg-white/20" />
                   <span className="eyebrow !text-white/50">Advisory service</span>
                 </div>
-                <h1 className="mt-7 max-w-5xl text-[clamp(3.2rem,7vw,7.4rem)] font-heading leading-[.88] tracking-[-.045em] !text-white">
-                  {service.title}
-                </h1>
+                <h1 className="mt-7 max-w-5xl text-[clamp(3.2rem,7vw,7.4rem)] font-heading leading-[.88] tracking-[-.045em] !text-white">{service.title}</h1>
               </FadeIn>
             </div>
             <div className="lg:col-span-4">
@@ -66,7 +65,7 @@ export default function ServiceDetail({ params }: Props) {
                 <div className="mt-8 grid gap-3">
                   {service.bullets.map((item, i) => (
                     <div key={item} className="grid grid-cols-[28px_1fr] gap-3 border-t border-white/10 pt-3">
-                      <span className="font-heading italic text-sm text-sand">0{i + 1}</span>
+                      <span className="editorial-index text-sm text-sand">0{i + 1}</span>
                       <span className="text-xs leading-[1.6] !text-white/60">{item}</span>
                     </div>
                   ))}
@@ -76,17 +75,18 @@ export default function ServiceDetail({ params }: Props) {
           </div>
         </section>
 
-        <section className="mt-5 grid gap-4 lg:grid-cols-[1.3fr_.7fr]">
-          <div className="premium-hero p-6 paper-noise sm:p-8 lg:p-10 xl:p-12">
+        <section className="mt-6 grid gap-6 lg:grid-cols-[1.3fr_.7fr]">
+          <div className="relative overflow-hidden bg-paper p-6 paper-noise shadow-[0_24px_80px_rgba(9,13,14,.08)] sm:p-8 lg:p-10 xl:p-12">
+            <div className="absolute inset-x-0 top-0 h-px hairline-dark" />
             <FadeIn>
               <div className="flex items-center justify-between gap-4">
-                <p className="eyebrow text-night/40">Ambito di intervento</p>
-                <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/40">Prosperya framework</span>
+                <span className="section-kicker">Ambito di intervento</span>
+                <span className="hidden text-[9px] font-semibold uppercase tracking-[.18em] text-night/40 sm:block">Prosperya framework</span>
               </div>
               <div className="mt-8 divide-y divide-night/10 border-y border-night/10">
                 {service.full.map((item, i) => (
                   <div key={item} className="group grid grid-cols-[42px_1fr_auto] items-center gap-4 py-5 sm:grid-cols-[54px_1fr_auto] sm:py-6">
-                    <span className="font-heading italic text-xl text-mediterranean/80">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="editorial-index text-xl text-mediterranean/80">{String(i + 1).padStart(2, '0')}</span>
                     <p className={`text-base leading-relaxed sm:text-lg ${item === 'Growth Factors' ? 'font-semibold text-night' : 'text-anthracite/80'}`}>{item}</p>
                     <span className="h-1.5 w-1.5 rounded-full bg-mediterranean/40 transition-transform group-hover:scale-150" />
                   </div>
@@ -95,13 +95,15 @@ export default function ServiceDetail({ params }: Props) {
             </FadeIn>
           </div>
 
-          <aside className="space-y-4">
-            <div className="premium-panel-dark dark-surface p-6 sm:p-8 lg:p-9">
-              <p className="eyebrow !text-sand/70">Approccio</p>
-              <h2 className="mt-5 text-3xl font-heading leading-[1] !text-white sm:text-4xl">Dalla decisione all’esecuzione.</h2>
+          <aside className="relative overflow-hidden bg-[#0A0F10] p-6 text-white shadow-[0_24px_80px_rgba(9,13,14,.16)] sm:p-8 lg:p-9">
+            <div className="absolute inset-0 prosperya-grid opacity-15" />
+            <div className="absolute inset-x-0 top-0 h-px hairline-light" />
+            <div className="relative">
+              <span className="section-kicker-dark">Approccio</span>
+              <h2 className="mt-6 text-3xl font-heading leading-[1] !text-white sm:text-4xl">Dalla decisione all’esecuzione.</h2>
               <p className="mt-6 text-sm leading-[1.8] !text-white/70">L’intervento viene dimensionato sul contesto reale, sulle priorità e sul livello di complessità dell’impresa.</p>
 
-              <Link href={ctaHref} className="premium-button-light group mt-8 w-full justify-between">
+              <Link href={ctaHref} className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night">
                 <span className="flex items-center gap-2">{isStartup && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
@@ -109,17 +111,17 @@ export default function ServiceDetail({ params }: Props) {
               {isStartup && !startupPaymentUrl && (
                 <p className="mt-4 text-[11px] leading-relaxed !text-white/50">Il pagamento online sarà attivato qui non appena verrà configurato il link di pagamento della consulenza.</p>
               )}
-            </div>
 
-            <div className="premium-card p-6 sm:p-8">
-              <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Prosperya standard</p>
-              <div className="mt-6 grid gap-4">
-                {['Analisi prima della proposta', 'Referente e regia coordinata', 'Obiettivi e avanzamento misurabili'].map((item, i) => (
-                  <div key={item} className="flex items-start gap-3 border-t border-night/10 pt-4">
-                    <span className="font-heading italic text-lg text-mediterranean">0{i + 1}</span>
-                    <p className="text-sm leading-relaxed text-night/70">{item}</p>
-                  </div>
-                ))}
+              <div className="mt-10 border-t border-white/10 pt-7">
+                <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/35">Prosperya standard</p>
+                <div className="mt-5 space-y-4">
+                  {['Analisi prima della proposta', 'Referente e regia coordinata', 'Obiettivi e avanzamento misurabili'].map((item, i) => (
+                    <div key={item} className="grid grid-cols-[32px_1fr] gap-3 border-t border-white/10 pt-4">
+                      <span className="editorial-index text-lg text-sand">0{i + 1}</span>
+                      <p className="text-sm leading-relaxed !text-white/65">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </aside>
