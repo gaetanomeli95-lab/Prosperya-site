@@ -1,37 +1,33 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
 import { home } from '@/data/content';
-import { useMobilePerformanceMode } from './MotionWrapper';
+import { FadeIn } from './MotionWrapper';
 
 export function SectionPositioning() {
-  const mobile = useMobilePerformanceMode();
-  const reduceMotion = useReducedMotion();
-  const lightweight = mobile || reduceMotion;
-
   return (
-    <section className="relative overflow-hidden bg-[#0D1213] text-white border-y border-white/8">
-      <div className="absolute -top-24 right-[-8%] h-72 w-72 rounded-full bg-mediterranean/10 blur-3xl hidden md:block" />
-      <div className="max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8 py-10 lg:py-14">
-        <motion.div
-          initial={lightweight ? false : { opacity: 0, y: 18 }}
-          animate={lightweight ? { opacity: 1, y: 0 } : undefined}
-          whileInView={lightweight ? undefined : { opacity: 1, y: 0 }}
-          viewport={lightweight ? undefined : { once: true, margin: '-40px' }}
-          transition={lightweight ? { duration: 0.01 } : { duration: 0.58 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5"
-        >
+    <section className="relative overflow-hidden border-y border-white/10 bg-[#0A0F10] text-white">
+      <div className="absolute inset-0 prosperya-grid opacity-20" />
+      <div className="absolute left-1/2 top-0 h-px w-[70%] -translate-x-1/2 hairline-light" />
+
+      <div className="section-frame relative py-8 sm:py-10 lg:py-0">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
           {home.positioning.map((item, i) => (
-            <div key={item} className="group relative min-h-[140px] lg:min-h-[150px] overflow-hidden border border-white/10 bg-white/[0.035] p-6 lg:backdrop-blur-sm lg:transition-all lg:duration-500 lg:hover:-translate-y-1 lg:hover:bg-white/[0.065] lg:hover:border-white/20">
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sand/70 to-transparent opacity-0 lg:transition-opacity lg:group-hover:opacity-100" />
-              <div className="flex items-center justify-between mb-7">
-                <span className="font-heading italic text-2xl text-sand">0{i + 1}</span>
-                <span className="h-2 w-2 rounded-full bg-white/20 lg:group-hover:bg-sand lg:transition-colors" />
+            <FadeIn key={item} delay={i * 0.05}>
+              <div className={`group relative min-h-[170px] py-7 sm:px-6 lg:min-h-[210px] lg:px-7 lg:py-9 ${i > 0 ? 'sm:border-l sm:border-white/10' : ''} ${i > 1 ? 'border-t border-white/10 sm:border-t-0' : i === 1 ? 'border-t border-white/10 sm:border-t-0' : ''}`}>
+                <div className="flex items-start justify-between gap-6">
+                  <span className="editorial-index text-3xl text-sand/80 lg:text-4xl">0{i + 1}</span>
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/20 transition-all duration-500 group-hover:scale-150 group-hover:bg-sand" />
+                </div>
+
+                <p className="mt-12 max-w-[18rem] text-[15px] font-medium leading-[1.65] !text-white/80 lg:mt-14 lg:text-base">
+                  {item}
+                </p>
+
+                <div className="absolute inset-x-6 bottom-0 h-px origin-left scale-x-0 bg-sand/70 transition-transform duration-500 group-hover:scale-x-100 lg:inset-x-7" />
               </div>
-              <p className="max-w-[17rem] text-[15px] font-medium leading-relaxed !text-white/88">{item}</p>
-            </div>
+            </FadeIn>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
