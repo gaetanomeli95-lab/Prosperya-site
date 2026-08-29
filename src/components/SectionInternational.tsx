@@ -1,49 +1,69 @@
 'use client';
 
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
 import { home } from '@/data/content';
 import { MapNetwork } from './MapNetwork';
 import { FadeIn } from './MotionWrapper';
 
+const regions = [
+  ['01', 'Europa occidentale', 'Italia · Paesi Bassi · Francia · Germania · Spagna'],
+  ['02', 'Europa orientale', 'Romania · Bulgaria'],
+  ['03', 'Mediterraneo', 'Tunisia · Area magrebina'],
+];
+
 export function SectionInternational() {
   return (
-    <section className="relative overflow-hidden bg-night text-white py-24 lg:py-36">
-      <div className="absolute inset-0 prosperya-grid opacity-40" />
-      <div className="relative max-w-[1480px] mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    <section className="relative overflow-hidden bg-[#0B1011] py-24 text-white lg:py-36">
+      <div className="absolute inset-0 prosperya-grid opacity-20" />
+      <div className="absolute right-[-12rem] top-[-8rem] h-[38rem] w-[38rem] rounded-full bg-mediterranean/10 blur-3xl" />
+
+      <div className="section-frame relative">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">
             <FadeIn>
-              <span className="eyebrow text-white/38">Cross-border advisory</span>
-              <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-heading leading-[0.98] text-white">
+              <span className="section-kicker-dark">Cross-border advisory</span>
+              <h2 className="mt-7 max-w-2xl text-[clamp(3rem,5.5vw,6.4rem)] font-heading leading-[0.92] tracking-[-.04em] !text-white">
                 {home.international.title}
               </h2>
-              <p className="mt-7 max-w-lg text-base lg:text-lg leading-[1.75] text-white/66">
+              <p className="mt-7 max-w-lg text-base leading-[1.8] !text-white/60 lg:text-lg">
                 {home.international.text}
               </p>
             </FadeIn>
 
-            <FadeIn delay={0.12}>
-              <div className="mt-10 border-t border-white/12">
-                {[
-                  ['Europa occidentale', 'Italia · Paesi Bassi · Francia · Germania · Spagna'],
-                  ['Europa orientale', 'Romania · Bulgaria'],
-                  ['Mediterraneo', 'Tunisia · Area magrebina'],
-                ].map(([label, places], i) => (
-                  <div key={label} className="grid grid-cols-[28px_1fr] gap-4 py-5 border-b border-white/10">
-                    <span className="font-heading italic text-lg text-sand/70">0{i + 1}</span>
+            <FadeIn delay={0.08}>
+              <div className="mt-10 border-y border-white/10">
+                {regions.map(([n, label, places]) => (
+                  <div key={label} className="group grid grid-cols-[42px_1fr] gap-4 border-b border-white/10 py-5 last:border-b-0">
+                    <span className="editorial-index text-xl text-sand/70">{n}</span>
                     <div>
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/36">{label}</p>
-                      <p className="mt-1 text-sm text-white/72">{places}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[.18em] !text-white/40">{label}</p>
+                      <p className="mt-2 text-sm leading-relaxed !text-white/75">{places}</p>
                     </div>
                   </div>
                 ))}
               </div>
+
+              <Link href="/internazionalizzazione/" className="group mt-8 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[.16em] !text-white/70 transition-colors hover:!text-white">
+                Esplora il network
+                <span className="grid h-8 w-8 place-items-center rounded-full border border-white/15 transition-all group-hover:border-sand group-hover:bg-sand group-hover:!text-night">
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
             </FadeIn>
           </div>
 
-          <div className="lg:col-span-7">
-            <FadeIn delay={0.15}>
-              <div className="relative border border-white/10 bg-white/[0.025] p-4 sm:p-7 lg:p-10 shadow-float">
-                <div className="absolute top-0 left-0 h-px w-24 bg-sand/70" />
+          <div className="lg:col-span-7 lg:pt-4">
+            <FadeIn delay={0.12}>
+              <div className="relative overflow-hidden border border-white/10 bg-white/[0.025] p-4 shadow-[0_30px_100px_rgba(0,0,0,.22)] sm:p-7 lg:p-10">
+                <div className="absolute inset-x-0 top-0 h-px hairline-light" />
+                <div className="mb-7 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-[9px] font-semibold uppercase tracking-[.22em] !text-white/35">Operating network</p>
+                    <p className="mt-2 font-heading text-2xl !text-white sm:text-3xl">Sicilia come hub</p>
+                  </div>
+                  <span className="hidden text-[9px] font-semibold uppercase tracking-[.18em] !text-sand/70 sm:block">Europe · Mediterranean</span>
+                </div>
                 <MapNetwork />
               </div>
             </FadeIn>
