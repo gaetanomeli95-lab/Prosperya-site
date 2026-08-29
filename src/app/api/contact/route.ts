@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from: 'Prosperya <onboarding@resend.dev>',
       to: toEmail,
-      replyTo: email,
+      reply_to: email,
       subject: `[${area}] Nuova richiesta da ${company}`,
       text: `
 NUOVA RICHIESTA PROSPERYA
