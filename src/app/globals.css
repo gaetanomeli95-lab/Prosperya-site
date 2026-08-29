@@ -152,6 +152,42 @@
     background-size: 48px 48px;
   }
 
+  .section-frame {
+    @apply relative mx-auto max-w-[1480px] px-5 sm:px-6 lg:px-8;
+  }
+
+  .section-kicker {
+    @apply inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-night/50 sm:text-[11px];
+  }
+
+  .section-kicker::before {
+    content: '';
+    @apply block h-px w-8 bg-mediterranean;
+  }
+
+  .section-kicker-dark {
+    @apply inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50 sm:text-[11px];
+  }
+
+  .section-kicker-dark::before {
+    content: '';
+    @apply block h-px w-8 bg-sand;
+  }
+
+  .editorial-index {
+    font-family: var(--font-heading);
+    font-style: italic;
+    letter-spacing: -0.03em;
+  }
+
+  .hairline-light {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  }
+
+  .hairline-dark {
+    background: linear-gradient(90deg, transparent, rgba(9,13,14,.18), transparent);
+  }
+
   .prosperya-orbit {
     transform-origin: 50% 50%;
     animation: prosperya-orbit 58s linear infinite;
