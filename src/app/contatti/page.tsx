@@ -13,58 +13,62 @@ export const metadata: Metadata = {
 export default function Contatti() {
   return (
     <div className="premium-page">
-      <div className="absolute inset-x-0 top-0 h-[36rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_64%,transparent_100%)]" />
-      <div className="absolute right-[-8rem] top-24 h-[28rem] w-[28rem] rounded-full bg-mediterranean/12 blur-3xl" />
+      <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_66%,transparent_100%)]" />
+      <div className="absolute right-[-10rem] top-20 h-[30rem] w-[30rem] rounded-full bg-mediterranean/10 blur-3xl" />
 
       <div className="premium-container">
-        <section className="premium-panel-dark relative overflow-hidden p-6 sm:p-9 lg:p-12 xl:p-14">
-          <div className="absolute inset-0 prosperya-grid opacity-30" />
-          <div className="relative grid gap-10 lg:grid-cols-12 lg:items-end">
+        <section className="premium-panel-dark dark-surface relative overflow-hidden p-6 sm:p-9 lg:p-12 xl:p-14">
+          <div className="absolute inset-0 prosperya-grid opacity-20" />
+          <div className="absolute inset-x-0 top-0 h-px hairline-light" />
+          <div className="relative grid gap-12 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-8">
               <FadeIn>
-                <div className="flex items-center gap-3"><span className="h-px w-8 bg-sand" /><span className="eyebrow !text-white/40">Private advisory</span></div>
-                <h1 className="mt-7 max-w-5xl text-[clamp(3.3rem,7vw,7rem)] font-heading leading-[.88] tracking-[-.045em] !text-white">Iniziamo dal contesto.</h1>
+                <span className="section-kicker-dark">Private advisory</span>
+                <h1 className="mt-7 max-w-5xl text-[clamp(3.4rem,7vw,7.2rem)] font-heading leading-[.88] tracking-[-.045em] !text-white">Iniziamo dal contesto.</h1>
               </FadeIn>
             </div>
             <div className="lg:col-span-4">
               <FadeIn delay={0.1}>
-                <p className="max-w-lg text-sm leading-[1.8] !text-white/60 sm:text-base">Raccontaci la situazione, l’obiettivo e il livello di urgenza. Il primo confronto serve a capire il percorso più coerente.</p>
+                <p className="max-w-lg text-sm leading-[1.8] !text-white/70 sm:text-base">Raccontaci la situazione, l’obiettivo e il livello di urgenza. Il primo confronto serve a capire il percorso più coerente.</p>
               </FadeIn>
             </div>
           </div>
         </section>
 
-        <section className="mt-5 grid gap-4 lg:grid-cols-[.72fr_1.28fr]">
-          <div className="space-y-4">
+        <section className="mt-6 grid gap-6 lg:grid-cols-[.68fr_1.32fr]">
+          <div className="bg-[#E9E3D9] p-6 paper-noise sm:p-8 lg:p-9">
             <FadeIn>
-              <div className="premium-hero p-6 sm:p-8 lg:p-9">
-                <p className="eyebrow text-night/34">Contatto diretto</p>
-                <div className="mt-7 divide-y divide-night/10 border-y border-night/10">
-                  <a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="group flex items-center justify-between gap-4 py-5 text-night/75 transition-colors hover:text-night">
-                    <span className="flex items-center gap-3 text-sm"><Phone className="h-4 w-4 text-mediterranean" />{company.telefono}</span>
-                    <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
-                  <a href={`mailto:${company.emailDirezione}`} className="group flex items-center justify-between gap-4 py-5 text-night/75 transition-colors hover:text-night">
-                    <span className="flex min-w-0 items-center gap-3 text-sm"><Mail className="h-4 w-4 shrink-0 text-mediterranean" /><span className="truncate">{company.emailDirezione}</span></span>
-                    <ArrowUpRight className="h-4 w-4 shrink-0 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
+              <span className="section-kicker">Contatto diretto</span>
+              <div className="mt-8 border-y border-night/15">
+                <a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="group flex items-center justify-between gap-4 py-5 text-night/75 transition-colors hover:text-night">
+                  <span className="flex items-center gap-3 text-sm"><Phone className="h-4 w-4 text-mediterranean" />{company.telefono}</span>
+                  <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+                <a href={`mailto:${company.emailDirezione}`} className="group flex items-center justify-between gap-4 border-t border-night/10 py-5 text-night/75 transition-colors hover:text-night">
+                  <span className="flex min-w-0 items-center gap-3 text-sm"><Mail className="h-4 w-4 shrink-0 text-mediterranean" /><span className="truncate">{company.emailDirezione}</span></span>
+                  <ArrowUpRight className="h-4 w-4 shrink-0 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </div>
+
+              <div className="mt-10 border-t border-night/15 pt-7">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-mediterranean" />
+                  <div>
+                    <p className="text-sm font-semibold text-night">Sede</p>
+                    <address className="mt-2 not-italic text-sm leading-[1.75] text-night/60">{company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}</address>
+                  </div>
                 </div>
+                <p className="mt-7 text-xs leading-[1.8] text-night/45">{company.areaOperativa}</p>
               </div>
-            </FadeIn>
 
-            <FadeIn delay={0.05}>
-              <div className="premium-panel-dark p-6 sm:p-8 lg:p-9">
-                <div className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sand" /><div><p className="text-sm font-semibold !text-white">Sede</p><address className="mt-2 not-italic text-sm leading-[1.7] !text-white/55">{company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}</address></div></div>
-                <p className="mt-6 border-t border-white/10 pt-5 text-xs leading-[1.7] !text-white/34">{company.areaOperativa}</p>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.1}>
-              <div className="premium-card p-6 sm:p-8">
-                <p className="eyebrow text-night/34">Come lavoriamo</p>
-                <div className="mt-6 space-y-4">
+              <div className="mt-10 border-t border-night/15 pt-7">
+                <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Il percorso</p>
+                <div className="mt-5 space-y-4">
                   {['Primo inquadramento', 'Definizione delle priorità', 'Proposta di percorso'].map((item, i) => (
-                    <div key={item} className="flex items-center gap-3 border-t border-night/10 pt-4"><span className="font-heading italic text-lg text-mediterranean">0{i + 1}</span><span className="text-sm text-night/65">{item}</span></div>
+                    <div key={item} className="grid grid-cols-[34px_1fr] items-center gap-3">
+                      <span className="editorial-index text-lg text-mediterranean">0{i + 1}</span>
+                      <span className="text-sm text-night/65">{item}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -72,11 +76,12 @@ export default function Contatti() {
           </div>
 
           <FadeIn delay={0.08}>
-            <div className="premium-hero p-6 sm:p-8 lg:p-10 xl:p-12">
-              <div className="mb-8 grid gap-4 border-b border-night/10 pb-7 sm:grid-cols-[1fr_auto] sm:items-end">
+            <div className="relative overflow-hidden bg-paper p-6 shadow-[0_24px_80px_rgba(9,13,14,.08)] sm:p-8 lg:p-10 xl:p-12">
+              <div className="absolute inset-x-0 top-0 h-px hairline-dark" />
+              <div className="mb-9 grid gap-4 border-b border-night/10 pb-7 sm:grid-cols-[1fr_auto] sm:items-end">
                 <div>
-                  <p className="eyebrow text-night/34">Richiesta consulenza</p>
-                  <h2 className="mt-4 text-3xl font-heading leading-[1] text-night sm:text-4xl">Descrivici ciò che conta davvero.</h2>
+                  <span className="section-kicker">Richiesta consulenza</span>
+                  <h2 className="mt-5 max-w-2xl text-3xl font-heading leading-[.98] text-night sm:text-4xl lg:text-5xl">Descrivici ciò che conta davvero.</h2>
                 </div>
                 <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">Risposta diretta</span>
               </div>
