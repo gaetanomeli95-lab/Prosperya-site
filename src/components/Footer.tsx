@@ -70,7 +70,7 @@ export function Footer() {
             <address className="mt-5 not-italic text-sm leading-[1.8] !text-white/68">
               {company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}
               <div className="mt-4"><a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="transition-colors hover:!text-white">{company.telefono}</a></div>
-              <div><a href={`mailto:${company.emailDirezione}`} className="break-all transition-colors hover:!text-white">{company.emailDirezione}</a></div>
+              <div><a href={`mailto:${company.emailPubblica}`} className="break-all transition-colors hover:!text-white">{company.emailPubblica}</a></div>
             </address>
           </div>
 
