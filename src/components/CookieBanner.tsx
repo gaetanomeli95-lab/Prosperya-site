@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, ShieldCheck, X } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck } from 'lucide-react';
 
 const CONSENT_KEY = 'prosperya-cookie-consent-v1';
 
@@ -32,7 +32,7 @@ export function CookieBanner() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-5 sm:pb-5" role="region" aria-label="Preferenze cookie">
+    <div className="fixed inset-x-0 bottom-[4.6rem] z-[120] px-3 pb-2 sm:bottom-[5rem] sm:px-5 lg:bottom-0 lg:pb-5" role="region" aria-label="Preferenze cookie">
       <div className="mx-auto max-w-[1180px] overflow-hidden border border-white/14 bg-[#142124]/[0.98] text-white shadow-[0_-20px_80px_rgba(5,8,9,.32)] backdrop-blur-xl">
         <div className="h-px bg-gradient-to-r from-logo-yellow via-logo-green to-logo-magenta" />
         <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10 lg:p-7">
