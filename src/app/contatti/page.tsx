@@ -18,7 +18,7 @@ export default async function Contatti({ searchParams }: ContattiProps) {
   const { area } = await searchParams;
   return (
     <div className="premium-page">
-      <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_66%,transparent_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#172326_0%,#1D2C2F_66%,transparent_100%)]" />
       <div className="absolute right-[-10rem] top-20 h-[30rem] w-[30rem] rounded-full bg-mediterranean/10 blur-3xl" />
 
       <div className="premium-container">
@@ -49,8 +49,8 @@ export default async function Contatti({ searchParams }: ContattiProps) {
                   <span className="flex items-center gap-3 text-sm"><Phone className="h-4 w-4 text-mediterranean" />{company.telefono}</span>
                   <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
-                <a href={`mailto:${company.emailDirezione}`} className="group flex items-center justify-between gap-4 border-t border-night/10 py-5 text-night/75 transition-colors hover:text-night">
-                  <span className="flex min-w-0 items-center gap-3 text-sm"><Mail className="h-4 w-4 shrink-0 text-mediterranean" /><span className="truncate">{company.emailDirezione}</span></span>
+                <a href={`mailto:${company.emailPubblica}`} className="group flex items-center justify-between gap-4 border-t border-night/10 py-5 text-night/75 transition-colors hover:text-night">
+                  <span className="flex min-w-0 items-center gap-3 text-sm"><Mail className="h-4 w-4 shrink-0 text-mediterranean" /><span className="truncate">{company.emailPubblica}</span></span>
                   <ArrowUpRight className="h-4 w-4 shrink-0 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </div>

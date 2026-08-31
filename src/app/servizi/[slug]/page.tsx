@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
 import { consultationConfig, isPaidConsultationSlug } from '@/data/consultations';
 import { FadeIn } from '@/components/MotionWrapper';
-import { ArrowLeft, ArrowUpRight, CalendarDays, CreditCard } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 
 interface Props {
@@ -45,7 +45,7 @@ export default async function ServiceDetail({ params }: Props) {
 
   return (
     <div className="premium-page">
-      <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_66%,transparent_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#172326_0%,#1D2C2F_66%,transparent_100%)]" />
       <div className="absolute left-[-9rem] top-40 h-[26rem] w-[26rem] rounded-full bg-mediterranean/10 blur-3xl" />
 
       <div className="premium-container">
@@ -105,7 +105,7 @@ export default async function ServiceDetail({ params }: Props) {
             </FadeIn>
           </div>
 
-          <aside className="relative overflow-hidden bg-[#0A0F10] p-6 text-white shadow-[0_24px_80px_rgba(9,13,14,.16)] sm:p-8 lg:p-9">
+          <aside className="relative overflow-hidden bg-[#213236] p-6 text-white shadow-[0_24px_80px_rgba(9,13,14,.13)] sm:p-8 lg:p-9">
             <div className="absolute inset-0 prosperya-grid opacity-15" />
             <div className="absolute inset-x-0 top-0 h-px hairline-light" />
             <div className="relative">
@@ -122,10 +122,17 @@ export default async function ServiceDetail({ params }: Props) {
                     </div>
                     <span className="pb-1 text-[10px] font-semibold uppercase tracking-[.16em] !text-sand/80">{consultationConfig.vatLabel}</span>
                   </div>
-                  <div className="mt-5 flex items-start gap-3 border-t border-white/10 pt-4">
-                    <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
-                    <p className="text-xs leading-[1.7] !text-white/62">{consultationConfig.availableDays}, nella fascia {consultationConfig.availableHours}.</p>
+                  <div className="mt-5 space-y-3 border-t border-white/10 pt-4">
+                    <div className="flex items-start gap-3">
+                      <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
+                      <p className="text-xs leading-[1.7] !text-white/62">{consultationConfig.durationLabel}</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
+                      <p className="text-xs leading-[1.7] !text-white/62">{consultationConfig.availableDays}: {consultationConfig.availableHours}.</p>
+                    </div>
                   </div>
+                  <p className="mt-3 text-[11px] leading-[1.7] !text-white/45">{consultationConfig.weeklyCapacity}</p>
                   <p className="mt-4 text-[11px] leading-[1.7] !text-white/45">{consultationConfig.creditNote}</p>
                 </div>
               )}

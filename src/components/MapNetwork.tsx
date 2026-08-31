@@ -16,7 +16,7 @@ const nodes = [
 
 export function MapNetwork() {
   return (
-    <div className="relative mx-auto aspect-[1/1] w-full max-w-3xl sm:aspect-[4/3]" aria-label="Mappa delle aree operative">
+    <div className="relative mx-auto aspect-[4/3] w-full max-w-3xl sm:aspect-[4/3]" aria-label="Mappa delle aree operative">
       <svg
         className="absolute inset-0 h-full w-full text-white/10"
         viewBox="0 0 100 100"
@@ -42,8 +42,8 @@ export function MapNetwork() {
           className="absolute -translate-x-1/2 -translate-y-1/2"
           style={{ left: `${node.x}%`, top: `${node.y}%` }}
         >
-          <span className={`inline-block h-2.5 w-2.5 rounded-full shadow-sm sm:h-3 sm:w-3 ${node.color}`} />
-          <span className="absolute left-3 top-1/2 hidden -translate-y-1/2 whitespace-nowrap text-[10px] !text-white/80 sm:left-4 sm:block sm:text-xs">
+          <span className={`inline-block h-3 w-3 rounded-full shadow-sm sm:h-3 sm:w-3 ${node.color}`} />
+          <span className="absolute left-3.5 top-1/2 hidden -translate-y-1/2 whitespace-nowrap text-[10px] !text-white/80 sm:left-4 sm:block sm:text-xs">
             {node.label}
           </span>
         </motion.div>
@@ -80,9 +80,10 @@ export function MapNetwork() {
         ))}
       </svg>
 
-      <div className="absolute inset-x-0 bottom-0 grid grid-cols-3 gap-2 sm:hidden">
-        {['Sicilia', 'Italia', 'Tunisia'].map((label) => (
-          <div key={label} className="border border-white/10 bg-night/70 px-2 py-2 text-center text-[9px] uppercase tracking-[0.12em] !text-white/65 backdrop-blur-sm">
+      <div className="absolute inset-x-0 bottom-1 flex items-center justify-center gap-4 sm:hidden">
+        {['Sicilia', 'Italia', 'Tunisia'].map((label, i) => (
+          <div key={label} className="flex items-center gap-2 text-[9px] uppercase tracking-[0.14em] !text-white/62">
+            <span className={`h-1.5 w-1.5 rounded-full ${i === 0 ? 'bg-logo-magenta' : i === 1 ? 'bg-logo-blue' : 'bg-logo-green'}`} />
             {label}
           </div>
         ))}

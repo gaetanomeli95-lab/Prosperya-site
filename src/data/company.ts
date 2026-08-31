@@ -6,6 +6,7 @@ export const company = {
   cap: '90010',
   regione: 'Sicilia',
   pivaCf: '07415020820',
+  emailPubblica: 'info.prosperya@gmail.com',
   emailDirezione: 'direzione@prosperya.it',
   emailPrivacy: 'info.prosperya@gmail.com',
   telefono: '+39 352 023 5382',
