@@ -10,7 +10,12 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contatti/' },
 };
 
-export default function Contatti() {
+interface ContattiProps {
+  searchParams: Promise<{ area?: string }>;
+}
+
+export default async function Contatti({ searchParams }: ContattiProps) {
+  const { area } = await searchParams;
   return (
     <div className="premium-page">
       <div className="absolute inset-x-0 top-0 h-[38rem] bg-[linear-gradient(180deg,#090D0E_0%,#101718_66%,transparent_100%)]" />
@@ -85,7 +90,7 @@ export default function Contatti() {
                 </div>
                 <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">Risposta diretta</span>
               </div>
-              <ContactForm />
+              <ContactForm initialArea={area} />
             </div>
           </FadeIn>
         </section>

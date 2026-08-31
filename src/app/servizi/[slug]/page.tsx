@@ -1,20 +1,22 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
+import { consultationConfig, isPaidConsultationSlug } from '@/data/consultations';
 import { FadeIn } from '@/components/MotionWrapper';
-import { ArrowLeft, ArrowUpRight, CreditCard } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, CalendarDays, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const service = services.find((s) => s.slug === params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   if (!service) return { title: 'Servizio non trovato' };
   return {
     title: service.title,
@@ -23,15 +25,23 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-export default function ServiceDetail({ params }: Props) {
-  const service = services.find((s) => s.slug === params.slug);
+export default async function ServiceDetail({ params }: Props) {
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
 
   const index = services.findIndex((s) => s.slug === service.slug);
-  const isStartup = service.slug === 'startup';
-  const startupPaymentUrl = process.env.NEXT_PUBLIC_STARTUP_PAYMENT_URL;
-  const ctaHref = isStartup && startupPaymentUrl ? startupPaymentUrl : '/contatti/';
-  const ctaLabel = isStartup ? 'Richiedi una consulenza per la tua Start Up' : 'Richiedi un confronto';
+  const isPaidConsultation = isPaidConsultationSlug(service.slug);
+  const paymentUrl = service.slug === 'startup'
+    ? process.env.NEXT_PUBLIC_STARTUP_PAYMENT_URL
+    : service.slug === 'finanza-agevolata'
+      ? process.env.NEXT_PUBLIC_FINANZA_PAYMENT_URL
+      : undefined;
+  const contactArea = encodeURIComponent(service.title);
+  const ctaHref = isPaidConsultation && paymentUrl ? paymentUrl : `/contatti/?area=${contactArea}`;
+  const ctaLabel = isPaidConsultation
+    ? paymentUrl ? 'Prenota e paga la consulenza' : 'Richiedi la consulenza'
+    : 'Richiedi un confronto';
 
   return (
     <div className="premium-page">
@@ -103,13 +113,35 @@ export default function ServiceDetail({ params }: Props) {
               <h2 className="mt-6 text-3xl font-heading leading-[1] !text-white sm:text-4xl">Dalla decisione all’esecuzione.</h2>
               <p className="mt-6 text-sm leading-[1.8] !text-white/70">L’intervento viene dimensionato sul contesto reale, sulle priorità e sul livello di complessità dell’impresa.</p>
 
-              <Link href={ctaHref} className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night">
-                <span className="flex items-center gap-2">{isStartup && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
+              {isPaidConsultation && (
+                <div className="mt-7 border border-white/12 bg-white/[0.045] p-5">
+                  <div className="flex items-end justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/40">Consulenza iniziale</p>
+                      <p className="mt-2 text-4xl font-heading !text-white">€{consultationConfig.price}</p>
+                    </div>
+                    <span className="pb-1 text-[10px] font-semibold uppercase tracking-[.16em] !text-sand/80">{consultationConfig.vatLabel}</span>
+                  </div>
+                  <div className="mt-5 flex items-start gap-3 border-t border-white/10 pt-4">
+                    <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
+                    <p className="text-xs leading-[1.7] !text-white/62">{consultationConfig.availableDays}, nella fascia {consultationConfig.availableHours}.</p>
+                  </div>
+                  <p className="mt-4 text-[11px] leading-[1.7] !text-white/45">{consultationConfig.creditNote}</p>
+                </div>
+              )}
+
+              <Link
+                href={ctaHref}
+                target={paymentUrl ? '_blank' : undefined}
+                rel={paymentUrl ? 'noopener noreferrer' : undefined}
+                className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night"
+              >
+                <span className="flex items-center gap-2">{isPaidConsultation && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
 
-              {isStartup && !startupPaymentUrl && (
-                <p className="mt-4 text-[11px] leading-relaxed !text-white/50">Il pagamento online sarà attivato qui non appena verrà configurato il link di pagamento della consulenza.</p>
+              {isPaidConsultation && !paymentUrl && (
+                <p className="mt-4 text-[11px] leading-relaxed !text-white/50">La prenotazione con pagamento online sarà disponibile dopo il collegamento di Stripe e Google Calendar. Nel frattempo puoi inviare la richiesta.</p>
               )}
 
               <div className="mt-10 border-t border-white/10 pt-7">

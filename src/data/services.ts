@@ -1,3 +1,5 @@
+import { consultationConfig } from './consultations';
+
 export interface Service {
   slug: string;
   title: string;
@@ -10,6 +12,7 @@ export interface CatalogService {
   title: string;
   href: string;
   area: string;
+  consultationPrice?: number;
 }
 
 export const services: Service[] = [
@@ -67,6 +70,7 @@ export const services: Service[] = [
       'Adempimenti iniziali',
       'Business model',
       'Struttura operativa',
+      'Come finanziare la tua Start Up',
       'Percorsi di crescita scalabili',
     ],
   },
@@ -86,6 +90,7 @@ export const services: Service[] = [
       'Statuto e atto costitutivo',
       'Organizzazione della struttura iniziale',
       'Adempimenti di avvio',
+      'Controllo della governance',
     ],
   },
   {
@@ -146,13 +151,13 @@ export const services: Service[] = [
 ];
 
 export const serviceCatalog: CatalogService[] = [
-  { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese' },
+  { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese', consultationPrice: consultationConfig.price },
   { title: 'Market Entry', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Invest in Italy', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Rinegoziazione bancaria', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
   { title: 'Growth Factors', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
   { title: 'Controllo di gestione', href: '/servizi/governance-e-controllo/', area: 'Governance e controllo' },
-  { title: 'Finanza agevolata', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata' },
+  { title: 'Finanza agevolata', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata', consultationPrice: consultationConfig.price },
   { title: 'Formazione e Executive Mentoring', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
   { title: 'Contributi a fondo perduto', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata' },
   { title: 'Marchi e brevetti', href: '/contatti/', area: 'Tutela e sviluppo' },

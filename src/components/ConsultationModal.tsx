@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Mail, Phone, X } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Mail, Phone, X } from 'lucide-react';
 import { company } from '@/data/company';
+import { consultationConfig } from '@/data/consultations';
 
 interface ConsultationModalProps {
   open: boolean;
@@ -53,20 +54,30 @@ export function ConsultationModal({ open, onClose }: ConsultationModalProps) {
 
         <div className="relative grid md:grid-cols-[1.25fr_.75fr]">
           <div className="p-6 sm:p-8 md:p-10 lg:p-12">
-            <p className="eyebrow !text-sand/80">Private advisory</p>
+            <p className="eyebrow !text-sand/80">Consulenze prenotabili</p>
             <h2 id="consultation-title" className="mt-5 max-w-xl text-4xl font-heading leading-[.98] !text-white sm:text-5xl">
-              Una conversazione iniziale. Poi solo ciò che serve davvero.
+              Un primo confronto, con obiettivi chiari.
             </h2>
             <p className="mt-6 max-w-xl text-sm leading-[1.75] !text-white/58 sm:text-base">
-              Raccontaci il contesto, l’obiettivo e il livello di urgenza. Prosperya individuerà il percorso più coerente prima di proporre qualsiasi intervento.
+              Le consulenze iniziali dedicate a Start Up e Finanza agevolata hanno un costo di €{consultationConfig.price} {consultationConfig.vatLabel.toLowerCase()}. {consultationConfig.creditNote}
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {['Analisi del contesto', 'Priorità operative', 'Percorso dedicato'].map((item, index) => (
-                <div key={item} className="border border-white/10 bg-white/[0.03] p-4">
-                  <span className="font-heading italic text-lg text-sand">0{index + 1}</span>
-                  <p className="mt-5 text-xs font-semibold uppercase tracking-[.12em] !text-white/72">{item}</p>
-                </div>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {[
+                ['Start Up', '/servizi/startup/'],
+                ['Finanza agevolata', '/servizi/finanza-agevolata/'],
+              ].map(([item, href]) => (
+                <Link key={item} href={href} onClick={onClose} className="group border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-sand/40 hover:bg-white/[0.06]">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-heading text-2xl !text-white">{item}</p>
+                    <ArrowUpRight className="h-4 w-4 text-sand transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </div>
+                  <p className="mt-5 text-2xl font-heading !text-sand">€{consultationConfig.price} <span className="font-body text-[9px] font-semibold uppercase tracking-[.15em] !text-white/40">{consultationConfig.vatLabel}</span></p>
+                  <div className="mt-4 flex items-start gap-2 border-t border-white/10 pt-3">
+                    <CalendarDays className="mt-0.5 h-3.5 w-3.5 shrink-0 text-sand/80" />
+                    <p className="text-[11px] leading-[1.6] !text-white/48">{consultationConfig.availableDays} · {consultationConfig.availableHours}</p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -94,7 +105,7 @@ export function ConsultationModal({ open, onClose }: ConsultationModalProps) {
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
 
-            <p className="mt-5 text-[11px] leading-relaxed !text-white/32">Nessun percorso preconfezionato: il primo confronto serve a capire se e come intervenire.</p>
+            <p className="mt-5 text-[11px] leading-relaxed !text-white/32">Per tutti gli altri servizi è possibile richiedere un primo inquadramento tramite il modulo di contatto.</p>
           </div>
         </div>
       </div>

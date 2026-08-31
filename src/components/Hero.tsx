@@ -12,7 +12,7 @@ export function Hero() {
     <section className="relative min-h-[100svh] w-full overflow-hidden bg-night text-white" aria-label="Hero">
       <div className="absolute inset-0">
         <Image
-          src="/images/hero1.png"
+          src="/images/hero1.webp"
           alt="Professionisti di Prosperya in una boardroom panoramica"
           fill
           className="scale-[1.01] object-cover object-[70%_42%] sm:object-[67%_42%] lg:object-[69%_38%]"

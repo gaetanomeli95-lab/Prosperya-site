@@ -24,10 +24,6 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -41,7 +37,6 @@ export function Header() {
     const closeOnDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setOpen(false);
     };
-    if (media.matches) setOpen(false);
     media.addEventListener('change', closeOnDesktop);
     return () => media.removeEventListener('change', closeOnDesktop);
   }, []);
@@ -70,7 +65,7 @@ export function Header() {
               <span className="min-w-0 border-l border-white/10 pl-3">
                 <span className="block truncate text-[13px] font-semibold leading-none tracking-[0.2em] !text-white sm:text-sm">PROSPERYA</span>
                 <span className="mt-1.5 hidden text-[8px] font-medium uppercase tracking-[0.22em] !text-white/45 sm:block 2xl:text-[9px]">
-                  Advisory · Governance · Growth
+                  {company.payoff}
                 </span>
               </span>
             </Link>
@@ -205,7 +200,7 @@ export function Header() {
                   <p className="text-[9px] font-semibold uppercase tracking-[.2em] !text-white/30">Direzione</p>
                   <a href={`mailto:${company.emailDirezione}`} className="mt-2 block text-sm !text-white/70 hover:!text-white">{company.emailDirezione}</a>
                 </div>
-                <p className="text-[9px] uppercase tracking-[.18em] !text-white/28 sm:text-right">Advisory · Governance · Growth</p>
+                <p className="text-[9px] uppercase tracking-[.18em] !text-white/28 sm:text-right">{company.payoff}</p>
               </div>
             </div>
           </motion.div>

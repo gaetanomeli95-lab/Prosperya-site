@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#090D0E" />
+  <g opacity="0.96">
+    <circle cx="206" cy="96" r="57" fill="#F6C515" />
+    <circle cx="301" cy="96" r="57" fill="#55B57A" />
+    <circle cx="376" cy="166" r="57" fill="#2C83C7" />
+    <circle cx="405" cy="266" r="57" fill="#D42375" />
+    <circle cx="367" cy="360" r="57" fill="#FF7A1A" />
+    <circle cx="286" cy="416" r="57" fill="#F6C515" />
+    <circle cx="191" cy="416" r="57" fill="#55B57A" />
+    <circle cx="117" cy="352" r="57" fill="#2C83C7" />
+    <circle cx="105" cy="251" r="57" fill="#D42375" />
+    <circle cx="133" cy="158" r="57" fill="#FF7A1A" />
+  </g>
+  <circle cx="256" cy="256" r="92" fill="#090D0E" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="3" />
+  <text x="256" y="290" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="700" text-anchor="middle">P</text>
+</svg>

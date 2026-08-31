@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 
 const nodes = [
-  { label: 'Sicilia', x: 51, y: 78, color: 'bg-logo-magenta' },
+  { label: 'Sicilia', x: 51, y: 73, color: 'bg-logo-magenta' },
   { label: 'Italia', x: 52, y: 68, color: 'bg-logo-blue' },
   { label: 'Paesi Bassi', x: 44, y: 34, color: 'bg-logo-yellow' },
   { label: 'Francia', x: 40, y: 48, color: 'bg-logo-green' },
@@ -11,7 +11,7 @@ const nodes = [
   { label: 'Spagna', x: 34, y: 58, color: 'bg-logo-magenta' },
   { label: 'Romania', x: 58, y: 46, color: 'bg-logo-blue' },
   { label: 'Bulgaria', x: 60, y: 52, color: 'bg-logo-yellow' },
-  { label: 'Tunisia', x: 46, y: 74, color: 'bg-logo-green' },
+  { label: 'Tunisia', x: 46, y: 82, color: 'bg-logo-green' },
 ];
 
 export function MapNetwork() {
@@ -25,7 +25,7 @@ export function MapNetwork() {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M52 68 C48 60 46 52 49 40 C50 36 46 34 44 34 C42 34 40 36 40 38 C38 42 38 46 40 48 C42 52 40 56 38 58 C36 60 34 60 34 58 M52 68 C54 64 52 60 48 58 C46 56 46 52 49 50 C52 48 54 50 58 46 C60 44 60 48 60 52 M52 68 C52 72 50 74 51 78 M51 78 C50 76 48 75 46 74"
+          d="M52 68 C48 60 46 52 49 40 C50 36 46 34 44 34 C42 34 40 36 40 38 C38 42 38 46 40 48 C42 52 40 56 38 58 C36 60 34 60 34 58 M52 68 C54 64 52 60 48 58 C46 56 46 52 49 50 C52 48 54 50 58 46 C60 44 60 48 60 52 M52 68 C52 71 51 72 51 73 M51 73 C50 76 48 79 46 82"
           stroke="currentColor"
           strokeWidth="0.25"
           vectorEffect="non-scaling-stroke"
@@ -55,14 +55,14 @@ export function MapNetwork() {
         preserveAspectRatio="none"
       >
         {[
-          [51, 78, 52, 68],
+          [51, 73, 52, 68],
           [52, 68, 44, 34],
           [52, 68, 40, 48],
           [52, 68, 49, 40],
           [52, 68, 34, 58],
           [52, 68, 58, 46],
           [52, 68, 60, 52],
-          [51, 78, 46, 74],
+          [51, 73, 46, 82],
         ].map(([x1, y1, x2, y2], i) => (
           <motion.line
             key={i}

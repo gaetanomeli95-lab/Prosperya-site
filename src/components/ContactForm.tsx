@@ -14,15 +14,21 @@ const areas = [
   'Altro',
 ];
 
-export function ContactForm() {
+interface ContactFormProps {
+  initialArea?: string;
+}
+
+export function ContactForm({ initialArea = '' }: ContactFormProps) {
+  const selectedArea = areas.includes(initialArea) ? initialArea : '';
   const [form, setForm] = useState({
     name: '',
     company: '',
     email: '',
     phone: '',
-    area: '',
+    area: selectedArea,
     message: '',
     privacy: false,
+    website: '',
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -51,7 +57,7 @@ export function ContactForm() {
 
       if (res.ok) {
         setStatus('success');
-        setForm({ name: '', company: '', email: '', phone: '', area: '', message: '', privacy: false });
+        setForm({ name: '', company: '', email: '', phone: '', area: selectedArea, message: '', privacy: false, website: '' });
       } else {
         setStatus('error');
         setErrorMsg(data.message || 'Si è verificato un errore. Riprova più tardi.');
@@ -63,7 +69,11 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="relative space-y-6">
+      <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="contact-website">Sito web</label>
+        <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={handleChange} />
+      </div>
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="premium-label">Nome e cognome *</label>
