@@ -3,6 +3,7 @@ import { site, company } from '@/data/company';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { BrandIntro } from '@/components/BrandIntro';
+import { ContactDock } from '@/components/ContactDock';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import './globals.css';
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <OrganizationJsonLd />
         <BrandIntro />
         <Header />
+        <ContactDock />
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>
