@@ -7,12 +7,15 @@
 :root {
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', 'Manrope', system-ui, sans-serif;
+  --prosperya-dark: #172326;
+  --prosperya-dark-deep: #111a1c;
+  --prosperya-dark-soft: #213236;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    background: #090d0e;
+    background: var(--prosperya-dark-deep);
   }
 
   body {
@@ -71,8 +74,8 @@
 @layer components {
   .prosperya-grid {
     background-image:
-      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 
@@ -97,7 +100,8 @@
   }
 
   .premium-panel-dark {
-    @apply border border-white/10 bg-[#0B1011] text-white shadow-[0_24px_90px_rgba(0,0,0,.22)];
+    @apply border border-white/10 text-white shadow-[0_24px_90px_rgba(0,0,0,.18)];
+    background: linear-gradient(135deg, var(--prosperya-dark-soft), var(--prosperya-dark));
   }
 
   .premium-card {
@@ -121,7 +125,7 @@
   }
 
   .dark-surface {
-    color: rgba(255,255,255,.78);
+    color: rgba(255,255,255,.82);
   }
 
   .dark-surface h1,
@@ -141,8 +145,8 @@
 
   .brand-halo {
     background:
-      radial-gradient(circle at 50% 50%, rgba(255,255,255,.10) 0%, rgba(255,255,255,.035) 34%, rgba(9,13,14,0) 68%),
-      radial-gradient(circle at 62% 28%, rgba(49,95,103,.28), rgba(9,13,14,0) 38%);
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,.12) 0%, rgba(255,255,255,.045) 34%, rgba(23,35,38,0) 68%),
+      radial-gradient(circle at 62% 28%, rgba(49,95,103,.32), rgba(23,35,38,0) 38%);
   }
 
   .paper-noise {
@@ -166,7 +170,7 @@
   }
 
   .section-kicker-dark {
-    @apply inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/50 sm:text-[11px];
+    @apply inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60 sm:text-[11px];
   }
 
   .section-kicker-dark::before {
@@ -181,7 +185,7 @@
   }
 
   .hairline-light {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
   }
 
   .hairline-dark {
