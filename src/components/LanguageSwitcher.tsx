@@ -18,7 +18,7 @@ function isLanguageCode(value: string | null): value is LanguageCode {
 }
 
 function FlagIcon({ code, size = 20 }: { code: string; size?: number }) {
-  const height = Math.round(size * 0.72);
+  const height = Math.round(size * 0.75);
   return (
     <img
       src={`https://flagcdn.com/w40/${code}.png`}
@@ -33,27 +33,20 @@ function FlagIcon({ code, size = 20 }: { code: string; size?: number }) {
   );
 }
 
-function getCookieLanguage(): LanguageCode {
-  const match = document.cookie.match(/(?:^|; )googtrans=\/it\/([a-zA-Z-]+)/);
-  const cookieLanguage = match?.[1] ?? null;
-  return isLanguageCode(cookieLanguage) ? cookieLanguage : 'it';
-}
-
-function getStoredLanguage(): LanguageCode {
-  const stored = window.localStorage.getItem('prosperya-language');
-  return isLanguageCode(stored) ? stored : getCookieLanguage();
-}
-
-function setTranslationCookie(language: LanguageCode) {
+function setGoogTransCookie(language: LanguageCode) {
   const host = window.location.hostname;
   const value = language === 'it' ? '' : `/it/${language}`;
   const maxAge = language === 'it' ? 0 : 31536000;
 
   document.cookie = `googtrans=${value};path=/;max-age=${maxAge};SameSite=Lax`;
-
-  if (host && host !== 'localhost' && host.includes('.')) {
+  if (host && host !== 'localhost') {
     document.cookie = `googtrans=${value};path=/;domain=.${host};max-age=${maxAge};SameSite=Lax`;
   }
+}
+
+function getGoogTransCookie(): LanguageCode {
+  const match = document.cookie.match(/googtrans=\/it\/([a-zA-Z-]+)/);
+  return isLanguageCode(match?.[1] ?? null) ? (match?.[1] as LanguageCode) : 'it';
 }
 
 export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
@@ -62,7 +55,9 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setLanguage(getStoredLanguage());
+    const saved = window.localStorage.getItem('prosperya-language');
+    const next = isLanguageCode(saved) ? saved : getGoogTransCookie();
+    setLanguage(next);
   }, []);
 
   useEffect(() => {
@@ -84,14 +79,10 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   }, [open]);
 
   const selectLanguage = (nextLanguage: LanguageCode) => {
-    if (nextLanguage === language) {
-      setOpen(false);
-      return;
-    }
-
     setLanguage(nextLanguage);
     window.localStorage.setItem('prosperya-language', nextLanguage);
-    setTranslationCookie(nextLanguage);
+    setGoogTransCookie(nextLanguage);
+    window.dispatchEvent(new CustomEvent('prosperya:language-selected', { detail: nextLanguage }));
     setOpen(false);
     window.location.reload();
   };
@@ -99,12 +90,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   const current = languages.find((item) => item.code === language) ?? languages[0];
 
   return (
-    <div
-      ref={rootRef}
-      className={`notranslate relative ${mobile ? 'w-full' : 'shrink-0'}`}
-      translate="no"
-      data-language-switcher
-    >
+    <div ref={rootRef} className={`relative ${mobile ? 'w-full' : 'shrink-0'}`} data-language-switcher>
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
@@ -162,7 +148,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
                 </button>
               );
             })}
-            <p className="border-t border-white/10 px-3 py-2.5 text-[9px] leading-relaxed !text-white/35">Traduzione automatica</p>
+            <p className="border-t border-white/10 px-3 py-2.5 text-[9px] leading-relaxed !text-white/35">Traduzione automatica Google</p>
           </div>
         </>
       )}
