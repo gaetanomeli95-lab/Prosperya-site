@@ -4,18 +4,13 @@ import { serviceCatalog } from '@/data/services';
 import { cn } from '@/lib/utils';
 import { FadeIn } from './MotionWrapper';
 
-const accents = [
-  'bg-logo-magenta',
-  'bg-logo-blue',
-  'bg-logo-yellow',
-  'bg-logo-green',
-  'bg-logo-orange',
-  'bg-mediterranean-light',
+const accents = ['#C81A69', '#1976D2', '#F2C94C', '#4CAF50', '#FF7F2A'];
+const orbitDots = [
+  { x: 50, y: 4 }, { x: 76, y: 13 }, { x: 93, y: 38 }, { x: 89, y: 66 }, { x: 67, y: 88 },
+  { x: 39, y: 94 }, { x: 14, y: 78 }, { x: 5, y: 50 }, { x: 15, y: 24 }, { x: 34, y: 9 },
 ];
 
-interface ServiceCatalogGridProps {
-  compact?: boolean;
-}
+interface ServiceCatalogGridProps { compact?: boolean; }
 
 export function ServiceCatalogGrid({ compact = false }: ServiceCatalogGridProps) {
   const remainder = serviceCatalog.length % 3;
@@ -25,13 +20,10 @@ export function ServiceCatalogGrid({ compact = false }: ServiceCatalogGridProps)
       {serviceCatalog.map((service, index) => {
         const centerFinalPair = remainder === 2 && index === serviceCatalog.length - 2;
         const price = service.consultationPrice;
+        const accent = accents[index % accents.length];
 
         return (
-          <FadeIn
-            key={service.title}
-            delay={index * 0.02}
-            className={cn('h-full lg:col-span-2', centerFinalPair && 'lg:col-start-2')}
-          >
+          <FadeIn key={service.title} delay={index * 0.02} className={cn('h-full lg:col-span-2', centerFinalPair && 'lg:col-start-2')}>
             <Link
               href={service.href}
               className={cn(
@@ -41,18 +33,25 @@ export function ServiceCatalogGrid({ compact = false }: ServiceCatalogGridProps)
               )}
               aria-label={`Approfondisci ${service.title}`}
             >
-              <span className={cn('absolute inset-x-0 top-0 h-[3px]', accents[index % accents.length])} />
-              <span className="pointer-events-none absolute -right-8 -top-10 font-heading text-[7.5rem] italic leading-none text-night/[0.035] transition-colors duration-500 group-hover:text-night/[0.065]">
+              <div className="pointer-events-none absolute right-5 top-5 h-20 w-20 opacity-70 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 sm:h-24 sm:w-24">
+                <span className="absolute inset-[16%] rounded-full border border-night/[0.07]" />
+                <span className="absolute inset-0 transition-transform duration-[1100ms] ease-out group-hover:rotate-[24deg]">
+                  {orbitDots.map((dot, dotIndex) => (
+                    <span
+                      key={dotIndex}
+                      className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_3px_rgba(255,255,255,.75)]"
+                      style={{ left: `${dot.x}%`, top: `${dot.y}%`, backgroundColor: accents[(dotIndex + index) % accents.length] }}
+                    />
+                  ))}
+                </span>
+              </div>
+
+              <span className="pointer-events-none absolute -right-8 -top-10 font-heading text-[7.5rem] italic leading-none text-night/[0.025] transition-colors duration-500 group-hover:text-night/[0.045]">
                 {String(index + 1).padStart(2, '0')}
               </span>
 
-              <div className="relative flex items-start justify-between gap-4">
-                <span className="editorial-index text-2xl text-mediterranean">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-night/15 text-night/45 transition-all duration-300 group-hover:bg-night group-hover:text-white">
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </span>
+              <div className="relative flex items-start justify-between gap-4 pr-20">
+                <span className="editorial-index text-2xl text-mediterranean">{String(index + 1).padStart(2, '0')}</span>
               </div>
 
               <div className="relative mt-auto pt-12">
@@ -65,15 +64,16 @@ export function ServiceCatalogGrid({ compact = false }: ServiceCatalogGridProps)
                   )}
                 </div>
 
-                <h3 className="max-w-[25rem] text-[1.8rem] font-heading leading-[1] text-night sm:text-[2rem]">
-                  {service.title}
-                </h3>
+                <h3 className="max-w-[25rem] text-[1.8rem] font-heading leading-[1] text-night sm:text-[2rem]">{service.title}</h3>
 
                 <div className="mt-7 flex items-center justify-between gap-4 border-t border-night/10 pt-4">
-                  <p className="text-[11px] font-medium uppercase tracking-[.13em] text-night/46">
-                    {price ? 'Scopri la consulenza' : 'Esplora il servizio'}
-                  </p>
-                  <span className={cn('h-1.5 w-10 transition-all duration-500 group-hover:w-16', accents[index % accents.length])} />
+                  <p className="text-[11px] font-medium uppercase tracking-[.13em] text-night/46">{price ? 'Scopri la consulenza' : 'Esplora il servizio'}</p>
+                  <span className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: accent }} />
+                    <span className="grid h-8 w-8 place-items-center rounded-full border border-night/15 text-night/45 transition-all duration-300 group-hover:bg-night group-hover:text-white">
+                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </span>
+                  </span>
                 </div>
               </div>
             </Link>

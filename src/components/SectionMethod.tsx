@@ -6,9 +6,12 @@ import { FadeIn } from './MotionWrapper';
 export function SectionMethod() {
   return (
     <section className="relative overflow-hidden bg-[#172326] py-20 text-white sm:py-24 lg:py-36">
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,#172326_0%,#19302F_44%,#203A37_100%)]" />
       <div className="absolute inset-0 prosperya-grid opacity-20" />
-      <div className="absolute left-[-8rem] top-24 h-80 w-80 rounded-full bg-mediterranean/14 blur-3xl" />
-      <div className="absolute bottom-[-6rem] right-[-9rem] h-[30rem] w-[30rem] rounded-full bg-sand/[0.08] blur-3xl" />
+      <div className="absolute left-[-9rem] top-16 h-[28rem] w-[28rem] rounded-full bg-mediterranean/24 blur-[95px]" />
+      <div className="absolute right-[8%] top-[-12rem] h-[30rem] w-[30rem] rounded-full bg-[#3D7773]/18 blur-[110px]" />
+      <div className="absolute bottom-[-8rem] right-[-7rem] h-[34rem] w-[34rem] rounded-full bg-sand/[0.13] blur-[115px]" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sand/30 to-mediterranean/35" />
 
       <div className="section-frame relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,.82fr)_minmax(0,1.18fr)] lg:gap-20 xl:grid-cols-[minmax(0,.76fr)_minmax(0,1.24fr)] xl:gap-28">
@@ -26,11 +29,11 @@ export function SectionMethod() {
 
           <div className="min-w-0 lg:pt-4">
             <div className="relative">
-              <div className="absolute bottom-0 left-[18px] top-0 w-px bg-white/14 sm:left-[22px] lg:left-[28px]" />
+              <div className="absolute bottom-0 left-[18px] top-0 w-px bg-gradient-to-b from-mediterranean/55 via-white/16 to-sand/40 sm:left-[22px] lg:left-[28px]" />
               {methodSteps.map((step, i) => (
                 <FadeIn key={step.title} delay={i * 0.06}>
                   <article className="group relative grid grid-cols-[38px_1fr] gap-5 border-b border-white/14 py-7 first:pt-0 sm:grid-cols-[46px_1fr] lg:grid-cols-[58px_minmax(0,1fr)_auto] lg:items-center lg:gap-7 lg:py-9">
-                    <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-[#172326] text-[11px] font-semibold text-sand transition-all duration-500 group-hover:border-sand group-hover:bg-sand group-hover:text-night sm:h-11 sm:w-11 lg:h-14 lg:w-14 lg:text-sm">
+                    <div className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-mediterranean/45 bg-[#19302F]/95 text-[11px] font-semibold text-sand transition-all duration-500 group-hover:border-sand group-hover:bg-sand group-hover:text-night group-hover:shadow-[0_0_30px_rgba(207,177,119,.16)] sm:h-11 sm:w-11 lg:h-14 lg:w-14 lg:text-sm">
                       0{i + 1}
                     </div>
 

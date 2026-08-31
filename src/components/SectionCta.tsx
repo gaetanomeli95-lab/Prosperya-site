@@ -35,8 +35,8 @@ export function SectionCta() {
                     <span className="flex items-center gap-3"><Phone className="h-4 w-4 text-sand" />{company.telefono}</span>
                     <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
-                  <a href={`mailto:${company.emailDirezione}`} className="group flex min-h-12 items-center justify-between gap-4 border-t border-white/15 py-4 text-sm !text-white/72 transition-colors hover:!text-white">
-                    <span className="flex min-w-0 items-center gap-3"><Mail className="h-4 w-4 shrink-0 text-sand" /><span className="truncate">{company.emailDirezione}</span></span>
+                  <a href={`mailto:${company.emailPubblica}`} className="group flex min-h-12 items-center justify-between gap-4 border-t border-white/15 py-4 text-sm !text-white/72 transition-colors hover:!text-white">
+                    <span className="flex min-w-0 items-center gap-3"><Mail className="h-4 w-4 shrink-0 text-sand" /><span className="truncate">{company.emailPubblica}</span></span>
                     <ArrowUpRight className="h-4 w-4 shrink-0 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
                 </div>
