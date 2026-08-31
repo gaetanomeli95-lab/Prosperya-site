@@ -71,39 +71,59 @@ export function SectionOperations() {
               <p className="max-w-xl text-sm leading-[1.85] text-anthracite/70 lg:text-[15px]">
                 Alcune decisioni non si risolvono con un servizio standard. Richiedono una lettura congiunta di struttura societaria, governance, continuità e obiettivi di sviluppo.
               </p>
+              <div className="mt-7 flex items-center gap-7 border-t border-night/12 pt-5">
+                <div>
+                  <span className="editorial-index text-2xl text-mediterranean">07</span>
+                  <span className="ml-2 text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">scenari</span>
+                </div>
+                <span className="h-6 w-px bg-night/12" />
+                <div>
+                  <span className="editorial-index text-2xl text-mediterranean">01</span>
+                  <span className="ml-2 text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">regia</span>
+                </div>
+              </div>
             </FadeIn>
           </div>
         </div>
 
-        <div className="mt-14 border-y border-night/15 lg:mt-20">
-          {operationItems.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 0.035}>
-              <article className="grid gap-5 border-b border-night/12 py-7 last:border-b-0 sm:py-8 lg:grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:py-9">
-                <div className="flex items-center justify-between lg:block">
-                  <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
-                  <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 lg:hidden">{item.tag}</span>
-                </div>
+        <div className="mt-14 lg:mt-20">
+          <div className="hidden grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] gap-8 border-y border-night/15 py-3 lg:grid">
+            <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">N.</span>
+            <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">Operazione</span>
+            <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">Ambito</span>
+            <span className="text-[9px] font-semibold uppercase tracking-[.2em] text-night/30">Focus dell’intervento</span>
+          </div>
 
-                <h3 className="text-[clamp(1.8rem,2.4vw,2.65rem)] font-heading leading-[.98] text-night">
-                  {item.title}
-                </h3>
+          <div className="border-y border-night/15 lg:border-t-0">
+            {operationItems.map((item, i) => (
+              <FadeIn key={item.title} delay={i * 0.035}>
+                <article className="group relative grid gap-5 border-b border-night/12 py-7 last:border-b-0 sm:py-8 lg:grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:py-10">
+                  <div className="flex items-center justify-between lg:block">
+                    <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
+                    <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 lg:hidden">{item.tag}</span>
+                  </div>
 
-                <div className="hidden items-center gap-3 lg:flex">
-                  <span className="h-px w-7 bg-night/15" />
-                  <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">{item.tag}</span>
-                </div>
+                  <h3 className="max-w-[17ch] text-[clamp(1.8rem,2.4vw,2.65rem)] font-heading leading-[.98] text-night">
+                    {item.title}
+                  </h3>
 
-                <p className="max-w-2xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
-                  {item.text}
-                </p>
-              </article>
-            </FadeIn>
-          ))}
+                  <div className="hidden items-center gap-3 lg:flex">
+                    <span className="h-px w-7 bg-night/15" />
+                    <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/38">{item.tag}</span>
+                  </div>
+
+                  <p className="max-w-2xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
+                    {item.text}
+                  </p>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
         </div>
 
         <FadeIn delay={0.18}>
-          <div className="mt-12 border-y border-night/15 py-8 sm:mt-14 sm:py-9 lg:mt-16">
-            <div className="grid gap-7 lg:grid-cols-12 lg:items-center lg:gap-12">
+          <div className="mt-12 border-t border-night/15 pt-8 sm:mt-14 sm:pt-9 lg:mt-16">
+            <div className="grid gap-7 lg:grid-cols-12 lg:items-end lg:gap-12">
               <div className="lg:col-span-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Regia Prosperya</p>
                 <h3 className="mt-4 max-w-4xl text-2xl font-heading leading-[1.08] text-night sm:text-3xl lg:text-4xl">
