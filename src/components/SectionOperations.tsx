@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import { useRef, type MouseEvent } from 'react';
 import { FadeIn } from './MotionWrapper';
 
 const operationItems = [
@@ -50,10 +51,29 @@ const operationItems = [
 ];
 
 export function SectionOperations() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const handlePointerMove = (event: MouseEvent<HTMLElement>) => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    section.style.setProperty('--ops-x', `${event.clientX - rect.left}px`);
+    section.style.setProperty('--ops-y', `${event.clientY - rect.top}px`);
+  };
+
   return (
-    <section className="relative overflow-hidden bg-[#F1ECE4] py-20 sm:py-24 lg:py-32">
+    <section
+      ref={sectionRef}
+      onMouseMove={handlePointerMove}
+      className="group/operations relative overflow-hidden bg-[#F1ECE4] py-20 sm:py-24 lg:py-32"
+    >
+      <div className="pointer-events-none absolute inset-0 hidden opacity-0 transition-opacity duration-700 lg:block lg:group-hover/operations:opacity-100" style={{ background: 'radial-gradient(520px circle at var(--ops-x, 72%) var(--ops-y, 32%), rgba(38,125,116,.095), transparent 64%)' }} />
+      <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-px overflow-hidden lg:block">
+        <span className="absolute inset-y-0 left-[-18%] w-[18%] bg-gradient-to-r from-transparent via-mediterranean/45 to-transparent motion-safe:animate-[opsScan_9s_ease-in-out_infinite]" />
+      </div>
       <div className="absolute bottom-[-5rem] left-[-7rem] h-72 w-72 rounded-full bg-mediterranean/10 blur-3xl" />
-      <div className="absolute right-[-8rem] top-20 hidden font-heading text-[22rem] italic leading-none text-night/[0.018] xl:block">07</div>
+      <div className="absolute right-[-8rem] top-20 hidden font-heading text-[22rem] italic leading-none text-night/[0.018] transition-all duration-1000 group-hover/operations:text-mediterranean/[0.035] xl:block">07</div>
 
       <div className="relative mx-auto max-w-[1480px] px-5 sm:px-6 lg:px-8">
         <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
@@ -97,22 +117,26 @@ export function SectionOperations() {
           <div className="border-y border-night/15 lg:border-t-0">
             {operationItems.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.035}>
-                <article className="group relative grid gap-5 border-b border-night/12 py-7 last:border-b-0 sm:py-8 lg:grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:py-10">
+                <article className="group/row relative grid gap-5 overflow-hidden border-b border-night/12 py-7 last:border-b-0 sm:py-8 lg:grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:py-10">
+                  <span className="pointer-events-none absolute inset-y-0 left-0 w-px origin-center scale-y-0 bg-mediterranean/55 transition-transform duration-500 ease-out lg:group-hover/row:scale-y-100" />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-mediterranean/50 via-mediterranean/16 to-transparent transition-transform duration-700 ease-out lg:group-hover/row:scale-x-100" />
+                  <span className="pointer-events-none absolute left-0 top-1/2 hidden h-1.5 w-1.5 -translate-x-[2px] -translate-y-1/2 rounded-full bg-mediterranean opacity-0 shadow-[0_0_0_5px_rgba(38,125,116,.08),0_0_22px_rgba(38,125,116,.35)] transition-opacity duration-300 lg:block lg:group-hover/row:opacity-100" />
+
                   <div className="flex items-center justify-between lg:block">
-                    <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
+                    <span className="editorial-index inline-block text-3xl text-mediterranean/85 transition-all duration-500 lg:text-4xl lg:group-hover/row:translate-x-2 lg:group-hover/row:text-mediterranean">{item.n}</span>
                     <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 lg:hidden">{item.tag}</span>
                   </div>
 
-                  <h3 className="max-w-[17ch] text-[clamp(1.8rem,2.4vw,2.65rem)] font-heading leading-[.98] text-night">
+                  <h3 className="max-w-[17ch] text-[clamp(1.8rem,2.4vw,2.65rem)] font-heading leading-[.98] text-night transition-transform duration-500 ease-out lg:group-hover/row:translate-x-1">
                     {item.title}
                   </h3>
 
                   <div className="hidden items-center gap-3 lg:flex">
-                    <span className="h-px w-7 bg-night/15" />
-                    <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/38">{item.tag}</span>
+                    <span className="h-px w-7 origin-left bg-night/15 transition-all duration-500 group-hover/row:w-10 group-hover/row:bg-mediterranean/45" />
+                    <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/38 transition-colors duration-500 group-hover/row:text-night/55">{item.tag}</span>
                   </div>
 
-                  <p className="max-w-2xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
+                  <p className="max-w-2xl text-sm leading-[1.8] text-anthracite/68 transition-colors duration-500 lg:text-[15px] lg:group-hover/row:text-anthracite/82">
                     {item.text}
                   </p>
                 </article>
@@ -134,7 +158,7 @@ export function SectionOperations() {
               <div className="lg:col-span-4 lg:justify-self-end">
                 <Link
                   href="/contatti/"
-                  className="group inline-flex min-h-12 w-full items-center justify-between gap-4 bg-[#213236] px-5 text-sm font-semibold !text-white transition-colors hover:bg-mediterranean focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mediterranean sm:w-auto sm:min-w-[245px]"
+                  className="group inline-flex min-h-12 w-full items-center justify-between gap-4 bg-[#213236] px-5 text-sm font-semibold !text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-mediterranean hover:shadow-[0_14px_32px_rgba(38,125,116,.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mediterranean sm:w-auto sm:min-w-[245px]"
                 >
                   Richiedi un confronto
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -144,6 +168,15 @@ export function SectionOperations() {
           </div>
         </FadeIn>
       </div>
+
+      <style>{`
+        @keyframes opsScan {
+          0%, 16% { transform: translateX(0); opacity: 0; }
+          24% { opacity: .7; }
+          60% { opacity: .35; }
+          78%, 100% { transform: translateX(760%); opacity: 0; }
+        }
+      `}</style>
     </section>
   );
 }
