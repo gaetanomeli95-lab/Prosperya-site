@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer';
 import { BrandIntro } from '@/components/BrandIntro';
 import { ContactDock } from '@/components/ContactDock';
 import { GoogleTranslateBridge } from '@/components/GoogleTranslateBridge';
+import { CookieBanner } from '@/components/CookieBanner';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import './globals.css';
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ContactDock />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
