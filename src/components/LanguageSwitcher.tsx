@@ -25,6 +25,34 @@ interface GoogleTranslateWindow extends Window {
   googleTranslateElementInit?: () => void;
 }
 
+function Flag({ code, className = '' }: { code: LanguageCode; className?: string }) {
+  const base = `relative inline-block h-[14px] w-[20px] shrink-0 overflow-hidden rounded-[2px] border border-white/15 shadow-sm ${className}`;
+
+  if (code === 'it') {
+    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(90deg,#009246_0_33.33%,#fff_33.33%_66.66%,#ce2b37_66.66%_100%)]`} />;
+  }
+  if (code === 'fr') {
+    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(90deg,#0055a4_0_33.33%,#fff_33.33%_66.66%,#ef4135_66.66%_100%)]`} />;
+  }
+  if (code === 'de') {
+    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(180deg,#111_0_33.33%,#dd0000_33.33%_66.66%,#ffce00_66.66%_100%)]`} />;
+  }
+  if (code === 'es') {
+    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(180deg,#aa151b_0_25%,#f1bf00_25%_75%,#aa151b_75%_100%)]`} />;
+  }
+
+  return (
+    <span aria-hidden="true" className={`${base} bg-[#012169]`}>
+      <span className="absolute inset-[-3px] rotate-[32deg] bg-white" />
+      <span className="absolute inset-[-3px] -rotate-[32deg] bg-white" />
+      <span className="absolute left-1/2 top-0 h-full w-[5px] -translate-x-1/2 bg-white" />
+      <span className="absolute left-0 top-1/2 h-[5px] w-full -translate-y-1/2 bg-white" />
+      <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 bg-[#c8102e]" />
+      <span className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 bg-[#c8102e]" />
+    </span>
+  );
+}
+
 function getStoredLanguage(): LanguageCode {
   if (typeof window === 'undefined') return 'it';
 
@@ -181,16 +209,19 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
         className={
           mobile
             ? 'flex min-h-12 w-full items-center justify-between border-y border-white/10 py-3 !text-white'
-            : 'group inline-flex h-10 items-center gap-2 px-3 text-[10px] font-semibold uppercase tracking-[.14em] !text-white/65 transition-colors hover:!text-white'
+            : 'group inline-flex h-10 items-center gap-2.5 px-3 text-[10px] font-semibold uppercase tracking-[.14em] !text-white/65 transition-colors hover:!text-white'
         }
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label={`Lingua del sito: ${current.label}`}
       >
         <span className="flex items-center gap-2.5">
-          <Globe2 className={`${mobile ? 'h-4 w-4 text-sand' : 'h-3.5 w-3.5 text-sand/80'}`} />
+          {mobile ? <Globe2 className="h-4 w-4 text-sand" /> : <Flag code={current.code} />}
           {mobile && <span className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/45">Lingua</span>}
-          <span className={mobile ? 'ml-2 text-sm font-semibold !text-white' : ''}>{current.short}</span>
+          <span className={mobile ? 'ml-2 flex items-center gap-2.5 text-sm font-semibold !text-white' : ''}>
+            {mobile && <Flag code={current.code} />}
+            {current.short}
+          </span>
         </span>
         <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -202,7 +233,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
           className={
             mobile
               ? 'mt-2 grid grid-cols-1 border border-white/10 bg-white/[0.03]'
-              : 'absolute right-0 top-[calc(100%+8px)] z-[80] min-w-[190px] border border-white/12 bg-[#172326]/98 p-1.5 shadow-[0_22px_70px_rgba(0,0,0,.34)] backdrop-blur-xl'
+              : 'absolute right-0 top-[calc(100%+8px)] z-[80] min-w-[210px] border border-white/12 bg-[#172326]/98 p-1.5 shadow-[0_22px_70px_rgba(0,0,0,.34)] backdrop-blur-xl'
           }
         >
           {languages.map((item) => {
@@ -214,13 +245,16 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
                 role="option"
                 aria-selected={active}
                 onClick={() => selectLanguage(item.code)}
-                className={`flex min-h-10 items-center justify-between gap-4 px-3 py-2 text-left text-xs transition-colors ${
+                className={`flex min-h-11 items-center justify-between gap-4 px-3 py-2 text-left text-xs transition-colors ${
                   active ? 'bg-sand/[0.09] !text-white' : '!text-white/65 hover:bg-white/[0.05] hover:!text-white'
                 }`}
               >
                 <span className="flex items-center gap-3">
-                  <span className="w-5 text-[9px] font-bold uppercase tracking-[.15em] text-sand/80">{item.short}</span>
-                  <span>{item.label}</span>
+                  <Flag code={item.code} />
+                  <span>
+                    <span className="block font-medium">{item.label}</span>
+                    <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[.16em] !text-white/30">{item.short}</span>
+                  </span>
                 </span>
                 {active && <Check className="h-3.5 w-3.5 text-sand" />}
               </button>
