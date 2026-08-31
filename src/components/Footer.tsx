@@ -22,7 +22,7 @@ export function Footer() {
       <div className="absolute right-[-12rem] top-[-10rem] h-[34rem] w-[34rem] rounded-full bg-mediterranean/14 blur-3xl" />
       <div className="absolute inset-x-0 top-0 h-px hairline-light" />
 
-      <div className="relative mx-auto max-w-[1480px] px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="relative mx-auto max-w-[1480px] px-5 pb-24 pt-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-12 border-b border-white/14 pb-12 lg:grid-cols-12 lg:items-end lg:pb-16">
           <div className="lg:col-span-8">
             <Link href="/" className="group inline-flex items-center gap-4">
