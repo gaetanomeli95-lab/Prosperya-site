@@ -49,40 +49,7 @@ const operationItems = [
   },
 ];
 
-function OperationList({ items, offset = 0 }: { items: typeof operationItems; offset?: number }) {
-  return (
-    <div className="divide-y divide-night/12 border-y border-night/15">
-      {items.map((item, i) => (
-        <FadeIn key={item.title} delay={(offset + i) * 0.035}>
-          <article className="relative grid gap-5 py-7 sm:grid-cols-[58px_1fr] sm:gap-6 sm:py-9 lg:grid-cols-[70px_1fr] lg:py-10">
-            <div className="flex items-start justify-between sm:block">
-              <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
-              <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 sm:hidden">{item.tag}</span>
-            </div>
-
-            <div className="min-w-0">
-              <div className="hidden items-center gap-3 sm:flex">
-                <span className="h-px w-7 bg-night/15" />
-                <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">{item.tag}</span>
-              </div>
-              <h3 className="mt-1 text-[clamp(1.8rem,2.6vw,2.7rem)] font-heading leading-[.98] text-night sm:mt-5">
-                {item.title}
-              </h3>
-              <p className="mt-4 max-w-xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
-                {item.text}
-              </p>
-            </div>
-          </article>
-        </FadeIn>
-      ))}
-    </div>
-  );
-}
-
 export function SectionOperations() {
-  const leftColumn = operationItems.slice(0, 4);
-  const rightColumn = operationItems.slice(4);
-
   return (
     <section className="relative overflow-hidden bg-[#F1ECE4] py-20 sm:py-24 lg:py-32">
       <div className="absolute bottom-[-5rem] left-[-7rem] h-72 w-72 rounded-full bg-mediterranean/10 blur-3xl" />
@@ -108,13 +75,30 @@ export function SectionOperations() {
           </div>
         </div>
 
-        <div className="mt-14 grid gap-0 lg:mt-20 lg:grid-cols-2">
-          <div className="lg:pr-10 xl:pr-14">
-            <OperationList items={leftColumn} />
-          </div>
-          <div className="mt-[-1px] lg:mt-0 lg:border-l lg:border-night/12 lg:pl-10 xl:pl-14">
-            <OperationList items={rightColumn} offset={leftColumn.length} />
-          </div>
+        <div className="mt-14 border-y border-night/15 lg:mt-20">
+          {operationItems.map((item, i) => (
+            <FadeIn key={item.title} delay={i * 0.035}>
+              <article className="grid gap-5 border-b border-night/12 py-7 last:border-b-0 sm:py-8 lg:grid-cols-[72px_minmax(220px,.9fr)_minmax(160px,.55fr)_minmax(0,1.25fr)] lg:items-center lg:gap-8 lg:py-9">
+                <div className="flex items-center justify-between lg:block">
+                  <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
+                  <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 lg:hidden">{item.tag}</span>
+                </div>
+
+                <h3 className="text-[clamp(1.8rem,2.4vw,2.65rem)] font-heading leading-[.98] text-night">
+                  {item.title}
+                </h3>
+
+                <div className="hidden items-center gap-3 lg:flex">
+                  <span className="h-px w-7 bg-night/15" />
+                  <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">{item.tag}</span>
+                </div>
+
+                <p className="max-w-2xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
+                  {item.text}
+                </p>
+              </article>
+            </FadeIn>
+          ))}
         </div>
 
         <FadeIn delay={0.18}>
