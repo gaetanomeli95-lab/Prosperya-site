@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Check, ChevronDown, Globe2 } from 'lucide-react';
 
 const languages = [
@@ -38,6 +38,24 @@ function getStoredLanguage(): LanguageCode {
   return 'it';
 }
 
+function ensureTranslateHost() {
+  let host = document.getElementById('google_translate_element');
+  if (host) return host;
+
+  host = document.createElement('div');
+  host.id = 'google_translate_element';
+  host.setAttribute('aria-hidden', 'true');
+  host.style.position = 'fixed';
+  host.style.width = '1px';
+  host.style.height = '1px';
+  host.style.overflow = 'hidden';
+  host.style.opacity = '0';
+  host.style.pointerEvents = 'none';
+  host.style.left = '-9999px';
+  document.body.appendChild(host);
+  return host;
+}
+
 function setTranslationCookie(language: LanguageCode) {
   const expires = new Date();
   expires.setFullYear(expires.getFullYear() + 1);
@@ -57,14 +75,14 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   const [language, setLanguage] = useState<LanguageCode>('it');
   const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setLanguage(getStoredLanguage());
-
+  const loadTranslate = useCallback(() => {
     const translatedWindow = window as GoogleTranslateWindow;
+    ensureTranslateHost();
+
     const initialize = () => {
       if (!translatedWindow.google?.translate?.TranslateElement) return;
-      const element = document.getElementById('google_translate_element');
-      if (!element || element.childElementCount > 0) return;
+      const element = ensureTranslateHost();
+      if (element.childElementCount > 0) return;
 
       new translatedWindow.google.translate.TranslateElement(
         {
@@ -93,6 +111,12 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   }, []);
 
   useEffect(() => {
+    const storedLanguage = getStoredLanguage();
+    setLanguage(storedLanguage);
+    if (storedLanguage !== 'it') loadTranslate();
+  }, [loadTranslate]);
+
+  useEffect(() => {
     if (!open) return;
 
     const onPointerDown = (event: PointerEvent) => {
@@ -110,6 +134,14 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
     };
   }, [open]);
 
+  const toggleOpen = () => {
+    setOpen((value) => {
+      const next = !value;
+      if (next) loadTranslate();
+      return next;
+    });
+  };
+
   const selectLanguage = (nextLanguage: LanguageCode) => {
     setLanguage(nextLanguage);
     setOpen(false);
@@ -122,6 +154,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
     }
 
     setTranslationCookie(nextLanguage);
+    loadTranslate();
 
     const applyTranslation = () => {
       const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo');
@@ -134,7 +167,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
     if (!applyTranslation()) {
       window.setTimeout(() => {
         if (!applyTranslation()) window.location.reload();
-      }, 650);
+      }, 700);
     }
   };
 
@@ -142,11 +175,9 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
 
   return (
     <div ref={rootRef} className={`relative ${mobile ? 'w-full' : ''}`}>
-      <div id="google_translate_element" className="hidden" aria-hidden="true" />
-
       <button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={toggleOpen}
         className={
           mobile
             ? 'flex min-h-12 w-full items-center justify-between border-y border-white/10 py-3 !text-white'
