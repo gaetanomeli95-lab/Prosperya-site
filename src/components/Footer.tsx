@@ -29,7 +29,7 @@ export function Footer() {
               <MiniBrandMark />
               <span className="border-l border-white/10 pl-4">
                 <span className="block text-sm font-semibold tracking-[.2em] !text-white">PROSPERYA</span>
-                <span className="mt-1.5 block text-[9px] uppercase tracking-[.2em] !text-white/40">Advisory · Governance · Growth</span>
+                <span className="mt-1.5 block text-[9px] uppercase tracking-[.2em] !text-white/40">{company.payoff}</span>
               </span>
             </Link>
 

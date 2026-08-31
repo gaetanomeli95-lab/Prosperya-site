@@ -1,5 +1,6 @@
 export const company = {
   ragioneSociale: 'Prosperya S.R.L.',
+  payoff: 'Advisory · Governance · Growth Factors',
   sedeLegale: 'Via Torino, 8',
   comune: 'Altavilla Milicia (PA)',
   cap: '90010',

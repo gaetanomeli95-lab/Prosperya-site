@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { company } from '@/data/company';
 
 const circles = [
   { color: '#F6C515', left: 42, top: 20, fromX: -420, fromY: -260, delay: 0.05 },
@@ -24,22 +25,25 @@ export function BrandIntro() {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (reduceMotion) {
-      setVisible(false);
-      return;
+    const alreadySeen = window.sessionStorage.getItem('prosperya-intro-seen') === 'true';
+    if (reduceMotion || alreadySeen) {
+      const hideTimer = window.setTimeout(() => setVisible(false), 0);
+      return () => window.clearTimeout(hideTimer);
     }
+
+    window.sessionStorage.setItem('prosperya-intro-seen', 'true');
 
     const previousBodyOverflow = document.body.style.overflow;
     const previousHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
 
-    const revealTimer = window.setTimeout(() => setRevealing(true), 3000);
+    const revealTimer = window.setTimeout(() => setRevealing(true), 2450);
     const finishTimer = window.setTimeout(() => {
       setVisible(false);
       document.body.style.overflow = previousBodyOverflow;
       document.documentElement.style.overflow = previousHtmlOverflow;
-    }, 3900);
+    }, 3150);
 
     return () => {
       window.clearTimeout(revealTimer);
@@ -209,7 +213,7 @@ export function BrandIntro() {
             >
               <div className="h-px w-16 bg-white/15 sm:w-20" />
               <p className="whitespace-nowrap text-[8px] uppercase tracking-[0.22em] !text-white/38 sm:text-[9px] sm:tracking-[0.32em]">
-                Advisory · Governance · Growth
+                {company.payoff}
               </p>
             </motion.div>
           </motion.div>
