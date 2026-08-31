@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { FadeIn } from './MotionWrapper';
 
-const operationCards = [
+const operationItems = [
   {
     n: '01',
     title: 'NewCo (start-up)',
@@ -49,92 +49,88 @@ const operationCards = [
   },
 ];
 
+function OperationList({ items, offset = 0 }: { items: typeof operationItems; offset?: number }) {
+  return (
+    <div className="divide-y divide-night/12 border-y border-night/15">
+      {items.map((item, i) => (
+        <FadeIn key={item.title} delay={(offset + i) * 0.035}>
+          <article className="relative grid gap-5 py-7 sm:grid-cols-[58px_1fr] sm:gap-6 sm:py-9 lg:grid-cols-[70px_1fr] lg:py-10">
+            <div className="flex items-start justify-between sm:block">
+              <span className="editorial-index text-3xl text-mediterranean/85 lg:text-4xl">{item.n}</span>
+              <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35 sm:hidden">{item.tag}</span>
+            </div>
+
+            <div className="min-w-0">
+              <div className="hidden items-center gap-3 sm:flex">
+                <span className="h-px w-7 bg-night/15" />
+                <span className="text-[9px] font-semibold uppercase tracking-[.18em] text-night/35">{item.tag}</span>
+              </div>
+              <h3 className="mt-1 text-[clamp(1.8rem,2.6vw,2.7rem)] font-heading leading-[.98] text-night sm:mt-5">
+                {item.title}
+              </h3>
+              <p className="mt-4 max-w-xl text-sm leading-[1.8] text-anthracite/68 lg:text-[15px]">
+                {item.text}
+              </p>
+            </div>
+          </article>
+        </FadeIn>
+      ))}
+    </div>
+  );
+}
+
 export function SectionOperations() {
+  const leftColumn = operationItems.slice(0, 4);
+  const rightColumn = operationItems.slice(4);
+
   return (
     <section className="relative overflow-hidden bg-[#F1ECE4] py-20 sm:py-24 lg:py-32">
       <div className="absolute bottom-[-5rem] left-[-7rem] h-72 w-72 rounded-full bg-mediterranean/10 blur-3xl" />
+      <div className="absolute right-[-8rem] top-20 hidden font-heading text-[22rem] italic leading-none text-night/[0.018] xl:block">07</div>
+
       <div className="relative mx-auto max-w-[1480px] px-5 sm:px-6 lg:px-8">
-        <div className="mb-12 grid items-end gap-8 sm:mb-14 lg:mb-20 lg:grid-cols-12 lg:gap-12">
+        <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-6">
             <FadeIn>
               <span className="eyebrow text-night/50">Corporate & extraordinary</span>
-              <h2 className="mt-5 text-4xl font-heading leading-[0.98] text-night sm:text-5xl lg:text-6xl">
+              <h2 className="mt-5 max-w-3xl text-4xl font-heading leading-[0.98] text-night sm:text-5xl lg:text-6xl">
                 Operazioni straordinarie e soluzioni su misura
               </h2>
             </FadeIn>
           </div>
+
           <div className="lg:col-span-5 lg:col-start-8">
-            <FadeIn delay={0.1}>
-              <p className="text-sm leading-relaxed text-anthracite/70 lg:text-[15px]">
-                Gestiamo operazioni societarie e passaggi delicati costruendo ogni intervento attorno a governance, continuità aziendale, assetto tra soci e obiettivi di sviluppo.
+            <FadeIn delay={0.08}>
+              <p className="max-w-xl text-sm leading-[1.85] text-anthracite/70 lg:text-[15px]">
+                Alcune decisioni non si risolvono con un servizio standard. Richiedono una lettura congiunta di struttura societaria, governance, continuità e obiettivi di sviluppo.
               </p>
             </FadeIn>
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {operationCards.map((card, i) => {
-            const featured = i === 0 || i === 3 || i === 6;
-            return (
-              <FadeIn key={card.title} delay={i * 0.035}>
-                <article
-                  className={`relative flex min-h-[220px] flex-col justify-between overflow-hidden border p-5 sm:min-h-[230px] sm:p-6 lg:min-h-[245px] ${featured ? 'border-white/10 bg-[#213236] text-white shadow-[0_18px_55px_rgba(9,13,14,.10)]' : 'border-night/10 bg-paper/80 text-night shadow-[0_14px_40px_rgba(9,13,14,.05)]'}`}
-                >
-                  <div className={`absolute inset-x-0 top-0 h-[2px] ${i % 2 === 0 ? 'bg-logo-magenta' : 'bg-mediterranean-light'}`} />
-
-                  <div className="flex items-start justify-between gap-4">
-                    <span className={`font-heading italic text-2xl ${featured ? 'text-sand' : 'text-mediterranean'}`}>{card.n}</span>
-                    <span className={`max-w-[10rem] text-right text-[9px] font-semibold uppercase tracking-[.16em] sm:text-[10px] ${featured ? '!text-white/50' : 'text-night/40'}`}>
-                      {card.tag}
-                    </span>
-                  </div>
-
-                  <div className="mt-8">
-                    <h3 className={`max-w-[17rem] text-[1.55rem] font-heading leading-[1.02] ${featured ? '!text-white' : 'text-night'}`}>
-                      {card.title}
-                    </h3>
-                    <p className={`mt-4 max-w-[18rem] text-sm leading-[1.75] ${featured ? '!text-white/72' : 'text-anthracite/68'}`}>
-                      {card.text}
-                    </p>
-                  </div>
-
-                  <div className={`mt-8 border-t pt-4 ${featured ? 'border-white/10' : 'border-night/10'}`}>
-                    <span className={`text-[9px] font-semibold uppercase tracking-[.18em] sm:text-[10px] ${featured ? '!text-sand/75' : 'text-night/45'}`}>
-                      Advisory framework
-                    </span>
-                  </div>
-                </article>
-              </FadeIn>
-            );
-          })}
+        <div className="mt-14 grid gap-0 lg:mt-20 lg:grid-cols-2">
+          <div className="lg:pr-10 xl:pr-14">
+            <OperationList items={leftColumn} />
+          </div>
+          <div className="mt-[-1px] lg:mt-0 lg:border-l lg:border-night/12 lg:pl-10 xl:pl-14">
+            <OperationList items={rightColumn} offset={leftColumn.length} />
+          </div>
         </div>
 
-        <FadeIn delay={0.2}>
-          <div className="mt-6 grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
-            <div className="relative overflow-hidden border border-night/10 bg-[#E7E0D6] p-6 paper-noise sm:p-8 lg:p-9">
-              <div className="absolute inset-x-0 top-0 h-px hairline-dark" />
-              <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Regia Prosperya</p>
-              <h3 className="mt-5 max-w-3xl text-3xl font-heading leading-[1.02] text-night sm:text-4xl">
-                Non semplici pratiche, ma scenari che richiedono struttura, tutela e coordinamento.
-              </h3>
-              <p className="mt-5 max-w-3xl text-sm leading-[1.85] text-anthracite/72 lg:text-[15px]">
-                Ogni operazione viene valutata in base al contesto societario, ai rapporti tra le parti, agli impatti economici e alla sostenibilità esecutiva.
-              </p>
-            </div>
+        <FadeIn delay={0.18}>
+          <div className="mt-12 border-y border-night/15 py-8 sm:mt-14 sm:py-9 lg:mt-16">
+            <div className="grid gap-7 lg:grid-cols-12 lg:items-center lg:gap-12">
+              <div className="lg:col-span-8">
+                <p className="text-[10px] font-semibold uppercase tracking-[.2em] text-night/40">Regia Prosperya</p>
+                <h3 className="mt-4 max-w-4xl text-2xl font-heading leading-[1.08] text-night sm:text-3xl lg:text-4xl">
+                  Prima di definire la forma dell’operazione, definiamo il problema da risolvere e gli equilibri da proteggere.
+                </h3>
+              </div>
 
-            <div className="relative overflow-hidden border border-white/10 bg-[#213236] p-6 text-white shadow-[0_18px_55px_rgba(9,13,14,.12)] sm:p-8 lg:p-9">
-              <div className="absolute inset-0 prosperya-grid opacity-15" />
-              <div className="relative flex h-full flex-col justify-between gap-8">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/45">Intervento su misura</p>
-                  <h3 className="mt-5 text-3xl font-heading leading-[1.02] !text-white sm:text-4xl">
-                    Valutiamo la formula più adatta prima di proporre qualsiasi struttura.
-                  </h3>
-                </div>
-
+              <div className="lg:col-span-4 lg:justify-self-end">
                 <Link
                   href="/contatti/"
-                  className="group inline-flex min-h-12 items-center justify-between gap-4 border border-sand/40 bg-sand/[0.08] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sand"
+                  className="group inline-flex min-h-12 w-full items-center justify-between gap-4 bg-[#213236] px-5 text-sm font-semibold !text-white transition-colors hover:bg-mediterranean focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mediterranean sm:w-auto sm:min-w-[245px]"
                 >
                   Richiedi un confronto
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
