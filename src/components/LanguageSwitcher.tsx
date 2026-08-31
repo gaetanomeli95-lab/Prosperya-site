@@ -25,43 +25,19 @@ interface GoogleTranslateWindow extends Window {
   googleTranslateElementInit?: () => void;
 }
 
-function Flag({ code, className = '' }: { code: LanguageCode; className?: string }) {
-  const base = `relative inline-block h-[14px] w-[20px] shrink-0 overflow-hidden rounded-[2px] border border-white/15 shadow-sm ${className}`;
-
-  if (code === 'it') {
-    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(90deg,#009246_0_33.33%,#fff_33.33%_66.66%,#ce2b37_66.66%_100%)]`} />;
-  }
-  if (code === 'fr') {
-    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(90deg,#0055a4_0_33.33%,#fff_33.33%_66.66%,#ef4135_66.66%_100%)]`} />;
-  }
-  if (code === 'de') {
-    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(180deg,#111_0_33.33%,#dd0000_33.33%_66.66%,#ffce00_66.66%_100%)]`} />;
-  }
-  if (code === 'es') {
-    return <span aria-hidden="true" className={`${base} bg-[linear-gradient(180deg,#aa151b_0_25%,#f1bf00_25%_75%,#aa151b_75%_100%)]`} />;
-  }
-
-  return (
-    <span aria-hidden="true" className={`${base} bg-[#012169]`}>
-      <span className="absolute inset-[-3px] rotate-[32deg] bg-white" />
-      <span className="absolute inset-[-3px] -rotate-[32deg] bg-white" />
-      <span className="absolute left-1/2 top-0 h-full w-[5px] -translate-x-1/2 bg-white" />
-      <span className="absolute left-0 top-1/2 h-[5px] w-full -translate-y-1/2 bg-white" />
-      <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 bg-[#c8102e]" />
-      <span className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 bg-[#c8102e]" />
-    </span>
-  );
+function isLanguageCode(value: string | null): value is LanguageCode {
+  return Boolean(value && languages.some((language) => language.code === value));
 }
 
 function getStoredLanguage(): LanguageCode {
   if (typeof window === 'undefined') return 'it';
 
-  const stored = window.localStorage.getItem('prosperya-language') as LanguageCode | null;
-  if (stored && languages.some((language) => language.code === stored)) return stored;
+  const stored = window.localStorage.getItem('prosperya-language');
+  if (isLanguageCode(stored)) return stored;
 
   const match = document.cookie.match(/(?:^|; )googtrans=\/it\/([^;]+)/);
-  const cookieLanguage = match?.[1] as LanguageCode | undefined;
-  if (cookieLanguage && languages.some((language) => language.code === cookieLanguage)) return cookieLanguage;
+  const cookieLanguage = match?.[1] ?? null;
+  if (isLanguageCode(cookieLanguage)) return cookieLanguage;
 
   return 'it';
 }
@@ -72,6 +48,8 @@ function ensureTranslateHost() {
 
   host = document.createElement('div');
   host.id = 'google_translate_element';
+  host.className = 'notranslate';
+  host.setAttribute('translate', 'no');
   host.setAttribute('aria-hidden', 'true');
   host.style.position = 'fixed';
   host.style.width = '1px';
@@ -84,18 +62,26 @@ function ensureTranslateHost() {
   return host;
 }
 
-function setTranslationCookie(language: LanguageCode) {
+function expireCookie(name: string, domain?: string) {
+  const domainPart = domain ? `; domain=${domain}` : '';
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainPart}; SameSite=Lax`;
+}
+
+function clearTranslationCookies() {
+  expireCookie('googtrans');
+
+  const hostname = window.location.hostname;
+  if (hostname && hostname !== 'localhost') {
+    expireCookie('googtrans', hostname);
+    if (hostname.includes('.')) expireCookie('googtrans', `.${hostname}`);
+  }
+}
+
+function setTranslationCookie(language: Exclude<LanguageCode, 'it'>) {
+  clearTranslationCookies();
   const expires = new Date();
   expires.setFullYear(expires.getFullYear() + 1);
   document.cookie = `googtrans=/it/${language}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
-}
-
-function clearTranslationCookie() {
-  document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax';
-
-  if (window.location.hostname.includes('.')) {
-    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=.${window.location.hostname}; SameSite=Lax`;
-  }
 }
 
 export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
@@ -162,50 +148,37 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
     };
   }, [open]);
 
-  const toggleOpen = () => {
-    setOpen((value) => {
-      const next = !value;
-      if (next) loadTranslate();
-      return next;
-    });
-  };
-
   const selectLanguage = (nextLanguage: LanguageCode) => {
-    setLanguage(nextLanguage);
-    setOpen(false);
-    window.localStorage.setItem('prosperya-language', nextLanguage);
-
-    if (nextLanguage === 'it') {
-      clearTranslationCookie();
-      window.location.reload();
+    if (nextLanguage === language) {
+      setOpen(false);
       return;
     }
 
-    setTranslationCookie(nextLanguage);
-    loadTranslate();
+    window.localStorage.setItem('prosperya-language', nextLanguage);
 
-    const applyTranslation = () => {
-      const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo');
-      if (!combo) return false;
-      combo.value = nextLanguage;
-      combo.dispatchEvent(new Event('change', { bubbles: true }));
-      return true;
-    };
-
-    if (!applyTranslation()) {
-      window.setTimeout(() => {
-        if (!applyTranslation()) window.location.reload();
-      }, 700);
+    if (nextLanguage === 'it') {
+      clearTranslationCookies();
+    } else {
+      setTranslationCookie(nextLanguage);
     }
+
+    setLanguage(nextLanguage);
+    setOpen(false);
+    window.location.reload();
   };
 
   const current = languages.find((item) => item.code === language) ?? languages[0];
 
   return (
-    <div ref={rootRef} className={`relative ${mobile ? 'w-full' : ''}`}>
+    <div
+      ref={rootRef}
+      className={`notranslate relative ${mobile ? 'w-full' : ''}`}
+      translate="no"
+      data-language-switcher
+    >
       <button
         type="button"
-        onClick={toggleOpen}
+        onClick={() => setOpen((value) => !value)}
         className={
           mobile
             ? 'flex min-h-12 w-full items-center justify-between border-y border-white/10 py-3 !text-white'
@@ -216,12 +189,9 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
         aria-label={`Lingua del sito: ${current.label}`}
       >
         <span className="flex items-center gap-2.5">
-          {mobile ? <Globe2 className="h-4 w-4 text-sand" /> : <Flag code={current.code} />}
+          <Globe2 className={`${mobile ? 'h-4 w-4 text-sand' : 'h-3.5 w-3.5 text-sand/80'}`} />
           {mobile && <span className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/45">Lingua</span>}
-          <span className={mobile ? 'ml-2 flex items-center gap-2.5 text-sm font-semibold !text-white' : ''}>
-            {mobile && <Flag code={current.code} />}
-            {current.short}
-          </span>
+          <span className={mobile ? 'ml-2 text-sm font-semibold !text-white' : 'text-[10px] font-bold !text-white/80'}>{current.short}</span>
         </span>
         <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -232,8 +202,8 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
           aria-label="Seleziona lingua"
           className={
             mobile
-              ? 'mt-2 grid grid-cols-1 border border-white/10 bg-white/[0.03]'
-              : 'absolute right-0 top-[calc(100%+8px)] z-[80] min-w-[210px] border border-white/12 bg-[#172326]/98 p-1.5 shadow-[0_22px_70px_rgba(0,0,0,.34)] backdrop-blur-xl'
+              ? 'mt-2 grid grid-cols-1 border border-white/10 bg-white/[0.03] p-1'
+              : 'absolute right-0 top-[calc(100%+8px)] z-[80] min-w-[220px] border border-white/12 bg-[#172326]/98 p-1.5 shadow-[0_22px_70px_rgba(0,0,0,.34)] backdrop-blur-xl'
           }
         >
           {languages.map((item) => {
@@ -245,16 +215,15 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
                 role="option"
                 aria-selected={active}
                 onClick={() => selectLanguage(item.code)}
-                className={`flex min-h-11 items-center justify-between gap-4 px-3 py-2 text-left text-xs transition-colors ${
+                className={`flex min-h-11 items-center justify-between gap-4 px-3 py-2 text-left transition-colors ${
                   active ? 'bg-sand/[0.09] !text-white' : '!text-white/65 hover:bg-white/[0.05] hover:!text-white'
                 }`}
               >
                 <span className="flex items-center gap-3">
-                  <Flag code={item.code} />
-                  <span>
-                    <span className="block font-medium">{item.label}</span>
-                    <span className="mt-0.5 block text-[9px] font-bold uppercase tracking-[.16em] !text-white/30">{item.short}</span>
+                  <span className={`grid h-7 min-w-9 place-items-center border px-1.5 text-[9px] font-bold uppercase tracking-[.14em] ${active ? 'border-sand/40 bg-sand/[0.08] text-sand' : 'border-white/12 bg-white/[0.025] text-white/55'}`}>
+                    {item.short}
                   </span>
+                  <span className="text-xs font-medium">{item.label}</span>
                 </span>
                 {active && <Check className="h-3.5 w-3.5 text-sand" />}
               </button>
