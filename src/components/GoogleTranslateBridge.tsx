@@ -20,28 +20,18 @@ interface GoogleTranslateWindow extends Window {
   googleTranslateElementInit?: () => void;
 }
 
-const bannerSelectors = [
-  'iframe.goog-te-banner-frame',
-  '.goog-te-banner-frame',
-  '.VIpgJd-ZVi9od-ORHb-OEVmcd',
-  'body > .skiptranslate',
-];
-
 function removeGoogleChrome() {
-  bannerSelectors.forEach((selector) => {
-    document.querySelectorAll(selector).forEach((element) => element.remove());
-  });
+  // Remove only Google's visible banner/chrome. Do not remove translation-engine iframes.
+  document.querySelectorAll('iframe.goog-te-banner-frame, .goog-te-banner-frame, .VIpgJd-ZVi9od-ORHb-OEVmcd').forEach((element) => element.remove());
 
   document.querySelectorAll('body > iframe').forEach((element) => {
     const iframe = element as HTMLIFrameElement;
     const className = typeof iframe.className === 'string' ? iframe.className : '';
-    const src = iframe.getAttribute('src') ?? '';
-    if (className.includes('goog-te') || src.includes('translate.google')) iframe.remove();
+    if (className.includes('goog-te-banner')) iframe.remove();
   });
 
   document.documentElement.style.top = '0px';
   document.body.style.top = '0px';
-  document.body.style.position = '';
 }
 
 export function GoogleTranslateBridge() {
@@ -65,9 +55,9 @@ export function GoogleTranslateBridge() {
           'google_translate_element',
         );
 
-        window.setTimeout(removeGoogleChrome, 50);
+        window.setTimeout(removeGoogleChrome, 80);
       } catch {
-        // Google Translate is an enhancement: the site must remain usable if it fails.
+        // Translation is an enhancement: keep the site usable if Google fails.
       }
     };
 
@@ -84,14 +74,14 @@ export function GoogleTranslateBridge() {
     removeGoogleChrome();
 
     const observer = new MutationObserver(removeGoogleChrome);
-    observer.observe(document.documentElement, {
+    observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
       attributeFilter: ['style', 'class'],
     });
 
-    const interval = window.setInterval(removeGoogleChrome, 400);
+    const interval = window.setInterval(removeGoogleChrome, 500);
 
     return () => {
       observer.disconnect();
@@ -101,7 +91,7 @@ export function GoogleTranslateBridge() {
 
   return (
     <>
-      <div id="google_translate_element" className="notranslate" translate="no" aria-hidden="true" />
+      <div id="google_translate_element" aria-hidden="true" />
       <style>{`
         #google_translate_element,
         .goog-te-banner-frame,
@@ -115,10 +105,6 @@ export function GoogleTranslateBridge() {
         .VIpgJd-ZVi9od-ORHb-OEVmcd,
         body > .skiptranslate {
           display: none !important;
-          visibility: hidden !important;
-          width: 0 !important;
-          height: 0 !important;
-          min-height: 0 !important;
         }
 
         html,
