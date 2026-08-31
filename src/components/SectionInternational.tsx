@@ -49,9 +49,9 @@ export function SectionInternational() {
 
           <div className="lg:col-span-7 lg:pt-4">
             <FadeIn delay={0.12}>
-              <div className="relative overflow-hidden border border-white/15 bg-white/[0.055] p-4 shadow-[0_30px_100px_rgba(0,0,0,.16)] sm:p-7 lg:p-10">
+              <div className="relative overflow-hidden border-y border-white/15 bg-white/[0.035] px-0 py-5 shadow-[0_30px_100px_rgba(0,0,0,.14)] sm:border sm:bg-white/[0.055] sm:p-7 lg:p-10">
                 <div className="absolute inset-x-0 top-0 h-px hairline-light" />
-                <div className="mb-7 flex items-center justify-between gap-4">
+                <div className="mb-3 flex items-end justify-between gap-4 px-1 sm:mb-7 sm:px-0">
                   <div>
                     <p className="text-[9px] font-semibold uppercase tracking-[.22em] !text-white/50">Operating network</p>
                     <p className="mt-2 font-heading text-2xl !text-white sm:text-3xl">Sicilia come hub</p>
