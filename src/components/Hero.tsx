@@ -34,8 +34,8 @@ export function Hero() {
             </motion.div>
 
             <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08 }} className="max-w-[940px] text-[clamp(2.7rem,13vw,4.9rem)] font-heading font-medium leading-[0.9] tracking-tighter2 !text-white sm:text-[clamp(3.3rem,8.7vw,6rem)] lg:text-[clamp(4.2rem,7.2vw,7.7rem)]">
-              Governare meglio.
-              <span className="mt-2 block italic !text-white/78">Crescere con metodo.</span>
+              {home.hero.h1[0]}
+              <span className="mt-2 block italic !text-white/78">{home.hero.h1[1]}</span>
             </motion.h1>
 
             <motion.div initial={{ opacity: 0, scale: 0.94, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.18 }} className="mx-auto mt-7 w-full max-w-[360px] sm:max-w-[410px] lg:hidden">
