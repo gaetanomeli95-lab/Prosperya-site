@@ -1,7 +1,7 @@
 export const home = {
   hero: {
     eyebrow: 'GOVERNANCE · STRATEGIA · INTERNAZIONALIZZAZIONE',
-    h1: ['Governare meglio.', 'Crescere con metodo.'],
+    h1: ['Una buona governance', 'fa crescere meglio.'],
     description:
       'Prosperya affianca imprenditori, aziende e investitori nelle decisioni che definiscono il futuro: governance, controllo, crescita e sviluppo internazionale.',
     ctaPrimary: 'Parla con un advisor',
