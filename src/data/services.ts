@@ -151,7 +151,7 @@ export const services: Service[] = [
 ];
 
 export const serviceCatalog: CatalogService[] = [
-  { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese', consultationPrice: consultationConfig.price },
+  { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese' },
   { title: 'Market Entry', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Invest in Italy', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Rinegoziazione bancaria', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
