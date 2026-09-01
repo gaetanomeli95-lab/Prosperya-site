@@ -73,7 +73,7 @@ export function Header() {
 
             <div className="relative z-10 hidden h-full items-center xl:flex">
               <nav className="flex h-full items-center" aria-label="Navigazione principale">
-                {mainNav.map((item, index) => {
+                {mainNav.map((item) => {
                   const legal = item.href === '/cookie-policy/' || item.href === '/privacy-policy/';
                   const consultation = item.href === '/contatti/';
                   const active = isActive(item.href);
@@ -93,7 +93,7 @@ export function Header() {
                   }
 
                   return (
-                    <div key={item.href} className={`relative flex h-full items-center ${legal && index === 4 ? 'ml-1 border-l border-white/10 pl-2 2xl:pl-3' : ''}`}>
+                    <div key={item.href} className={`relative flex h-full items-center ${item.href === '/cookie-policy/' ? 'ml-1 border-l border-white/10 pl-2 2xl:pl-3' : ''}`}>
                       <Link
                         href={item.href}
                         className={`group relative flex h-full items-center px-2 text-[10px] font-medium uppercase tracking-[0.11em] transition-colors 2xl:px-2.5 2xl:text-[11px] ${
@@ -175,7 +175,7 @@ export function Header() {
                           className="group my-5 flex w-full items-center justify-between border border-sand/30 bg-sand/[0.08] px-4 py-5 text-left sm:px-5"
                         >
                           <span>
-                            <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/75">04 · Private advisory</span>
+                            <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/75">05 · Private advisory</span>
                             <span className="mt-2 block text-2xl font-heading !text-white sm:text-3xl">{item.label}</span>
                           </span>
                           <span className="grid h-10 w-10 place-items-center bg-sand !text-night">
@@ -214,7 +214,7 @@ export function Header() {
               <div className="mt-6 grid gap-4 border-t border-white/10 pt-5 sm:grid-cols-2 sm:items-end">
                 <div>
                   <p className="text-[9px] font-semibold uppercase tracking-[.2em] !text-white/30">Contatti</p>
-                  <a href={`mailto:${company.emailPubblica}`} className="mt-2 block text-sm !text-white/70 hover:!text-white">{company.emailPubblica}</a>
+                  <a href={company.gmailComposeHref} target="_blank" rel="noopener noreferrer" className="mt-2 block text-sm !text-white/70 hover:!text-white">{company.emailPubblica}</a>
                 </div>
                 <p className="text-[9px] uppercase tracking-[.18em] !text-white/28 sm:text-right">{company.payoff}</p>
               </div>
