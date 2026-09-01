@@ -7,8 +7,6 @@ const languages = [
   { code: 'it', label: 'Italiano', short: 'IT', flag: 'it' },
   { code: 'en', label: 'English', short: 'EN', flag: 'gb' },
   { code: 'fr', label: 'Français', short: 'FR', flag: 'fr' },
-  { code: 'de', label: 'Deutsch', short: 'DE', flag: 'de' },
-  { code: 'es', label: 'Español', short: 'ES', flag: 'es' },
 ] as const;
 
 type LanguageCode = (typeof languages)[number]['code'];
@@ -57,6 +55,10 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   useEffect(() => {
     const saved = window.localStorage.getItem('prosperya-language');
     const next = isLanguageCode(saved) ? saved : getGoogTransCookie();
+    if (!isLanguageCode(saved) && saved) {
+      window.localStorage.setItem('prosperya-language', 'it');
+      setGoogTransCookie('it');
+    }
     setLanguage(next);
   }, []);
 
