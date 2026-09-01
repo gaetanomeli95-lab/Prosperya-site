@@ -35,7 +35,7 @@ export function GoogleTranslateBridge() {
         new TranslateElement(
           {
             pageLanguage: 'it',
-            includedLanguages: 'it,en,fr,es,de',
+            includedLanguages: 'it,en,fr',
             layout: TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false,
           },
