@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 interface ContactRequest {
   name: string;
   company: string;
+  vatNumber: string;
   email: string;
   phone: string;
   area: string;
@@ -22,20 +23,21 @@ export async function POST(request: Request) {
 
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const company = typeof body.company === 'string' ? body.company.trim() : '';
+    const vatNumber = typeof body.vatNumber === 'string' ? body.vatNumber.trim() : '';
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
     const area = typeof body.area === 'string' ? body.area.trim() : '';
     const message = typeof body.message === 'string' ? body.message.trim() : '';
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    if (!name || !validEmail || !message || body.privacy !== true) {
+    if (!name || !company || !vatNumber || !validEmail || !message || body.privacy !== true) {
       return NextResponse.json(
         { message: 'Controlla i dati obbligatori e il consenso privacy.' },
         { status: 400 }
       );
     }
 
-    if (name.length > 120 || company.length > 160 || email.length > 254 || phone.length > 40 || area.length > 120 || message.length > 4000) {
+    if (name.length > 120 || company.length > 160 || vatNumber.length > 32 || email.length > 254 || phone.length > 40 || area.length > 120 || message.length > 4000) {
       return NextResponse.json(
         { message: 'Uno o più campi superano la lunghezza consentita.' },
         { status: 400 }
@@ -48,7 +50,7 @@ export async function POST(request: Request) {
 
     if (!apiKey || !toEmail) {
       return NextResponse.json(
-        { message: 'Servizio di posta non configurato. Contatta la direzione tramite email o telefono.' },
+        { message: 'Servizio di posta non configurato. Contatta la direzione tramite email o WhatsApp.' },
         { status: 503 }
       );
     }
@@ -62,9 +64,10 @@ export async function POST(request: Request) {
       subject: `Nuova richiesta di contatto da ${name.replace(/[\r\n]/g, ' ')}`,
       text: `
 Nome: ${name}
-Azienda: ${company || '—'}
+Azienda: ${company}
+P. IVA: ${vatNumber}
 Email: ${email}
-Telefono: ${phone || '—'}
+Telefono / WhatsApp: ${phone || '—'}
 Area di interesse: ${area || '—'}
 
 Messaggio:
