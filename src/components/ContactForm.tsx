@@ -23,6 +23,7 @@ export function ContactForm({ initialArea = '' }: ContactFormProps) {
   const [form, setForm] = useState({
     name: '',
     company: '',
+    vatNumber: '',
     email: '',
     phone: '',
     area: selectedArea,
@@ -57,7 +58,7 @@ export function ContactForm({ initialArea = '' }: ContactFormProps) {
 
       if (res.ok) {
         setStatus('success');
-        setForm({ name: '', company: '', email: '', phone: '', area: selectedArea, message: '', privacy: false, website: '' });
+        setForm({ name: '', company: '', vatNumber: '', email: '', phone: '', area: selectedArea, message: '', privacy: false, website: '' });
       } else {
         setStatus('error');
         setErrorMsg(data.message || 'Si è verificato un errore. Riprova più tardi.');
@@ -74,26 +75,32 @@ export function ContactForm({ initialArea = '' }: ContactFormProps) {
         <label htmlFor="contact-website">Sito web</label>
         <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={handleChange} />
       </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="premium-label">Nome e cognome *</label>
           <input id="name" name="name" type="text" required value={form.name} onChange={handleChange} className="premium-input" placeholder="Nome e cognome" />
         </div>
         <div>
-          <label htmlFor="company" className="premium-label">Azienda</label>
-          <input id="company" name="company" type="text" value={form.company} onChange={handleChange} className="premium-input" placeholder="Ragione sociale" />
+          <label htmlFor="company" className="premium-label">Azienda *</label>
+          <input id="company" name="company" type="text" required value={form.company} onChange={handleChange} className="premium-input" placeholder="Ragione sociale" />
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="email" className="premium-label">Email *</label>
-          <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} className="premium-input" placeholder="nome@azienda.it" />
+          <label htmlFor="vatNumber" className="premium-label">P. IVA *</label>
+          <input id="vatNumber" name="vatNumber" type="text" required inputMode="numeric" value={form.vatNumber} onChange={handleChange} className="premium-input" placeholder="Partita IVA" />
         </div>
         <div>
-          <label htmlFor="phone" className="premium-label">Telefono</label>
+          <label htmlFor="phone" className="premium-label">Telefono / WhatsApp</label>
           <input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange} className="premium-input" placeholder="+39 ..." />
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="email" className="premium-label">Email *</label>
+        <input id="email" name="email" type="email" required value={form.email} onChange={handleChange} className="premium-input" placeholder="nome@azienda.it" />
       </div>
 
       <div>
