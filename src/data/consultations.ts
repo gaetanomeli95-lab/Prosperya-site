@@ -9,7 +9,7 @@ export const consultationConfig = {
   creditNote: 'In caso di conferimento dell’incarico, i €50 saranno scalati dal compenso complessivo della consulenza.',
 };
 
-export const paidConsultationSlugs = ['startup', 'finanza-agevolata'] as const;
+export const paidConsultationSlugs = ['finanza-agevolata'] as const;
 
 export function isPaidConsultationSlug(slug: string) {
   return paidConsultationSlugs.some((paidSlug) => paidSlug === slug);
