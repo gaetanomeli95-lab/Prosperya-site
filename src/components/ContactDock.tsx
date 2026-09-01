@@ -2,10 +2,9 @@
 
 import { company } from '@/data/company';
 
-const whatsappNumber = company.telefono.replace(/\D/g, '');
 const whatsappText = encodeURIComponent('Ciao Prosperya, vorrei ricevere informazioni sui vostri servizi.');
-const whatsappHref = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
-const emailHref = `mailto:${company.emailPubblica}`;
+const whatsappHref = `${company.whatsappHref}?text=${whatsappText}`;
+const emailHref = company.gmailComposeHref;
 
 function WhatsAppIcon({ className = '' }: { className?: string }) {
   return (
@@ -27,48 +26,24 @@ export function ContactDock() {
   return (
     <>
       <div className="fixed right-4 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 lg:flex xl:right-6">
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Contatta Prosperya su WhatsApp"
-          className="group relative grid h-12 w-12 place-items-center border border-white/12 bg-[#172326]/94 shadow-[0_18px_50px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-x-1 hover:border-[#25D366]/50 hover:bg-[#1E2F2A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366]"
-        >
+        <a href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Contatta Prosperya su WhatsApp" className="group relative grid h-12 w-12 place-items-center border border-white/12 bg-[#172326]/94 shadow-[0_18px_50px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-x-1 hover:border-[#25D366]/50 hover:bg-[#1E2F2A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366]">
           <WhatsAppIcon className="h-[21px] w-[21px] text-[#25D366]" />
-          <span className="pointer-events-none absolute right-[calc(100%+10px)] whitespace-nowrap border border-white/10 bg-[#172326]/96 px-3 py-2 text-[10px] font-semibold uppercase tracking-[.14em] !text-white opacity-0 shadow-lg backdrop-blur-xl transition-all duration-200 group-hover:opacity-100">
-            WhatsApp
-          </span>
+          <span className="pointer-events-none absolute right-[calc(100%+10px)] whitespace-nowrap border border-white/10 bg-[#172326]/96 px-3 py-2 text-[10px] font-semibold uppercase tracking-[.14em] !text-white opacity-0 shadow-lg backdrop-blur-xl transition-all duration-200 group-hover:opacity-100">WhatsApp</span>
         </a>
 
-        <a
-          href={emailHref}
-          aria-label="Scrivi una email a Prosperya"
-          className="group relative grid h-12 w-12 place-items-center border border-white/12 bg-[#172326]/94 shadow-[0_18px_50px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-x-1 hover:border-[#EA4335]/50 hover:bg-[#302322] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EA4335]"
-        >
+        <a href={emailHref} target="_blank" rel="noopener noreferrer" aria-label="Scrivi una email a Prosperya con Gmail" className="group relative grid h-12 w-12 place-items-center border border-white/12 bg-[#172326]/94 shadow-[0_18px_50px_rgba(0,0,0,.18)] backdrop-blur-xl transition-all duration-300 hover:-translate-x-1 hover:border-[#EA4335]/50 hover:bg-[#302322] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EA4335]">
           <GmailIcon className="h-[21px] w-[21px] text-[#EA4335]" />
-          <span className="pointer-events-none absolute right-[calc(100%+10px)] whitespace-nowrap border border-white/10 bg-[#172326]/96 px-3 py-2 text-[10px] font-semibold uppercase tracking-[.14em] !text-white opacity-0 shadow-lg backdrop-blur-xl transition-all duration-200 group-hover:opacity-100">
-            Email
-          </span>
+          <span className="pointer-events-none absolute right-[calc(100%+10px)] whitespace-nowrap border border-white/10 bg-[#172326]/96 px-3 py-2 text-[10px] font-semibold uppercase tracking-[.14em] !text-white opacity-0 shadow-lg backdrop-blur-xl transition-all duration-200 group-hover:opacity-100">Gmail</span>
         </a>
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-30 px-3 pb-[max(.75rem,env(safe-area-inset-bottom))] lg:hidden">
         <div className="mx-auto grid max-w-sm grid-cols-2 overflow-hidden border border-white/12 bg-[#172326]/96 shadow-[0_16px_55px_rgba(0,0,0,.26)] backdrop-blur-xl">
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex min-h-12 items-center justify-center gap-2.5 border-r border-white/10 px-3 text-[11px] font-semibold uppercase tracking-[.12em] !text-white transition-colors active:bg-[#1E2F2A]"
-          >
-            <WhatsAppIcon className="h-[18px] w-[18px] text-[#25D366]" />
-            WhatsApp
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2.5 border-r border-white/10 px-3 text-[11px] font-semibold uppercase tracking-[.12em] !text-white transition-colors active:bg-[#1E2F2A]">
+            <WhatsAppIcon className="h-[18px] w-[18px] text-[#25D366]" /> WhatsApp
           </a>
-          <a
-            href={emailHref}
-            className="flex min-h-12 items-center justify-center gap-2.5 px-3 text-[11px] font-semibold uppercase tracking-[.12em] !text-white transition-colors active:bg-[#302322]"
-          >
-            <GmailIcon className="h-[18px] w-[18px] text-[#EA4335]" />
-            Email
+          <a href={emailHref} target="_blank" rel="noopener noreferrer" className="flex min-h-12 items-center justify-center gap-2.5 px-3 text-[11px] font-semibold uppercase tracking-[.12em] !text-white transition-colors active:bg-[#302322]">
+            <GmailIcon className="h-[18px] w-[18px] text-[#EA4335]" /> Gmail
           </a>
         </div>
       </div>
