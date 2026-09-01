@@ -33,22 +33,18 @@ export function ServiceCatalogGrid({ compact = false }: ServiceCatalogGridProps)
               )}
               aria-label={`Approfondisci ${service.title}`}
             >
-              <div className="pointer-events-none absolute right-5 top-5 h-20 w-20 opacity-70 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100 sm:h-24 sm:w-24">
-                <span className="absolute inset-[16%] rounded-full border border-night/[0.07]" />
-                <span className="absolute inset-0 transition-transform duration-[1100ms] ease-out group-hover:rotate-[24deg]">
+              <div className="pointer-events-none absolute right-5 top-5 h-14 w-14 opacity-35 transition-all duration-700 group-hover:scale-105 group-hover:opacity-60 sm:h-16 sm:w-16">
+                <span className="absolute inset-[16%] rounded-full border border-night/[0.055]" />
+                <span className="absolute inset-0 transition-transform duration-[1100ms] ease-out group-hover:rotate-[18deg]">
                   {orbitDots.map((dot, dotIndex) => (
                     <span
                       key={dotIndex}
-                      className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_3px_rgba(255,255,255,.75)]"
+                      className="absolute h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_2px_rgba(255,255,255,.72)]"
                       style={{ left: `${dot.x}%`, top: `${dot.y}%`, backgroundColor: accents[(dotIndex + index) % accents.length] }}
                     />
                   ))}
                 </span>
               </div>
-
-              <span className="pointer-events-none absolute -right-8 -top-10 font-heading text-[7.5rem] italic leading-none text-night/[0.025] transition-colors duration-500 group-hover:text-night/[0.045]">
-                {String(index + 1).padStart(2, '0')}
-              </span>
 
               <div className="relative flex items-start justify-between gap-4 pr-20">
                 <span className="editorial-index text-2xl text-mediterranean">{String(index + 1).padStart(2, '0')}</span>
