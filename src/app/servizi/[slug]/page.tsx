@@ -32,16 +32,12 @@ export default async function ServiceDetail({ params }: Props) {
 
   const index = services.findIndex((s) => s.slug === service.slug);
   const isPaidConsultation = isPaidConsultationSlug(service.slug);
-  const paymentUrl = service.slug === 'startup'
-    ? process.env.NEXT_PUBLIC_STARTUP_PAYMENT_URL
-    : service.slug === 'finanza-agevolata'
-      ? process.env.NEXT_PUBLIC_FINANZA_PAYMENT_URL
-      : undefined;
+  const paymentUrl = isPaidConsultation ? process.env.NEXT_PUBLIC_FINANZA_PAYMENT_URL : undefined;
   const contactArea = encodeURIComponent(service.title);
   const ctaHref = isPaidConsultation && paymentUrl ? paymentUrl : `/contatti/?area=${contactArea}`;
   const ctaLabel = isPaidConsultation
     ? paymentUrl ? 'Prenota e paga la consulenza' : 'Richiedi la consulenza'
-    : 'Richiedi un confronto';
+    : 'Richiedi una consulenza gratuita';
 
   return (
     <div className="premium-page">
@@ -137,10 +133,18 @@ export default async function ServiceDetail({ params }: Props) {
                 </div>
               )}
 
+              {!isPaidConsultation && (
+                <div className="mt-7 border border-white/12 bg-white/[0.045] p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/40">Primo confronto</p>
+                  <p className="mt-2 text-3xl font-heading !text-white">Consulenza gratuita</p>
+                  <p className="mt-3 text-xs leading-[1.7] !text-white/55">Per Start Up e per tutti gli altri servizi il primo confronto non prevede costi.</p>
+                </div>
+              )}
+
               <Link
                 href={ctaHref}
-                target={paymentUrl ? '_blank' : undefined}
-                rel={paymentUrl ? 'noopener noreferrer' : undefined}
+                target={isPaidConsultation && paymentUrl ? '_blank' : undefined}
+                rel={isPaidConsultation && paymentUrl ? 'noopener noreferrer' : undefined}
                 className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night"
               >
                 <span className="flex items-center gap-2">{isPaidConsultation && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
@@ -148,7 +152,7 @@ export default async function ServiceDetail({ params }: Props) {
               </Link>
 
               {isPaidConsultation && !paymentUrl && (
-                <p className="mt-4 text-[11px] leading-relaxed !text-white/50">La prenotazione con pagamento online sarà disponibile dopo il collegamento di Stripe e Google Calendar. Nel frattempo puoi inviare la richiesta.</p>
+                <p className="mt-4 text-[11px] leading-relaxed !text-white/50">La prenotazione con pagamento online sarà disponibile dopo il collegamento del sistema di pagamento. Nel frattempo puoi inviare la richiesta.</p>
               )}
 
               <div className="mt-10 border-t border-white/10 pt-7">
