@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ContactForm } from '@/components/ContactForm';
 import { company } from '@/data/company';
 import { FadeIn } from '@/components/MotionWrapper';
-import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contatti',
@@ -45,11 +45,11 @@ export default async function Contatti({ searchParams }: ContattiProps) {
             <FadeIn>
               <span className="section-kicker">Contatto diretto</span>
               <div className="mt-8 border-y border-night/15">
-                <a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="group flex items-center justify-between gap-4 py-5 text-night/75 transition-colors hover:text-night">
-                  <span className="flex items-center gap-3 text-sm"><Phone className="h-4 w-4 text-mediterranean" />{company.telefono}</span>
+                <a href={company.whatsappHref} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-4 py-5 text-night/75 transition-colors hover:text-night">
+                  <span className="flex items-center gap-3 text-sm"><MessageCircle className="h-4 w-4 text-[#25D366]" />{company.telefono} · WhatsApp</span>
                   <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
-                <a href={`mailto:${company.emailPubblica}`} className="group flex items-center justify-between gap-4 border-t border-night/10 py-5 text-night/75 transition-colors hover:text-night">
+                <a href={company.gmailComposeHref} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-4 border-t border-night/10 py-5 text-night/75 transition-colors hover:text-night">
                   <span className="flex min-w-0 items-center gap-3 text-sm"><Mail className="h-4 w-4 shrink-0 text-mediterranean" /><span className="truncate">{company.emailPubblica}</span></span>
                   <ArrowUpRight className="h-4 w-4 shrink-0 opacity-40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
