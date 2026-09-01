@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MessageCircle } from 'lucide-react';
 import { legalNav } from '@/data/navigation';
 import { company } from '@/data/company';
 import { MiniBrandMark } from './MiniBrandMark';
@@ -69,8 +69,10 @@ export function Footer() {
             <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-white/42">Contatti</p>
             <address className="mt-5 not-italic text-sm leading-[1.8] !text-white/68">
               {company.sedeLegale}<br />{company.cap} {company.comune}<br />{company.regione}
-              <div className="mt-4"><a href={`tel:${company.telefono.replace(/\s/g, '')}`} className="transition-colors hover:!text-white">{company.telefono}</a></div>
-              <div><a href={`mailto:${company.emailPubblica}`} className="break-all transition-colors hover:!text-white">{company.emailPubblica}</a></div>
+              <div className="mt-4">
+                <a href={company.whatsappHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition-colors hover:!text-white"><MessageCircle className="h-4 w-4 text-[#25D366]" />{company.telefono} · WhatsApp</a>
+              </div>
+              <div><a href={company.gmailComposeHref} target="_blank" rel="noopener noreferrer" className="break-all transition-colors hover:!text-white">{company.emailPubblica}</a></div>
             </address>
           </div>
 
