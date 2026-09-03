@@ -4,6 +4,7 @@ import { Hero } from '@/components/Hero';
 import { SectionPositioning } from '@/components/SectionPositioning';
 import { SectionIntro } from '@/components/SectionIntro';
 import { SectionServices } from '@/components/SectionServices';
+import { SectionCinematic } from '@/components/SectionCinematic';
 import { SectionMethod } from '@/components/SectionMethod';
 import { SectionInternational } from '@/components/SectionInternational';
 import { SectionExperience } from '@/components/SectionExperience';
@@ -23,6 +24,7 @@ export default function Home() {
       <SectionPositioning />
       <SectionIntro />
       <SectionServices />
+      <SectionCinematic />
       <SectionMethod />
       <SectionInternational />
       <SectionExperience />
