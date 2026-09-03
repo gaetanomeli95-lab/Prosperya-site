@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { services } from '@/data/services';
-import { consultationConfig, isPaidConsultationSlug } from '@/data/consultations';
+import { consultationConfig, startupConsultationConfig, isPaidConsultationSlug } from '@/data/consultations';
 import { FadeIn } from '@/components/MotionWrapper';
 import { ArrowLeft, ArrowUpRight, CalendarDays, Clock3, CreditCard } from 'lucide-react';
 import Link from 'next/link';
@@ -32,11 +32,19 @@ export default async function ServiceDetail({ params }: Props) {
 
   const index = services.findIndex((s) => s.slug === service.slug);
   const isPaidConsultation = isPaidConsultationSlug(service.slug);
+  const isStartupConsultation = service.slug === 'startup';
   const contactArea = encodeURIComponent(service.title);
-  const ctaHref = isPaidConsultation ? consultationConfig.bookingUrl : `/contatti/?area=${contactArea}`;
+  const ctaHref = isPaidConsultation
+    ? consultationConfig.bookingUrl
+    : isStartupConsultation
+      ? startupConsultationConfig.bookingUrl
+      : `/contatti/?area=${contactArea}`;
   const ctaLabel = isPaidConsultation
     ? 'Prenota e paga la consulenza'
-    : 'Richiedi una consulenza gratuita';
+    : isStartupConsultation
+      ? 'Prenota la consulenza gratuita'
+      : 'Richiedi una consulenza gratuita';
+  const opensExternalBooking = isPaidConsultation || isStartupConsultation;
 
   return (
     <div className="premium-page">
@@ -132,18 +140,36 @@ export default async function ServiceDetail({ params }: Props) {
                 </div>
               )}
 
-              {!isPaidConsultation && (
+              {isStartupConsultation && (
                 <div className="mt-7 border border-white/12 bg-white/[0.045] p-5">
                   <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/40">Primo confronto</p>
                   <p className="mt-2 text-3xl font-heading !text-white">Consulenza gratuita</p>
-                  <p className="mt-3 text-xs leading-[1.7] !text-white/55">Per Start Up e per tutti gli altri servizi il primo confronto non prevede costi.</p>
+                  <div className="mt-5 space-y-3 border-t border-white/10 pt-4">
+                    <div className="flex items-start gap-3">
+                      <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
+                      <p className="text-xs leading-[1.7] !text-white/62">{startupConsultationConfig.durationLabel}</p>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
+                      <p className="text-xs leading-[1.7] !text-white/62">{startupConsultationConfig.availableDays}: {startupConsultationConfig.availableHours}.</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 text-[11px] leading-[1.7] !text-white/45">{startupConsultationConfig.weeklyCapacity}</p>
+                </div>
+              )}
+
+              {!isPaidConsultation && !isStartupConsultation && (
+                <div className="mt-7 border border-white/12 bg-white/[0.045] p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/40">Primo confronto</p>
+                  <p className="mt-2 text-3xl font-heading !text-white">Consulenza gratuita</p>
+                  <p className="mt-3 text-xs leading-[1.7] !text-white/55">Per tutti gli altri servizi il primo confronto non prevede costi.</p>
                 </div>
               )}
 
               <Link
                 href={ctaHref}
-                target={isPaidConsultation ? '_blank' : undefined}
-                rel={isPaidConsultation ? 'noopener noreferrer' : undefined}
+                target={opensExternalBooking ? '_blank' : undefined}
+                rel={opensExternalBooking ? 'noopener noreferrer' : undefined}
                 className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night"
               >
                 <span className="flex items-center gap-2">{isPaidConsultation && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
