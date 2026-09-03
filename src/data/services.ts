@@ -122,7 +122,7 @@ export const services: Service[] = [
       'Piani di rilancio',
     ],
     full: [
-      'Ristrutturazione debiti',
+      'Ristrutturazione debiti Agenzia delle Entrate',
       'Piani di rateizzazione e transazioni fiscali',
       'Interventi giudiziari ed extragiudiziari',
       'Rinegoziazione bancaria',
@@ -154,7 +154,7 @@ export const serviceCatalog: CatalogService[] = [
   { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese' },
   { title: 'Market Entry', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Invest in Italy', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
-  { title: 'Rinegoziazione bancaria', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
+  { title: 'Ristrutturazione debiti banche / Agenzia delle Entrate', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
   { title: 'Growth Factors', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
   { title: 'Controllo di gestione', href: '/servizi/governance-e-controllo/', area: 'Governance e controllo' },
   { title: 'Finanza agevolata', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata', consultationPrice: consultationConfig.price },
