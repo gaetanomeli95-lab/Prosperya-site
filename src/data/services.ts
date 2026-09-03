@@ -43,7 +43,7 @@ export const services: Service[] = [
       'Affianchiamo l’impresa nello sviluppo organizzativo, nelle risorse e nei percorsi di crescita strutturata.',
     bullets: [
       'Growth Factors',
-      'Formazione e executive mentoring',
+      'Formazione e Executive Mentoring',
       'Bandi e contributi (Europei, Nazionali, Regionali e Camerali)',
     ],
     full: [
@@ -51,7 +51,7 @@ export const services: Service[] = [
       'Sviluppo organizzativo',
       'Pianificazione strategica',
       'Digitalizzazione',
-      'Formazione e executive mentoring',
+      'Formazione e Executive Mentoring',
       'Bandi e contributi (Europei, Nazionali, Regionali e Camerali)',
     ],
   },
@@ -154,7 +154,7 @@ export const serviceCatalog: CatalogService[] = [
   { title: 'Start Up', href: '/servizi/startup/', area: 'Nuove imprese' },
   { title: 'Market Entry', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
   { title: 'Invest in Italy', href: '/servizi/internazionalizzazione/', area: 'Internazionalizzazione' },
-  { title: 'Ristrutturazione debiti banche / Agenzia delle Entrate', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
+  { title: 'Ristrutturazione debiti Banche / Agenzia delle Entrate', href: '/servizi/crisi-e-risanamento/', area: 'Ristrutturazione debiti' },
   { title: 'Growth Factors', href: '/servizi/strategia-e-crescita/', area: 'Sviluppo e risorse' },
   { title: 'Controllo di gestione', href: '/servizi/governance-e-controllo/', area: 'Governance e controllo' },
   { title: 'Finanza agevolata', href: '/servizi/finanza-agevolata/', area: 'Finanza agevolata', consultationPrice: consultationConfig.price },
