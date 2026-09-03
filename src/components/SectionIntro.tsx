@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { home } from '@/data/content';
 import { FadeIn } from './MotionWrapper';
@@ -32,6 +33,17 @@ const pillars = [
 ];
 
 export function SectionIntro() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 1.3;
+    video.defaultPlaybackRate = 1.3;
+    void video.play().catch(() => undefined);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-[#E4DDD1] py-20 sm:py-24 lg:py-36">
       <div className="absolute inset-0 paper-noise opacity-55" />
@@ -41,25 +53,23 @@ export function SectionIntro() {
       <div className="section-frame relative">
         <div className="overflow-hidden border border-night/10 bg-[#F0EADF] shadow-[0_28px_90px_rgba(9,13,14,.08)]">
           <div className="grid lg:grid-cols-[.38fr_.62fr]">
-            <div className="relative min-h-[260px] overflow-hidden bg-[#10191B] sm:min-h-[340px] lg:min-h-full">
+            <div className="relative flex min-h-[520px] items-center justify-center overflow-hidden bg-[#10191B] sm:min-h-[620px] lg:min-h-full">
               <video
+                ref={videoRef}
                 autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
+                preload="auto"
                 aria-label="Video Prosperya: una visione integrata dell'impresa"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="h-full max-h-[720px] w-full object-contain lg:absolute lg:inset-0 lg:max-h-none"
               >
-                <source src="/videos/prosperya-cinematic-desktop.mp4" type="video/mp4" />
+                <source src="/videos/prosperya-cinematic-mobile.mp4" type="video/mp4" />
               </video>
 
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(7,11,12,.08)_20%,rgba(7,11,12,.68)_100%)]" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-
-              <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8 lg:p-9 xl:p-10">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-[linear-gradient(180deg,transparent_0%,rgba(7,11,12,.78)_100%)] px-6 pb-6 pt-24 sm:px-8 sm:pb-8 lg:px-9 lg:pb-9 xl:px-10 xl:pb-10">
                 <p className="text-[9px] font-semibold uppercase tracking-[.24em] !text-white/55">Prosperya / Visione integrata</p>
-                <h2 className="mt-3 max-w-[8ch] text-[clamp(2.5rem,5vw,4.7rem)] font-heading leading-[0.92] tracking-[-.04em] !text-white">
+                <h2 className="mt-3 max-w-[8ch] text-[clamp(2.45rem,5vw,4.5rem)] font-heading leading-[0.92] tracking-[-.04em] !text-white">
                   Il nostro <span className="italic !text-white/72">approccio.</span>
                 </h2>
               </div>
