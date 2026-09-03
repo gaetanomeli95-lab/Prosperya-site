@@ -35,7 +35,7 @@ export function Hero() {
 
             <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08 }} className="max-w-[940px] text-[clamp(2.65rem,12.6vw,4.75rem)] font-heading font-medium leading-[0.92] tracking-tighter2 !text-white sm:text-[clamp(3.2rem,8.35vw,5.8rem)] lg:text-[clamp(4rem,6.85vw,7.35rem)]">
               {home.hero.h1[0]}
-              <span className="mt-2 block italic !text-white/78">{home.hero.h1[1]}</span>
+              <span className="mt-2 block italic tracking-[-0.012em] !text-white/78">{home.hero.h1[1]}</span>
             </motion.h1>
 
             <motion.div initial={{ opacity: 0, scale: 0.94, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.18 }} className="mx-auto mt-7 w-full max-w-[360px] sm:max-w-[410px] lg:hidden">
