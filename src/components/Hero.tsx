@@ -33,7 +33,7 @@ export function Hero() {
               <p className="eyebrow max-w-[16rem] !text-white/78 sm:max-w-none">{home.hero.eyebrow}</p>
             </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08 }} className="max-w-[940px] text-[clamp(2.7rem,13vw,4.9rem)] font-heading font-medium leading-[0.9] tracking-tighter2 !text-white sm:text-[clamp(3.3rem,8.7vw,6rem)] lg:text-[clamp(4.2rem,7.2vw,7.7rem)]">
+            <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.08 }} className="max-w-[940px] text-[clamp(2.65rem,12.6vw,4.75rem)] font-heading font-medium leading-[0.92] tracking-tighter2 !text-white sm:text-[clamp(3.2rem,8.35vw,5.8rem)] lg:text-[clamp(4rem,6.85vw,7.35rem)]">
               {home.hero.h1[0]}
               <span className="mt-2 block italic !text-white/78">{home.hero.h1[1]}</span>
             </motion.h1>
