@@ -43,16 +43,27 @@ export function SectionIntro() {
       <div className="section-frame relative">
         <div className="overflow-hidden border border-night/10 bg-[#F0EADF] shadow-[0_28px_90px_rgba(9,13,14,.08)]">
           <div className="grid lg:grid-cols-[.33fr_.67fr]">
-            <div className="relative overflow-hidden bg-[linear-gradient(155deg,#1A2D30_0%,#142326_100%)] p-7 text-white sm:p-9 lg:p-10 xl:p-12">
+            <div className="relative flex min-h-[320px] overflow-hidden bg-[linear-gradient(155deg,#1A2D30_0%,#142326_100%)] p-7 text-white sm:min-h-[380px] sm:p-9 lg:min-h-full lg:p-10 xl:p-12">
               <div className="absolute inset-0 prosperya-grid opacity-18" />
               <div className="absolute -left-20 top-20 h-64 w-64 rounded-full bg-mediterranean/18 blur-3xl" />
-              <div className="relative">
-                <span className="section-kicker-dark">Il nostro approccio</span>
-                <p className="mt-9 text-[10px] font-semibold uppercase tracking-[.22em] !text-white/35">Prosperya / Manifesto</p>
-                <div className="mt-8 flex gap-2">
-                  {brandDots.map((color) => <span key={color} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />)}
+              <span className="pointer-events-none absolute -bottom-10 -right-5 font-heading text-[12rem] italic leading-none !text-white/[0.05] sm:text-[15rem] lg:-bottom-12 lg:-right-7 lg:text-[18rem]">P</span>
+
+              <div className="relative z-10 flex w-full flex-col justify-between">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[.24em] !text-white/40">Prosperya / Manifesto</p>
+                  <h2 className="mt-7 max-w-[7ch] text-[clamp(3.1rem,8vw,5.4rem)] font-heading leading-[0.9] tracking-[-.045em] !text-white lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
+                    Il nostro <span className="italic !text-white/72">approccio.</span>
+                  </h2>
                 </div>
-                <span className="mt-12 block font-heading text-[9rem] italic leading-none !text-white/[0.08] lg:text-[12rem]">P</span>
+
+                <div className="mt-14">
+                  <div className="flex gap-2">
+                    {brandDots.map((color) => <span key={color} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />)}
+                  </div>
+                  <p className="mt-5 max-w-[26rem] text-sm leading-[1.75] !text-white/58">
+                    Una sola regia per leggere insieme struttura, numeri, persone e mercati.
+                  </p>
+                </div>
               </div>
             </div>
 
