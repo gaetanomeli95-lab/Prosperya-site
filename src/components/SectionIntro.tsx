@@ -31,8 +31,6 @@ const pillars = [
   },
 ];
 
-const brandDots = ['#F2C94C', '#4CAF50', '#1976D2', '#C81A69', '#FF7F2A'];
-
 export function SectionIntro() {
   return (
     <section className="relative overflow-hidden bg-[#E4DDD1] py-20 sm:py-24 lg:py-36">
@@ -42,28 +40,28 @@ export function SectionIntro() {
 
       <div className="section-frame relative">
         <div className="overflow-hidden border border-night/10 bg-[#F0EADF] shadow-[0_28px_90px_rgba(9,13,14,.08)]">
-          <div className="grid lg:grid-cols-[.33fr_.67fr]">
-            <div className="relative flex min-h-[320px] overflow-hidden bg-[linear-gradient(155deg,#1A2D30_0%,#142326_100%)] p-7 text-white sm:min-h-[380px] sm:p-9 lg:min-h-full lg:p-10 xl:p-12">
-              <div className="absolute inset-0 prosperya-grid opacity-18" />
-              <div className="absolute -left-20 top-20 h-64 w-64 rounded-full bg-mediterranean/18 blur-3xl" />
-              <span className="pointer-events-none absolute -bottom-10 -right-5 font-heading text-[12rem] italic leading-none !text-white/[0.05] sm:text-[15rem] lg:-bottom-12 lg:-right-7 lg:text-[18rem]">P</span>
+          <div className="grid lg:grid-cols-[.38fr_.62fr]">
+            <div className="relative min-h-[260px] overflow-hidden bg-[#10191B] sm:min-h-[340px] lg:min-h-full">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Video Prosperya: una visione integrata dell'impresa"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/videos/prosperya-cinematic-desktop.mp4" type="video/mp4" />
+              </video>
 
-              <div className="relative z-10 flex w-full flex-col justify-between">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[.24em] !text-white/40">Prosperya / Manifesto</p>
-                  <h2 className="mt-7 max-w-[7ch] text-[clamp(3.1rem,8vw,5.4rem)] font-heading leading-[0.9] tracking-[-.045em] !text-white lg:text-[clamp(3.7rem,4.8vw,5.8rem)]">
-                    Il nostro <span className="italic !text-white/72">approccio.</span>
-                  </h2>
-                </div>
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(7,11,12,.08)_20%,rgba(7,11,12,.68)_100%)]" />
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
-                <div className="mt-14">
-                  <div className="flex gap-2">
-                    {brandDots.map((color) => <span key={color} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />)}
-                  </div>
-                  <p className="mt-5 max-w-[26rem] text-sm leading-[1.75] !text-white/58">
-                    Una sola regia per leggere insieme struttura, numeri, persone e mercati.
-                  </p>
-                </div>
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8 lg:p-9 xl:p-10">
+                <p className="text-[9px] font-semibold uppercase tracking-[.24em] !text-white/55">Prosperya / Visione integrata</p>
+                <h2 className="mt-3 max-w-[8ch] text-[clamp(2.5rem,5vw,4.7rem)] font-heading leading-[0.92] tracking-[-.04em] !text-white">
+                  Il nostro <span className="italic !text-white/72">approccio.</span>
+                </h2>
               </div>
             </div>
 
