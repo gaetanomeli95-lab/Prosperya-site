@@ -32,11 +32,10 @@ export default async function ServiceDetail({ params }: Props) {
 
   const index = services.findIndex((s) => s.slug === service.slug);
   const isPaidConsultation = isPaidConsultationSlug(service.slug);
-  const paymentUrl = isPaidConsultation ? process.env.NEXT_PUBLIC_FINANZA_PAYMENT_URL : undefined;
   const contactArea = encodeURIComponent(service.title);
-  const ctaHref = isPaidConsultation && paymentUrl ? paymentUrl : `/contatti/?area=${contactArea}`;
+  const ctaHref = isPaidConsultation ? consultationConfig.bookingUrl : `/contatti/?area=${contactArea}`;
   const ctaLabel = isPaidConsultation
-    ? paymentUrl ? 'Prenota e paga la consulenza' : 'Richiedi la consulenza'
+    ? 'Prenota e paga la consulenza'
     : 'Richiedi una consulenza gratuita';
 
   return (
@@ -143,17 +142,13 @@ export default async function ServiceDetail({ params }: Props) {
 
               <Link
                 href={ctaHref}
-                target={isPaidConsultation && paymentUrl ? '_blank' : undefined}
-                rel={isPaidConsultation && paymentUrl ? 'noopener noreferrer' : undefined}
+                target={isPaidConsultation ? '_blank' : undefined}
+                rel={isPaidConsultation ? 'noopener noreferrer' : undefined}
                 className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night"
               >
                 <span className="flex items-center gap-2">{isPaidConsultation && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
-
-              {isPaidConsultation && !paymentUrl && (
-                <p className="mt-4 text-[11px] leading-relaxed !text-white/50">La prenotazione con pagamento online sarà disponibile dopo il collegamento del sistema di pagamento. Nel frattempo puoi inviare la richiesta.</p>
-              )}
 
               <div className="mt-10 border-t border-white/10 pt-7">
                 <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/35">Prosperya standard</p>
