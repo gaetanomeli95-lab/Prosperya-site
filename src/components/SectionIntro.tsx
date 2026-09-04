@@ -32,6 +32,16 @@ const pillars = [
 ];
 
 const brandDots = ['#F2C94C', '#4CAF50', '#1976D2', '#C81A69', '#FF7F2A'];
+const orbitNodes = [
+  { x: 50, y: 3, color: '#F2C94C' },
+  { x: 79, y: 14, color: '#4CAF50' },
+  { x: 96, y: 43, color: '#1976D2' },
+  { x: 86, y: 76, color: '#C81A69' },
+  { x: 58, y: 96, color: '#FF7F2A' },
+  { x: 25, y: 86, color: '#F2C94C' },
+  { x: 4, y: 57, color: '#4CAF50' },
+  { x: 14, y: 24, color: '#1976D2' },
+];
 
 export function SectionIntro() {
   return (
@@ -42,17 +52,61 @@ export function SectionIntro() {
 
       <div className="section-frame relative">
         <div className="overflow-hidden border border-night/10 bg-[#F0EADF] shadow-[0_28px_90px_rgba(9,13,14,.08)]">
-          <div className="grid lg:grid-cols-[.33fr_.67fr]">
-            <div className="relative overflow-hidden bg-[linear-gradient(155deg,#1A2D30_0%,#142326_100%)] p-7 text-white sm:p-9 lg:p-10 xl:p-12">
+          <div className="grid lg:grid-cols-[.38fr_.62fr]">
+            <div className="relative min-h-[560px] overflow-hidden bg-[linear-gradient(150deg,#1A2D30_0%,#101A1C_100%)] p-7 text-white sm:min-h-[620px] sm:p-9 lg:min-h-full lg:p-10 xl:p-12">
               <div className="absolute inset-0 prosperya-grid opacity-18" />
-              <div className="absolute -left-20 top-20 h-64 w-64 rounded-full bg-mediterranean/18 blur-3xl" />
-              <div className="relative">
-                <span className="section-kicker-dark">Il nostro approccio</span>
-                <p className="mt-9 text-[10px] font-semibold uppercase tracking-[.22em] !text-white/35">Prosperya / Manifesto</p>
-                <div className="mt-8 flex gap-2">
-                  {brandDots.map((color) => <span key={color} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />)}
+              <div className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-mediterranean/20 blur-3xl" />
+              <div className="absolute -bottom-24 -right-20 h-80 w-80 rounded-full bg-sand/[0.08] blur-3xl" />
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sand/55 to-transparent" />
+
+              <div className="relative flex h-full min-h-[500px] flex-col sm:min-h-[550px] lg:min-h-[620px]">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="section-kicker-dark">Il nostro approccio</span>
+                  <span className="text-[9px] font-semibold uppercase tracking-[.24em] !text-white/32">Prosperya / Manifesto</span>
                 </div>
-                <span className="mt-12 block font-heading text-[9rem] italic leading-none !text-white/[0.08] lg:text-[12rem]">P</span>
+
+                <div className="mt-10 flex items-center gap-2.5">
+                  {brandDots.map((color) => (
+                    <span key={color} className="h-2.5 w-2.5 rounded-full shadow-[0_0_0_4px_rgba(255,255,255,.025)]" style={{ backgroundColor: color }} />
+                  ))}
+                </div>
+
+                <div className="relative mx-auto mt-10 aspect-square w-[78%] max-w-[300px] sm:max-w-[340px] lg:mt-12 lg:w-[88%]">
+                  <div className="absolute inset-[8%] rounded-full border border-white/[0.08]" />
+                  <div className="absolute inset-[22%] rounded-full border border-sand/[0.12]" />
+                  <div className="absolute inset-[34%] rounded-full border border-white/[0.06]" />
+                  <div className="absolute inset-[43%] rounded-full bg-sand/[0.08] shadow-[0_0_60px_rgba(231,212,166,.08)]" />
+                  <div className="absolute inset-[38%] grid place-items-center rounded-full border border-sand/20 bg-[#162326]/90">
+                    <span className="font-heading text-5xl italic !text-white/88 sm:text-6xl">P</span>
+                  </div>
+
+                  {orbitNodes.map((node, index) => (
+                    <span
+                      key={`${node.x}-${node.y}`}
+                      className="absolute h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[0_0_0_5px_rgba(16,26,28,.78),0_0_22px_rgba(255,255,255,.08)]"
+                      style={{ left: `${node.x}%`, top: `${node.y}%`, backgroundColor: node.color }}
+                    >
+                      <span className="sr-only">Nodo {index + 1}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-8">
+                  <p className="max-w-[20rem] font-heading text-[clamp(2rem,3.2vw,3.2rem)] leading-[.98] tracking-[-.03em] !text-white">
+                    Una visione. <span className="italic !text-white/60">Più prospettive.</span> Una sola regia.
+                  </p>
+
+                  <div className="mt-7 border-t border-white/10 pt-5">
+                    <div className="flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-semibold uppercase tracking-[.2em] !text-white/42">
+                      <span>Governance</span>
+                      <span>Execution</span>
+                      <span>Expansion</span>
+                    </div>
+                    <p className="mt-4 max-w-sm text-xs leading-[1.7] !text-white/52">
+                      Struttura, decisioni e crescita lette come parti dello stesso sistema.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
