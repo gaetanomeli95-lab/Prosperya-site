@@ -141,20 +141,27 @@ export default async function ServiceDetail({ params }: Props) {
               )}
 
               {isStartupConsultation && (
-                <div className="mt-7 border border-white/12 bg-white/[0.045] p-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/40">Primo confronto</p>
-                  <p className="mt-2 text-3xl font-heading !text-white">Consulenza gratuita</p>
-                  <div className="mt-5 space-y-3 border-t border-white/10 pt-4">
+                <div className="relative mt-7 overflow-hidden border border-sand/50 bg-sand/[0.12] p-5 shadow-[0_18px_55px_rgba(207,177,119,.10)] sm:p-6">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sand to-transparent" />
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[.22em] !text-sand/85">Consulenza Start Up</p>
+                      <p className="mt-2 text-[2.65rem] font-heading leading-[.92] tracking-[-.025em] !text-white sm:text-5xl">Consulenza gratuita</p>
+                    </div>
+                    <span className="shrink-0 border border-sand/50 bg-sand px-3 py-2 text-[9px] font-bold uppercase tracking-[.18em] text-night">Gratuita</span>
+                  </div>
+                  <p className="mt-4 max-w-sm text-xs leading-[1.75] !text-white/68">Un primo confronto dedicato al progetto imprenditoriale, senza costi.</p>
+                  <div className="mt-5 space-y-3 border-t border-sand/25 pt-4">
                     <div className="flex items-start gap-3">
                       <Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
-                      <p className="text-xs leading-[1.7] !text-white/62">{startupConsultationConfig.durationLabel}</p>
+                      <p className="text-xs leading-[1.7] !text-white/72">{startupConsultationConfig.durationLabel}</p>
                     </div>
                     <div className="flex items-start gap-3">
                       <CalendarDays className="mt-0.5 h-4 w-4 shrink-0 text-sand" />
-                      <p className="text-xs leading-[1.7] !text-white/62">{startupConsultationConfig.availableDays}: {startupConsultationConfig.availableHours}.</p>
+                      <p className="text-xs leading-[1.7] !text-white/72">{startupConsultationConfig.availableDays}: {startupConsultationConfig.availableHours}.</p>
                     </div>
                   </div>
-                  <p className="mt-3 text-[11px] leading-[1.7] !text-white/45">{startupConsultationConfig.weeklyCapacity}</p>
+                  <p className="mt-3 text-[11px] leading-[1.7] !text-white/52">{startupConsultationConfig.weeklyCapacity}</p>
                 </div>
               )}
 
@@ -170,9 +177,17 @@ export default async function ServiceDetail({ params }: Props) {
                 href={ctaHref}
                 target={opensExternalBooking ? '_blank' : undefined}
                 rel={opensExternalBooking ? 'noopener noreferrer' : undefined}
-                className="group mt-8 flex min-h-14 w-full items-center justify-between border border-sand/40 bg-sand/[0.06] px-5 text-sm font-semibold !text-white transition-all hover:bg-sand hover:!text-night"
+                className={`group mt-8 flex min-h-14 w-full items-center justify-between px-5 text-sm font-semibold transition-all ${
+                  isStartupConsultation
+                    ? 'border border-sand bg-sand !text-night shadow-[0_12px_36px_rgba(207,177,119,.16)] hover:bg-[#DEC89E]'
+                    : 'border border-sand/40 bg-sand/[0.06] !text-white hover:bg-sand hover:!text-night'
+                }`}
               >
-                <span className="flex items-center gap-2">{isPaidConsultation && <CreditCard className="h-4 w-4" />}{ctaLabel}</span>
+                <span className="flex items-center gap-2">
+                  {isPaidConsultation && <CreditCard className="h-4 w-4" />}
+                  {isStartupConsultation && <CalendarDays className="h-4 w-4" />}
+                  {ctaLabel}
+                </span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
 
