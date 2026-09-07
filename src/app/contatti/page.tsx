@@ -40,7 +40,7 @@ export default async function Contatti({ searchParams }: ContattiProps) {
           </div>
         </section>
 
-        <section className="mt-6 grid gap-6 lg:grid-cols-[.68fr_1.32fr]">
+        <section id="richiesta-consulenza" className="mt-6 scroll-mt-28 grid gap-6 lg:grid-cols-[.68fr_1.32fr]">
           <div className="bg-[#E9E3D9] p-6 paper-noise sm:p-8 lg:p-9">
             <FadeIn>
               <span className="section-kicker">Contatto diretto</span>
