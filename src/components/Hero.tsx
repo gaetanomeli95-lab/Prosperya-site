@@ -49,7 +49,7 @@ export function Hero() {
                   {home.hero.ctaPrimary}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
-                <Link href="#richiedi-consulenza" className="inline-flex min-h-11 w-full items-center justify-center gap-2 border border-white/25 px-4 py-2 text-sm font-medium !text-white/90 transition-colors hover:bg-white/8 hover:!text-white sm:w-auto sm:border-0 sm:px-1 sm:justify-end">
+                <Link href="/contatti/#richiesta-consulenza" className="inline-flex min-h-11 w-full items-center justify-center gap-2 border border-white/25 px-4 py-2 text-sm font-medium !text-white/90 transition-colors hover:bg-white/8 hover:!text-white sm:w-auto sm:border-0 sm:px-1 sm:justify-end">
                   Scopri di più <ArrowDownRight className="h-4 w-4" />
                 </Link>
               </div>
