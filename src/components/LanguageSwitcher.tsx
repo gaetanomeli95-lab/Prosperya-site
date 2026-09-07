@@ -31,20 +31,56 @@ function FlagIcon({ code, size = 20 }: { code: string; size?: number }) {
   );
 }
 
+function cookieDomains() {
+  const host = window.location.hostname.toLowerCase();
+  if (!host || host === 'localhost' || /^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return [];
+
+  const parts = host.split('.').filter(Boolean);
+  const root = parts.length >= 2 ? parts.slice(-2).join('.') : host;
+  return Array.from(new Set([host, root]));
+}
+
+function expireGoogTransCookie(domain?: string) {
+  const domainAttribute = domain ? `;domain=${domain}` : '';
+  document.cookie = `googtrans=;path=/;max-age=0;expires=Thu, 01 Jan 1970 00:00:00 GMT;SameSite=Lax${domainAttribute}`;
+}
+
+function clearGoogTransCookies() {
+  expireGoogTransCookie();
+  cookieDomains().forEach((domain) => {
+    expireGoogTransCookie(domain);
+    expireGoogTransCookie(`.${domain}`);
+  });
+}
+
 function setGoogTransCookie(language: LanguageCode) {
-  const host = window.location.hostname;
-  const value = language === 'it' ? '' : `/it/${language}`;
-  const maxAge = language === 'it' ? 0 : 31536000;
+  clearGoogTransCookies();
+  if (language === 'it') return;
+
+  const value = `/it/${language}`;
+  const maxAge = 31536000;
+  const domains = cookieDomains();
+  const rootDomain = domains.at(-1);
 
   document.cookie = `googtrans=${value};path=/;max-age=${maxAge};SameSite=Lax`;
-  if (host && host !== 'localhost') {
-    document.cookie = `googtrans=${value};path=/;domain=.${host};max-age=${maxAge};SameSite=Lax`;
+  if (rootDomain) {
+    document.cookie = `googtrans=${value};path=/;domain=.${rootDomain};max-age=${maxAge};SameSite=Lax`;
   }
 }
 
 function getGoogTransCookie(): LanguageCode {
-  const match = document.cookie.match(/googtrans=\/it\/([a-zA-Z-]+)/);
-  return isLanguageCode(match?.[1] ?? null) ? (match?.[1] as LanguageCode) : 'it';
+  const values = document.cookie
+    .split(';')
+    .map((cookie) => cookie.trim())
+    .filter((cookie) => cookie.startsWith('googtrans='))
+    .map((cookie) => decodeURIComponent(cookie.slice('googtrans='.length)));
+
+  for (const value of values.reverse()) {
+    const match = value.match(/^\/it\/([a-zA-Z-]+)$/);
+    if (isLanguageCode(match?.[1] ?? null)) return match?.[1] as LanguageCode;
+  }
+
+  return 'it';
 }
 
 export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
@@ -55,11 +91,17 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   useEffect(() => {
     const saved = window.localStorage.getItem('prosperya-language');
     const next = isLanguageCode(saved) ? saved : getGoogTransCookie();
+
     if (!isLanguageCode(saved) && saved) {
       window.localStorage.setItem('prosperya-language', 'it');
       setGoogTransCookie('it');
+      setLanguage('it');
+      document.documentElement.lang = 'it';
+      return;
     }
+
     setLanguage(next);
+    document.documentElement.lang = next;
   }, []);
 
   useEffect(() => {
@@ -81,11 +123,21 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   }, [open]);
 
   const selectLanguage = (nextLanguage: LanguageCode) => {
+    if (nextLanguage === language) {
+      setOpen(false);
+      return;
+    }
+
     setLanguage(nextLanguage);
     window.localStorage.setItem('prosperya-language', nextLanguage);
+    document.documentElement.lang = nextLanguage;
     setGoogTransCookie(nextLanguage);
     window.dispatchEvent(new CustomEvent('prosperya:language-selected', { detail: nextLanguage }));
     setOpen(false);
+
+    // Reload from the original Next.js markup. In particular this makes the
+    // return to Italian deterministic instead of asking Google to undo a DOM
+    // translation in place.
     window.location.reload();
   };
 
