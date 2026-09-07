@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, ChevronDown, Menu, X } from 'lucide-react';
 import { mainNav } from '@/data/navigation';
 import { company } from '@/data/company';
-import { ConsultationModal } from './ConsultationModal';
+import { consultationConfig, startupConsultationConfig } from '@/data/consultations';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MiniBrandMark } from './MiniBrandMark';
 
@@ -16,6 +16,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [consultationOpen, setConsultationOpen] = useState(false);
+  const consultationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -41,6 +42,28 @@ export function Header() {
     media.addEventListener('change', closeOnDesktop);
     return () => media.removeEventListener('change', closeOnDesktop);
   }, []);
+
+  useEffect(() => {
+    if (!consultationOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!consultationRef.current?.contains(event.target as Node)) setConsultationOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setConsultationOpen(false);
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [consultationOpen]);
+
+  useEffect(() => {
+    setConsultationOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
@@ -80,15 +103,69 @@ export function Header() {
 
                   if (consultation) {
                     return (
-                      <button
-                        key={item.href}
-                        type="button"
-                        onClick={() => setConsultationOpen(true)}
-                        className="group mx-3 inline-flex h-10 items-center gap-3 border border-sand/45 bg-sand/[0.06] px-4 text-[11px] font-semibold uppercase tracking-[0.12em] !text-white transition-all duration-300 hover:border-sand hover:bg-sand hover:!text-night 2xl:mx-4 2xl:px-5"
-                      >
-                        {item.label}
-                        <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </button>
+                      <div key={item.href} ref={consultationRef} className="relative flex h-full items-center">
+                        <button
+                          type="button"
+                          onClick={() => setConsultationOpen((value) => !value)}
+                          className="group mx-3 inline-flex h-10 items-center gap-3 border border-sand/45 bg-sand/[0.06] px-4 text-[11px] font-semibold uppercase tracking-[0.12em] !text-white transition-all duration-300 hover:border-sand hover:bg-sand hover:!text-night 2xl:mx-4 2xl:px-5"
+                          aria-expanded={consultationOpen}
+                          aria-haspopup="menu"
+                        >
+                          {item.label}
+                          <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-300 ${consultationOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        <AnimatePresence>
+                          {consultationOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -6, scale: 0.985 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -4, scale: 0.99 }}
+                              transition={{ duration: 0.18 }}
+                              role="menu"
+                              className="absolute right-3 top-[calc(100%+8px)] z-[90] w-[330px] border border-white/12 bg-[#111A1C]/98 p-1.5 shadow-[0_24px_70px_rgba(0,0,0,.36)] backdrop-blur-xl 2xl:right-4"
+                            >
+                              <p className="px-3 pb-2 pt-2 text-[9px] font-semibold uppercase tracking-[.2em] !text-white/32">Scegli il percorso</p>
+
+                              <a
+                                href={startupConsultationConfig.bookingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                role="menuitem"
+                                onClick={() => setConsultationOpen(false)}
+                                className="group flex items-center justify-between gap-4 border-t border-white/10 px-3 py-3.5 transition-colors hover:bg-white/[0.045]"
+                              >
+                                <span>
+                                  <span className="block text-sm font-semibold !text-white">Start Up</span>
+                                  <span className="mt-1 block text-[10px] tracking-[.04em] !text-white/42">1 ora · Mercoledì pomeriggio</span>
+                                </span>
+                                <span className="flex shrink-0 items-center gap-2">
+                                  <span className="text-[9px] font-bold uppercase tracking-[.14em] text-sand">Gratuita</span>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-white/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                </span>
+                              </a>
+
+                              <a
+                                href={consultationConfig.bookingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                role="menuitem"
+                                onClick={() => setConsultationOpen(false)}
+                                className="group flex items-center justify-between gap-4 border-t border-white/10 px-3 py-3.5 transition-colors hover:bg-white/[0.045]"
+                              >
+                                <span>
+                                  <span className="block text-sm font-semibold !text-white">Finanza agevolata</span>
+                                  <span className="mt-1 block text-[10px] tracking-[.04em] !text-white/42">1 ora · Martedì pomeriggio</span>
+                                </span>
+                                <span className="flex shrink-0 items-center gap-2">
+                                  <span className="text-[9px] font-bold uppercase tracking-[.14em] text-sand">€{consultationConfig.price} · IVA incl.</span>
+                                  <ArrowUpRight className="h-3.5 w-3.5 text-white/40 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                </span>
+                              </a>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
                     );
                   }
 
@@ -162,26 +239,71 @@ export function Header() {
 
                     if (consultation) {
                       return (
-                        <motion.button
+                        <motion.div
                           key={item.href}
                           initial={{ opacity: 0, y: 12 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.05 + index * 0.035 }}
-                          type="button"
-                          onClick={() => {
-                            setOpen(false);
-                            setConsultationOpen(true);
-                          }}
-                          className="group my-5 flex w-full items-center justify-between border border-sand/30 bg-sand/[0.08] px-4 py-5 text-left sm:px-5"
+                          className="my-5 border border-sand/25 bg-sand/[0.045]"
                         >
-                          <span>
-                            <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/75">05 · Private advisory</span>
-                            <span className="mt-2 block text-2xl font-heading !text-white sm:text-3xl">{item.label}</span>
-                          </span>
-                          <span className="grid h-10 w-10 place-items-center bg-sand !text-night">
-                            <ArrowUpRight className="h-4 w-4" />
-                          </span>
-                        </motion.button>
+                          <button
+                            type="button"
+                            onClick={() => setConsultationOpen((value) => !value)}
+                            className="flex w-full items-center justify-between px-4 py-4 text-left sm:px-5"
+                            aria-expanded={consultationOpen}
+                          >
+                            <span>
+                              <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/65">05 · Private advisory</span>
+                              <span className="mt-1.5 block text-2xl font-heading !text-white sm:text-3xl">{item.label}</span>
+                            </span>
+                            <ChevronDown className={`h-4 w-4 text-sand/80 transition-transform ${consultationOpen ? 'rotate-180' : ''}`} />
+                          </button>
+
+                          <AnimatePresence initial={false}>
+                            {consultationOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.22 }}
+                                className="overflow-hidden border-t border-white/10"
+                              >
+                                <a
+                                  href={startupConsultationConfig.bookingUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => {
+                                    setConsultationOpen(false);
+                                    setOpen(false);
+                                  }}
+                                  className="flex items-center justify-between gap-4 px-4 py-4 sm:px-5"
+                                >
+                                  <span>
+                                    <span className="block text-sm font-semibold !text-white">Start Up</span>
+                                    <span className="mt-1 block text-[10px] !text-white/40">Mercoledì · 1 ora</span>
+                                  </span>
+                                  <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.14em] text-sand">Gratuita <ArrowUpRight className="h-3.5 w-3.5" /></span>
+                                </a>
+                                <a
+                                  href={consultationConfig.bookingUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={() => {
+                                    setConsultationOpen(false);
+                                    setOpen(false);
+                                  }}
+                                  className="flex items-center justify-between gap-4 border-t border-white/10 px-4 py-4 sm:px-5"
+                                >
+                                  <span>
+                                    <span className="block text-sm font-semibold !text-white">Finanza agevolata</span>
+                                    <span className="mt-1 block text-[10px] !text-white/40">Martedì · 1 ora</span>
+                                  </span>
+                                  <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.14em] text-sand">€{consultationConfig.price} · IVA incl. <ArrowUpRight className="h-3.5 w-3.5" /></span>
+                                </a>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
                       );
                     }
 
@@ -222,8 +344,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ConsultationModal open={consultationOpen} onClose={() => setConsultationOpen(false)} />
     </>
   );
 }
