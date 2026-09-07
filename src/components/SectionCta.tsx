@@ -18,7 +18,7 @@ export function SectionCta() {
   const whatsappHref = `${company.whatsappHref}?text=${encodeURIComponent('Ciao Prosperya, vorrei ricevere informazioni sui vostri servizi.')}`;
 
   return (
-    <section className="relative overflow-hidden bg-[#D8D1C5] py-16 sm:py-20 lg:py-28">
+    <section id="richiedi-consulenza" className="relative scroll-mt-28 overflow-hidden bg-[#D8D1C5] py-16 sm:py-20 lg:py-28">
       <div className="absolute inset-0 paper-noise opacity-55" />
       <div className="section-frame relative">
         <FadeIn>
