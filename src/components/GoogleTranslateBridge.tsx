@@ -2,10 +2,16 @@
 
 import { useEffect } from 'react';
 
-function shouldLoadTranslate() {
+type SupportedLanguage = 'it' | 'en' | 'fr';
+
+function getSelectedLanguage(): SupportedLanguage {
   const selected = window.localStorage.getItem('prosperya-language');
-  const consent = window.localStorage.getItem('prosperya-cookie-consent-v1');
-  return selected && selected !== 'it' ? true : consent === 'all';
+  return selected === 'en' || selected === 'fr' || selected === 'it' ? selected : 'it';
+}
+
+function shouldLoadTranslate() {
+  const selected = getSelectedLanguage();
+  return selected === 'en' || selected === 'fr';
 }
 
 function injectTranslateScript() {
@@ -27,7 +33,7 @@ export function GoogleTranslateBridge() {
     translatedWindow.googleTranslateElementInit = () => {
       try {
         const TranslateElement = translatedWindow.google?.translate?.TranslateElement;
-        if (!TranslateElement) return;
+        if (!TranslateElement || !shouldLoadTranslate()) return;
 
         const host = document.getElementById('google_translate_element');
         if (!host || host.childElementCount > 0) return;
@@ -35,7 +41,7 @@ export function GoogleTranslateBridge() {
         new TranslateElement(
           {
             pageLanguage: 'it',
-            includedLanguages: 'it,en,fr',
+            includedLanguages: 'en,fr',
             layout: TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false,
           },
@@ -46,18 +52,18 @@ export function GoogleTranslateBridge() {
       }
     };
 
+    // Google Translate is loaded only when a translated language is actually
+    // selected. Keeping it completely out of the Italian version prevents a
+    // stale Google cookie or previous translation from re-applying itself.
     if (shouldLoadTranslate()) injectTranslateScript();
 
-    const onConsent = (event: Event) => {
-      const detail = (event as CustomEvent<string>).detail;
-      if (detail === 'all') injectTranslateScript();
+    const onLanguage = (event: Event) => {
+      const detail = (event as CustomEvent<SupportedLanguage>).detail;
+      if (detail === 'en' || detail === 'fr') injectTranslateScript();
     };
-
-    const onLanguage = () => injectTranslateScript();
-    window.addEventListener('prosperya:cookie-consent', onConsent);
     window.addEventListener('prosperya:language-selected', onLanguage);
 
-    const observer = new MutationObserver(() => {
+    const cleanGoogleUi = () => {
       document.querySelectorAll('iframe.goog-te-banner-frame').forEach((element) => element.remove());
       document.querySelectorAll('.goog-te-banner-frame').forEach((element) => element.remove());
       document.querySelectorAll('body > iframe').forEach((element) => {
@@ -66,8 +72,9 @@ export function GoogleTranslateBridge() {
         if (className.includes('goog-te')) iframe.remove();
       });
       if (document.body.style.top) document.body.style.top = '';
-    });
+    };
 
+    const observer = new MutationObserver(cleanGoogleUi);
     observer.observe(document.body, {
       childList: true,
       subtree: true,
@@ -75,16 +82,11 @@ export function GoogleTranslateBridge() {
       attributeFilter: ['style', 'class'],
     });
 
-    const interval = window.setInterval(() => {
-      document.querySelectorAll('iframe.goog-te-banner-frame').forEach((element) => element.remove());
-      document.querySelectorAll('.goog-te-banner-frame').forEach((element) => element.remove());
-      if (document.body.style.top) document.body.style.top = '';
-    }, 500);
+    const interval = window.setInterval(cleanGoogleUi, 500);
 
     return () => {
       observer.disconnect();
       window.clearInterval(interval);
-      window.removeEventListener('prosperya:cookie-consent', onConsent);
       window.removeEventListener('prosperya:language-selected', onLanguage);
     };
   }, []);
