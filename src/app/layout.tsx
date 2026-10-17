@@ -6,6 +6,7 @@ import { BrandIntro } from '@/components/BrandIntro';
 import { ContactDock } from '@/components/ContactDock';
 import { GoogleTranslateBridge } from '@/components/GoogleTranslateBridge';
 import { CookieBanner } from '@/components/CookieBanner';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { OrganizationJsonLd } from '@/components/JsonLd';
 import './globals.css';
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieBanner />
+        <GoogleAnalytics />
       </body>
     </html>
   );

@@ -33,6 +33,10 @@ export default function CookiePolicy() {
               <p className="mt-4 leading-[1.8]">Il sito mette a disposizione un servizio di traduzione automatica basato su Google Translate. Il servizio viene attivato con il consenso dell’utente oppure quando l’utente sceglie volontariamente una lingua diversa dall’italiano. L’attivazione può comportare l’utilizzo di tecnologie e richieste verso servizi Google.</p>
             </section>
             <section className="border-t border-night/10 pt-6">
+              <h2 className="text-2xl font-heading text-night">Google Analytics</h2>
+              <p className="mt-4 leading-[1.8]">Il sito utilizza Google Analytics 4 (ID G-LLMYW2BHV4), un servizio di misurazione fornito da Google, per raccogliere statistiche aggregate sulle visite e sull'utilizzo delle pagine. Il servizio viene caricato esclusivamente dopo il consenso dell'utente tramite il banner cookie; chi sceglie "Solo necessari" non viene tracciato.</p>
+            </section>
+            <section className="border-t border-night/10 pt-6">
               <h2 className="text-2xl font-heading text-night">Gestione delle preferenze</h2>
               <p className="mt-4 leading-[1.8]">Al primo accesso l’utente può scegliere se accettare i servizi opzionali oppure utilizzare soltanto le tecnologie necessarie. Le preferenze vengono salvate localmente sul dispositivo. È inoltre possibile eliminare cookie e dati del sito dalle impostazioni del browser.</p>
             </section>
