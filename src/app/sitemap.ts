@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'internazionalizzazione/',
     'dicono-di-noi/',
     'contatti/',
+    'simposio/',
     'privacy-policy/',
     'cookie-policy/',
   ];
@@ -20,6 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${site.url}/${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
-    priority: route === '' ? 1 : 0.7,
+    priority: route === '' ? 1 : route === 'simposio/' ? 0.9 : 0.7,
   }));
 }

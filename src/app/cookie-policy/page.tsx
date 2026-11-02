@@ -27,6 +27,7 @@ export default function CookiePolicy() {
             <section className="border-t border-night/10 pt-6">
               <h2 className="text-2xl font-heading text-night">Cookie e tecnologie necessarie</h2>
               <p className="mt-4 leading-[1.8]">Prosperya utilizza tecnologie tecniche necessarie alla navigazione, alla memorizzazione delle preferenze e alla sicurezza del sito. Queste funzioni non vengono utilizzate per finalità pubblicitarie o di profilazione.</p>
+              <p className="mt-4 leading-[1.8]">Nella pagina del Simposio, gli eventuali parametri di provenienza del link (ad esempio il canale social di origine) vengono conservati nella memoria della sessione del browser fino all’invio del modulo, e cancellati alla chiusura della scheda. L’area riservata al personale utilizza un cookie tecnico di sessione, necessario all’accesso degli incaricati.</p>
             </section>
             <section className="border-t border-night/10 pt-6">
               <h2 className="text-2xl font-heading text-night">Google Translate</h2>
