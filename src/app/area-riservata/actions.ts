@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { registrationStatuses, simposio, type RegistrationStatus } from '@/data/simposio';
 import { clientFingerprint, hmac } from '@/lib/security';
-import { currentStaff, endSession, isStaffAuthConfigured, startSession, verifyCredentials } from '@/lib/staff/auth';
+import { currentStaff, endSession, isStaffAuthConfigured, staffUsers, startSession, verifyCredentials } from '@/lib/staff/auth';
 import { isStorageConfigured } from '@/lib/simposio/db';
 import { getRegistration, hitRateLimit, updateStatus } from '@/lib/simposio/repository';
 import { deliverConfirmation } from '@/lib/simposio/service';
@@ -33,6 +33,14 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
   }
 
   if (!user || !password || !(await verifyCredentials(user, password))) {
+    // Diagnostica senza dati personali: utente presente nell’elenco, numero di utenti, inizio del salt.
+    const stored = staffUsers().get(user);
+    console.warn('[area-riservata] accesso rifiutato', {
+      utenteInElenco: Boolean(stored),
+      utentiConfigurati: staffUsers().size,
+      saltPrefisso: stored?.split('$')[1]?.slice(0, 4) ?? null,
+      lunghezzaPassword: password.length,
+    });
     return { error: 'Credenziali non valide.' };
   }
 
