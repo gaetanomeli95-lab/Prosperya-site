@@ -1,5 +1,5 @@
 // Genera la voce per AREA_RISERVATA_UTENTI senza salvare la password da nessuna parte.
-// Uso: npm run staff:hash -- nome@prosperya.it   (la password viene chiesta senza mostrarla)
+// Uso: npm run staff:hash -- nome@prosperya.it   (la password viene chiesta due volte e mostrata come asterischi)
 import { randomBytes, scrypt } from 'node:crypto';
 import { promisify } from 'node:util';
 
@@ -20,9 +20,10 @@ async function readHidden(prompt) {
   process.stdin.resume();
   return new Promise((resolve) => {
     let value = '';
-    process.stdin.on('data', (buffer) => {
+    process.stdin.on('data', function onData(buffer) {
       for (const char of buffer.toString('utf8')) {
         if (char === '\r' || char === '\n') {
+          process.stdin.off('data', onData);
           process.stdin.setRawMode(false);
           process.stdin.pause();
           process.stdout.write('\n');
@@ -30,7 +31,13 @@ async function readHidden(prompt) {
           return;
         }
         if (char === '\u0003') process.exit(1);
-        value = char === '\u007f' || char === '\b' ? value.slice(0, -1) : value + char;
+        if (char === '\u007f' || char === '\b') {
+          if (value) process.stdout.write('\b \b');
+          value = value.slice(0, -1);
+        } else {
+          value += char;
+          process.stdout.write('*');
+        }
       }
     });
   });
@@ -39,6 +46,12 @@ async function readHidden(prompt) {
 const password = await readHidden('Password (min. 12 caratteri): ');
 if (password.length < 12) {
   console.error('La password deve avere almeno 12 caratteri.');
+  process.exit(1);
+}
+
+const repeat = await readHidden('Ripeti la password: ');
+if (repeat !== password) {
+  console.error('Le due password non coincidono. Riprova.');
   process.exit(1);
 }
 
