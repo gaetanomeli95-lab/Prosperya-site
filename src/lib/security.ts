@@ -3,7 +3,15 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 export function serverSecret(): string | null {
   const secret = process.env.AREA_RISERVATA_SECRET;
-  return secret && secret.length >= 32 ? secret : null;
+  if (secret && secret.length >= 32) return secret;
+  // In mancanza di un segreto dedicato, lo ricava da due credenziali già solo lato server.
+  // Se una delle due viene ruotata, le sessioni dell’area riservata vengono chiuse.
+  const resendKey = process.env.RESEND_API_KEY;
+  const dbUrl = process.env.SIMPOSIO_DATABASE_URL || process.env.DATABASE_URL;
+  if (resendKey && resendKey.length >= 20 && dbUrl) {
+    return createHmac('sha256', 'prosperya-area-riservata-v1').update(`${resendKey}\n${dbUrl}`).digest('base64url');
+  }
+  return null;
 }
 
 export function hmac(label: string, value: string): string {
