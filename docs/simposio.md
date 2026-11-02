@@ -20,7 +20,7 @@ L’unica fonte dei dati è l’archivio Postgres. Le email e i log non sono un 
 | `SIMPOSIO_FROM_EMAIL` | sì | Mittente su dominio verificato in Resend, es. `Prosperya <eventi@prosperya.it>`. Con un mittente `@resend.dev` le email ai partecipanti **non** vengono inviate (stato “Non inviata: mittente di prova”). Se manca, si usa `RESEND_FROM_EMAIL`. |
 | `SIMPOSIO_NOTIFICATION_EMAIL` | consigliata | Destinatario della notifica interna. Se manca, si usa `CONTACT_EMAIL`. |
 | `SIMPOSIO_REPLY_TO` | no | Indirizzo per le risposte dei partecipanti (predefinito: email pubblica in `src/data/company.ts`). |
-| `AREA_RISERVATA_SECRET` | consigliata | Stringa casuale di almeno 32 caratteri, ad esempio generata con `node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"`. Se manca, la chiave viene ricavata da `RESEND_API_KEY` e `DATABASE_URL` (ruotando una delle due si chiudono le sessioni). Se la si cambia, tutte le sessioni vengono chiuse. |
+| `AREA_RISERVATA_SECRET` | consigliata | Stringa casuale di almeno 32 caratteri, ad esempio generata con `node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"`. Se manca, la chiave viene ricavata da `DATABASE_URL` (ruotando la password del database si chiudono le sessioni). Se la si cambia, tutte le sessioni vengono chiuse. |
 | `AREA_RISERVATA_UTENTI` | sì | Utenti dell’area riservata, nel formato `email=hash;email2=hash2`. |
 | `SIMPOSIO_REGISTRATIONS` | no | `closed` chiude subito le iscrizioni, `open` le forza aperte. Richiede un redeploy. |
 | `SIMPOSIO_DB_POOL_MAX` | no | Connessioni per istanza (predefinito 3). |
