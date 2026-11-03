@@ -159,6 +159,12 @@ try {
     assert.match(html, /noindex/, 'con NEXT_PUBLIC_NOINDEX=true la preview non deve essere indicizzata');
   });
 
+  await check('pulizia dati: prima della scadenza non tocca nulla e non restituisce dati', async () => {
+    const res = await fetch(`${app}/api/simposio/pulizia/`);
+    assert.equal(res.status, 200);
+    assert.deepEqual(await res.json(), { ok: true, purged: false });
+  });
+
   await check('sitemap include /simposio/', async () => {
     const xml = await (await fetch(`${app}/sitemap.xml`)).text();
     assert.match(xml, /https:\/\/prosperya.it\/simposio\//);
@@ -185,7 +191,8 @@ try {
     assert.ok(participant?.html && participant?.text, 'email partecipante con html e testo');
     assert.match(participant.text, /27 gennaio 2027/);
     assert.match(participant.text, /Saracen Hotel/);
-    assert.doesNotMatch(participant.text, /\b\d{1,2}:\d{2}\b/, 'nessun orario nell’email');
+    assert.match(participant.text, /Orario: dalle 10:00/, 'orario configurato nell’email');
+    assert.match(participant.text, /Via Libertà 128\/A/, 'indirizzo nell’email');
     const internal = mail.sent.find((m) => m.to === 'organizzazione@example.test');
     assert.ok(internal, 'notifica interna inviata');
     assert.doesNotMatch(internal.text, /persona\.prova\.1@example\.test|3330000001/, 'notifica interna senza email/telefono');

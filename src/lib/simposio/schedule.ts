@@ -47,12 +47,24 @@ export function formatEventTime(event: SimposioEvent = simposio): string | null 
 }
 
 export function formatVenue(event: SimposioEvent = simposio): string {
-  return `${event.venue.name}, ${event.venue.locality} (${event.venue.province})`;
+  const address = event.venue.address ? `${event.venue.address}, ` : '';
+  return `${event.venue.name}, ${address}${event.venue.locality} (${event.venue.province})`;
 }
 
 export function venueMapsHref(event: SimposioEvent = simposio): string {
   const query = [event.venue.name, event.venue.address, event.venue.locality].filter(Boolean).join(' ');
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+/** Ultimo giorno (YYYY-MM-DD) in cui i dati delle iscrizioni sono conservati per intero. */
+export function retentionEndDate(event: SimposioEvent = simposio): string {
+  const end = calendarDate(event.date);
+  end.setUTCDate(end.getUTCDate() + event.retentionDaysAfterEvent);
+  return end.toISOString().slice(0, 10);
+}
+
+export function isRetentionExpired(event: SimposioEvent = simposio, now: Date = new Date()): boolean {
+  return todayInTimeZone(event.timeZone, now) > retentionEndDate(event);
 }
 
 export type RegistrationState = 'open' | 'closed' | 'ended';

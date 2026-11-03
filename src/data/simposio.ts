@@ -37,6 +37,11 @@ export interface SimposioEvent {
   registrations: RegistrationMode;
   /** Se true, le iscrizioni restano aperte anche dopo la data dell’evento (scelta esplicita). */
   allowRegistrationsAfterEvent: boolean;
+  /**
+   * Giorni dopo l’evento oltre i quali i dati delle iscrizioni vengono cancellati
+   * (per chi ha dato il consenso facoltativo restano solo nome ed email). Indicato anche nella privacy.
+   */
+  retentionDaysAfterEvent: number;
 }
 
 export const simposio: SimposioEvent = {
@@ -44,18 +49,19 @@ export const simposio: SimposioEvent = {
   name: 'Simposio Prosperya',
   date: '2027-01-27',
   timeZone: 'Europe/Rome',
-  startTime: null,
+  startTime: '10:00',
   endTime: null,
   venue: {
     name: 'Saracen Hotel',
     locality: 'Isola delle Femmine',
     province: 'Palermo',
-    address: null,
+    address: 'Via Libertà 128/A',
   },
   agenda: [],
   speakers: [],
   registrations: 'open',
   allowRegistrationsAfterEvent: false,
+  retentionDaysAfterEvent: 30,
 };
 
 export const simposioPath = '/simposio/';

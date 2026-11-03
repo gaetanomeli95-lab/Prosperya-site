@@ -271,7 +271,7 @@ export default function SimposioPage() {
             <ol className="mt-7 space-y-4 text-sm leading-[1.65] !text-white/78">
               <li className="grid grid-cols-[2rem_1fr] gap-2"><span className="editorial-index text-lg text-sand" aria-hidden="true">01</span><span>Compili il modulo con nome, email e cellulare.</span></li>
               <li className="grid grid-cols-[2rem_1fr] gap-2"><span className="editorial-index text-lg text-sand" aria-hidden="true">02</span><span>Ricevi subito un’email con il riepilogo.</span></li>
-              <li className="grid grid-cols-[2rem_1fr] gap-2"><span className="editorial-index text-lg text-sand" aria-hidden="true">03</span><span>Ti scriviamo con orario e programma e, a ridosso dell’evento, potremmo contattarti per riconfermare la presenza.</span></li>
+              <li className="grid grid-cols-[2rem_1fr] gap-2"><span className="editorial-index text-lg text-sand" aria-hidden="true">03</span><span>{time ? 'Ti scriviamo con il programma' : 'Ti scriviamo con orario e programma'} e, a ridosso dell’evento, potremmo contattarti per riconfermare la presenza.</span></li>
             </ol>
             <div className="mt-8 border-t border-white/12 pt-6 text-sm !text-white/70">
               <p className="text-[10px] font-semibold uppercase tracking-[.2em] !text-white/45">Domande?</p>

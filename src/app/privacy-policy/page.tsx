@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import { company } from '@/data/company';
+import { simposio } from '@/data/simposio';
+import { retentionEndDate } from '@/lib/simposio/schedule';
+
+const simposioRetentionEnd = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  .format(new Date(`${retentionEndDate()}T12:00:00Z`));
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -34,8 +39,8 @@ export default function PrivacyPolicy() {
               <p className="mt-4 leading-[1.8]"><strong className="text-night">Gestione dell’iscrizione e comunicazioni organizzative.</strong> I dati sono trattati per registrare l’iscrizione, inviare l’email di riepilogo, comunicare orario, programma ed eventuali variazioni, riconfermare la presenza e gestire l’accoglienza il giorno dell’evento. La base giuridica è l’esecuzione di una richiesta dell’interessato (art. 6, par. 1, lett. b, del Regolamento (UE) 2016/679). Il conferimento dei dati obbligatori è necessario per l’iscrizione; senza di essi non è possibile registrarla.</p>
               <p className="mt-4 leading-[1.8]"><strong className="text-night">Comunicazioni su futuri eventi e iniziative.</strong> Solo se l’interessato seleziona l’apposita casella, facoltativa e non preselezionata, Prosperya potrà inviargli informazioni su futuri eventi e iniziative. La base giuridica è il consenso (art. 6, par. 1, lett. a), che può essere revocato in qualsiasi momento scrivendo all’indirizzo indicato sotto, senza conseguenze sull’iscrizione. Senza questo consenso i dati non vengono usati per finalità promozionali.</p>
               <p className="mt-4 leading-[1.8]"><strong className="text-night">Sicurezza e prevenzione degli abusi.</strong> Per limitare invii automatici ripetuti, il sistema conserva per un massimo di due giorni un’impronta crittografica non reversibile dell’indirizzo IP di connessione, sulla base del legittimo interesse del titolare alla sicurezza del servizio (art. 6, par. 1, lett. f).</p>
-              <p className="mt-4 leading-[1.8]"><strong className="text-night">Chi accede ai dati.</strong> L’elenco degli iscritti è consultabile soltanto dal personale incaricato da Prosperya, tramite un’area riservata protetta da credenziali personali. I dati sono conservati su infrastrutture cloud e le email sono inviate tramite un fornitore di servizi di posta elettronica, che operano in qualità di responsabili del trattamento. I dati non vengono venduti né ceduti a terzi per finalità commerciali.</p>
-              <p className="mt-4 leading-[1.8]"><strong className="text-night">Conservazione.</strong> I dati dell’iscrizione sono conservati per il tempo necessario all’organizzazione dell’evento e alle comunicazioni a esso collegate; i dati per i quali è stato espresso il consenso facoltativo sono conservati fino alla sua revoca.</p>
+              <p className="mt-4 leading-[1.8]"><strong className="text-night">Chi accede ai dati.</strong> L’elenco degli iscritti è consultabile soltanto dal personale incaricato da Prosperya, tramite un’area riservata protetta da credenziali personali. I dati sono conservati su infrastrutture cloud e le email sono inviate tramite un fornitore di servizi di posta elettronica, che operano in qualità di responsabili del trattamento. Alcuni di questi fornitori possono trattare i dati anche al di fuori dello Spazio economico europeo: in tal caso il trasferimento avviene sulla base delle garanzie previste dal Regolamento, come le decisioni di adeguatezza della Commissione europea o le clausole contrattuali tipo. L’elenco aggiornato dei fornitori è disponibile su richiesta all’indirizzo indicato sotto. I dati non vengono venduti né ceduti a terzi per finalità commerciali.</p>
+              <p className="mt-4 leading-[1.8]"><strong className="text-night">Conservazione.</strong> I dati dell’iscrizione sono conservati fino a {simposio.retentionDaysAfterEvent} giorni dopo il simposio, cioè fino al {simposioRetentionEnd}, e poi cancellati automaticamente. Per chi ha espresso il consenso facoltativo sono conservati soltanto nome, indirizzo email e consenso, fino alla sua revoca.</p>
             </section>
             <section className="border-t border-night/10 pt-6">
               <h2 className="text-2xl font-heading text-night">Finalità e base giuridica</h2>

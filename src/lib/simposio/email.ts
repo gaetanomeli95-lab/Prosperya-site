@@ -123,13 +123,14 @@ function eventRows(): { html: [string, string][]; text: string[] } {
 export function confirmationEmail(fullName: string) {
   const name = firstName(fullName);
   const rows = eventRows();
+  const nextSteps = `${formatEventTime() ? 'Ti scriveremo per comunicarti il programma appena sarà definito.' : 'Ti scriveremo per comunicarti orario e programma appena saranno definiti.'} Nei giorni precedenti all’evento potremmo contattarti per riconfermare la tua presenza.`;
   const subject = `Iscrizione confermata · ${simposio.name}, ${formatEventDateShort()}`;
   const html = layout(subject, `
 <p style="margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:2px;color:${colors.teal};font-weight:bold;">Iscrizione ricevuta</p>
 <h1 style="margin:0 0 16px;font-family:Georgia,serif;font-weight:normal;font-size:26px;line-height:1.2;color:${colors.night};">Grazie ${escapeHtml(name)}, ti aspettiamo.</h1>
 <p style="margin:0;">La tua iscrizione al ${escapeHtml(simposio.name)} è registrata. Ecco il riepilogo:</p>
 ${detailsTable(rows.html)}
-<p style="margin:0 0 12px;"><strong>Cosa succede ora.</strong> Ti scriveremo per comunicarti orario e programma appena saranno definiti. Nei giorni precedenti all’evento potremmo contattarti per riconfermare la tua presenza.</p>
+<p style="margin:0 0 12px;"><strong>Cosa succede ora.</strong> ${nextSteps}</p>
 <p style="margin:0 0 12px;">Se non potrai partecipare, rispondi a questa email o scrivici: ci aiuti a organizzare al meglio l’accoglienza.</p>
 <p style="margin:0 0 20px;font-size:13px;color:${colors.muted};">La partecipazione al simposio non comporta l’accesso a finanziamenti o agevolazioni: ogni misura ha requisiti propri, da verificare caso per caso.</p>
 <p style="margin:0 0 8px;"><a href="${site.url}${simposioPath}" style="display:inline-block;background:${colors.night};color:#ffffff;text-decoration:none;padding:12px 18px;font-size:14px;font-weight:bold;">Rivedi la pagina del simposio</a></p>
@@ -141,7 +142,7 @@ ${detailsTable(rows.html)}
     '',
     ...rows.text,
     '',
-    'Cosa succede ora: ti scriveremo per comunicarti orario e programma appena saranno definiti. Nei giorni precedenti all’evento potremmo contattarti per riconfermare la tua presenza.',
+    `Cosa succede ora: ${nextSteps}`,
     '',
     'Se non potrai partecipare, rispondi a questa email o scrivici.',
     '',

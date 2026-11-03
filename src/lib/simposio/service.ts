@@ -11,7 +11,7 @@ import { confirmationEmail, duplicateNoticeEmail, internalNotificationEmail, sen
 import type { Attribution, RegistrationInput } from './validation';
 
 /** Versione dell’informativa mostrata al momento dell’iscrizione: aggiornarla quando cambia il testo. */
-export const PRIVACY_NOTICE_VERSION = '2026-11-01';
+export const PRIVACY_NOTICE_VERSION = '2026-11-03';
 
 export type EmailDelivery = 'sent' | 'delayed';
 

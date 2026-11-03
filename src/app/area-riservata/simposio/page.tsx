@@ -2,8 +2,8 @@ import { redirect } from 'next/navigation';
 import { Download, LogOut } from 'lucide-react';
 import { registrationStatuses, simposio } from '@/data/simposio';
 import { currentStaff } from '@/lib/staff/auth';
-import { listRegistrations, type RegistrationRow } from '@/lib/simposio/repository';
-import { formatEventDate, formatVenue, registrationState } from '@/lib/simposio/schedule';
+import { listRegistrations, purgeRegistrationData, type RegistrationRow } from '@/lib/simposio/repository';
+import { formatEventDate, formatVenue, isRetentionExpired, registrationState } from '@/lib/simposio/schedule';
 import { emailConfig } from '@/lib/simposio/email';
 import { logout } from '../actions';
 import { RegistrationsList, type StaffRow } from './RegistrationsList';
@@ -37,6 +37,8 @@ export default async function StaffSimposio() {
   let rows: RegistrationRow[] = [];
   let loadError = false;
   try {
+    // Oltre il periodo di conservazione l’elenco mostra solo ciò che può ancora essere conservato.
+    if (isRetentionExpired()) await purgeRegistrationData(simposio.id);
     rows = await listRegistrations(simposio.id);
   } catch {
     loadError = true;

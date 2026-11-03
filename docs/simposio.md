@@ -56,9 +56,17 @@ Non cambiare `id` mentre le iscrizioni sono aperte: è la chiave dell’archivio
 
 ## Verifica
 
-- `npm run test:simposio`: build di produzione più 18 verifiche end-to-end. Usa un Postgres in memoria e un finto Resend, quindi nessuna email reale. Copre iscrizione, validazione, duplicati, invii contemporanei, errore email, errore archivio, limiti anti-abuso, area riservata, CSV, configurazioni mancanti e iscrizioni chiuse.
+- `npm run test:simposio`: build di produzione più 19 verifiche end-to-end. Usa un Postgres in memoria e un finto Resend, quindi nessuna email reale. Copre iscrizione, validazione, duplicati, invii contemporanei, errore email, errore archivio, limiti anti-abuso, area riservata, CSV, configurazioni mancanti, iscrizioni chiuse e pulizia dei dati.
 - `npm run build && npm run simposio:local`: avvia http://localhost:3200/simposio/ con dati fittizi. Le email simulate vengono stampate in console. Credenziali dell’area riservata di prova: `prova@example.test` / `password-locale-123`.
 - Dopo l’attivazione: fai un’iscrizione di prova sulla Preview con un tuo indirizzo, controlla email e area riservata, poi segnala la riga come **Annullato**.
+
+## Conservazione dei dati
+
+`retentionDaysAfterEvent` in `src/data/simposio.ts` (oggi 30 giorni, cioè fino al 26 febbraio 2027) è il periodo indicato nella privacy. Allo scadere:
+- le iscrizioni **senza** consenso facoltativo vengono cancellate;
+- per chi ha dato il consenso restano solo nome, email e consenso.
+
+La pulizia parte da sola ogni notte tramite il cron di Vercel (`vercel.json` → `/api/simposio/pulizia/`, gratuito, solo in produzione) e anche all’apertura dell’area riservata. Prima della scadenza non fa nulla. **Esporta il CSV prima della scadenza** se ti servono i dati (ad esempio le presenze). Se cambi il periodo, aggiorna la data e fai un redeploy: la privacy si aggiorna in automatico.
 
 ## Analytics
 

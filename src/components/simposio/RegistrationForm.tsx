@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, CalendarDays, CheckCircle2, Loader2, Mail, MapPin, MessageCircle } from 'lucide-react';
-import { simposioSituations } from '@/data/simposio';
+import { simposio, simposioSituations } from '@/data/simposio';
 import { trackEvent } from '@/lib/analytics';
 import { attributionKeys, limits, validateRegistration, type Attribution, type FieldErrors, type RegistrationInput } from '@/lib/simposio/validation';
 
@@ -173,7 +173,7 @@ export function RegistrationForm({ eventId, dateLabel, venueLabel, mapsHref, con
             <>L’email di riepilogo per <strong className="break-all text-night">{submittedEmail}</strong> potrebbe arrivare con qualche ritardo. <strong className="text-night">La tua iscrizione è comunque registrata: non serve ripeterla.</strong></>
           )}
         </p>
-        <p className="mt-3 text-sm leading-[1.75] text-anthracite/80">Orario e programma ti verranno comunicati via email appena definiti.</p>
+        <p className="mt-3 text-sm leading-[1.75] text-anthracite/80">{simposio.startTime ? `Inizio alle ore ${simposio.startTime}. Il programma ti verrà comunicato via email appena definito.` : 'Orario e programma ti verranno comunicati via email appena definiti.'}</p>
 
         <div className="mt-6 border-t border-night/10 pt-5">
           <p className="text-[11px] font-semibold uppercase tracking-[.16em] text-night/50">Hai bisogno di aiuto?</p>

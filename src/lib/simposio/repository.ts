@@ -177,3 +177,20 @@ export async function hitRateLimit(bucket: string, windowSeconds: number): Promi
   }
   return rows[0].hits;
 }
+
+/**
+ * Applica il periodo di conservazione: cancella le iscrizioni senza consenso facoltativo e,
+ * per chi l’ha dato, conserva solo nome, email e consenso. Idempotente.
+ */
+export async function purgeRegistrationData(eventId: string): Promise<{ deleted: number; minimized: number }> {
+  const db = sql();
+  const deleted = await db`delete from simposio_registrations where event_id = ${eventId} and marketing_consent = false`;
+  const minimized = await db`
+    update simposio_registrations
+    set phone = '', comune = null, situation = null, message = null,
+        utm_source = null, utm_medium = null, utm_campaign = null, utm_content = null,
+        confirmation_email_detail = null, internal_notification_detail = null
+    where event_id = ${eventId} and phone <> ''
+  `;
+  return { deleted: deleted.count, minimized: minimized.count };
+}
