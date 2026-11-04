@@ -2,6 +2,7 @@ export const mainNav = [
   { label: 'Home', href: '/' },
   { label: 'Servizi', href: '/servizi/' },
   { label: 'Start Up', href: '/servizi/startup/' },
+  { label: 'Simposio', href: '/simposio/' },
   { label: 'Dicono di noi', href: '/dicono-di-noi/' },
   { label: 'Richiedi consulenza', href: '/contatti/' },
   { label: 'Cookie Policy', href: '/cookie-policy/' },

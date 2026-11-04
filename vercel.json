@@ -1,0 +1,3 @@
+{
+  "crons": [{ "path": "/api/simposio/pulizia/", "schedule": "0 4 * * *" }]
+}

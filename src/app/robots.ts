@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: noindex ? undefined : '/',
-      disallow: noindex ? '/' : undefined,
+      disallow: noindex ? '/' : ['/area-riservata/', '/api/'],
     },
     sitemap: `${site.url}/sitemap.xml`,
   };

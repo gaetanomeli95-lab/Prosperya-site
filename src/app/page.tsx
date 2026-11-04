@@ -9,6 +9,10 @@ import { SectionInternational } from '@/components/SectionInternational';
 import { SectionExperience } from '@/components/SectionExperience';
 import { SectionOperations } from '@/components/SectionOperations';
 import { SectionCta } from '@/components/SectionCta';
+import { SimposioHomeBanner } from '@/components/simposio/SimposioHomeBanner';
+
+// Rigenerata ogni ora: il banner del simposio sparisce da solo a evento concluso.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: site.title,
@@ -20,6 +24,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <SimposioHomeBanner />
       <SectionPositioning />
       <SectionIntro />
       <SectionServices />

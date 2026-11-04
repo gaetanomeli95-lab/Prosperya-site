@@ -7,17 +7,25 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "simposio:db:setup": "node --env-file-if-exists=.env.local scripts/simposio-db-setup.mjs",
+    "staff:hash": "node scripts/staff-hash.mjs",
+    "test:simposio": "node scripts/simposio-e2e.mjs",
+    "simposio:local": "node scripts/simposio-local.mjs"
   },
   "dependencies": {
     "framer-motion": "13.1.1",
     "lucide-react": "0.400.0",
     "next": "16.3.3",
+    "postgres": "3.4.7",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "resend": "3.2.0"
+    "resend": "3.2.0",
+    "server-only": "0.0.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.14",
+    "@electric-sql/pglite-socket": "0.2.17",
     "@types/node": "20.10.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",

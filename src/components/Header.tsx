@@ -253,7 +253,7 @@ export function Header() {
                             aria-expanded={consultationOpen}
                           >
                             <span>
-                              <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/65">05 · Private advisory</span>
+                              <span className="block text-[9px] font-semibold uppercase tracking-[.22em] !text-sand/65">{`0${index + 1}`} · Private advisory</span>
                               <span className="mt-1.5 block text-2xl font-heading !text-white sm:text-3xl">{item.label}</span>
                             </span>
                             <ChevronDown className={`h-4 w-4 text-sand/80 transition-transform ${consultationOpen ? 'rotate-180' : ''}`} />
